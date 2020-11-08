@@ -6,6 +6,10 @@ namespace WorldUniversity.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public ApplicationDbContext()
+        {
+
+        }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -27,9 +31,9 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<Instructor>().ToTable("Instructors");
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
-
             modelBuilder.Entity<CourseAssignment>()
                     .HasKey(c => new { c.CourseId, c.InstructorId });
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
