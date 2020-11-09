@@ -240,3 +240,4 @@ C:\Users\shadd\Documents\GitHub\Softuni-Projects\WorldUniversity\WorldUniversity
 C:\Users\shadd\Documents\GitHub\Softuni-Projects\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Views\Students\Delete.cshtml.g.cs
 C:\Users\shadd\Documents\GitHub\Softuni-Projects\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Views\Students\Details.cshtml.g.cs
 C:\Users\shadd\Documents\GitHub\Softuni-Projects\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Views\Students\Edit.cshtml.g.cs
+C:\Users\shadd\Documents\GitHub\Softuni-Projects\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Views\Students\Index.cshtml.g.cs

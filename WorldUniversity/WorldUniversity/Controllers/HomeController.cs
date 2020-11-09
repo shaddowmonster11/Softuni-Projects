@@ -22,16 +22,18 @@ namespace WorldUniversity.Controllers
         {
             List<EnrollmentDateGroup> groups = new List<EnrollmentDateGroup>();
             var conn = _context.Database.GetDbConnection();
+
             try
             {
                 await conn.OpenAsync();
                 using (var command = conn.CreateCommand())
                 {
                     string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "
-                        + "FROM Students"
+                        + "FROM Students "
                         + "GROUP BY EnrollmentDate";
                     command.CommandText = query;
                     DbDataReader reader = await command.ExecuteReaderAsync();
+
                     if (reader.HasRows)
                     {
                         while (await reader.ReadAsync())
@@ -45,6 +47,7 @@ namespace WorldUniversity.Controllers
                         }
                     }
                     reader.Dispose();
+
                 }
             }
             finally
