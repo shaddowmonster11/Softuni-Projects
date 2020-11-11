@@ -230,6 +230,7 @@ namespace WorldUniversity.Data
                     s =>
                             s.Student.Id == e.StudentId &&
                             s.Course.CourseId == e.CourseId).SingleOrDefault();
+                
                 if (enrollmentInDataBase == null)
                 {
                     context.Enrollments.Add(e);
