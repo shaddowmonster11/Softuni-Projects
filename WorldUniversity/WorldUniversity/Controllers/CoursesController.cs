@@ -170,7 +170,7 @@ namespace WorldUniversity.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        
         private bool CourseExists(int id)
         {
             return _context.Courses.Any(e => e.CourseId == id);

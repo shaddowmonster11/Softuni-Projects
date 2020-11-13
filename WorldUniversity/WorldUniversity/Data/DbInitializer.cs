@@ -222,7 +222,8 @@ namespace WorldUniversity.Data
                     CourseId = courses.Single(c => c.Title == "CSS").CourseId,
                     Grade = Grade.B
                     }
-            };
+                
+        };
 
             foreach (Enrollment e in enrollments)
             {

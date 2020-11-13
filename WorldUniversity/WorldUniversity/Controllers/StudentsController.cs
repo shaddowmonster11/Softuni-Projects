@@ -6,20 +6,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
+using WorldUniversity.Models.ViewModels;
 using WorldUniversity.Repositories;
+using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers
 {
     public class StudentsController:Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IStudentService studentService;
 
-        public StudentsController(ApplicationDbContext context)
+        public StudentsController(ApplicationDbContext context,IStudentService studentService)
         {
             _context = context;
+            this.studentService = studentService;
         }
 
-        // GET: Students
         public async Task<IActionResult> Index(
             string sortOrder,
             string currentFilter,
@@ -29,7 +32,7 @@ namespace WorldUniversity.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nameDesc" : "";
             ViewData["DateSortParam"] = sortOrder == "date" ? "dateDesc" : "date";
-
+            DbInitializer dbInitializer = new DbInitializer();//get out
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -41,11 +44,11 @@ namespace WorldUniversity.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var students = from s in _context.Students select s;
+            var studentViewModel = this.studentService.GetStudentAllData();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                students = students.Where(s =>
+                studentViewModel = studentViewModel.Where(s =>
                                         s.FirstName.Contains(searchString) ||
                                         s.LastName.Contains(searchString));
             }
@@ -53,42 +56,31 @@ namespace WorldUniversity.Controllers
             switch (sortOrder)
             {
                 case "nameDesc":
-                    students = students.OrderByDescending(s => s.FirstName);
+                    studentViewModel = studentViewModel.OrderByDescending(s => s.FirstName);
                     break;
                 case "date":
-                    students = students.OrderBy(s => s.EnrollmentDate);
+                    studentViewModel = studentViewModel.OrderBy(s => s.EnrollmentDate);
                     break;
                 case "dateDesc":
-                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    studentViewModel = studentViewModel.OrderByDescending(s => s.EnrollmentDate);
                     break;
                 default:
-                    students = students.OrderBy(s => s.FirstName);
+                    studentViewModel = studentViewModel.OrderBy(s => s.LastName);
                     break;
             }
             int pageSize = 3;
-            return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<StudentViewModel>.CreateAsync(studentViewModel.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
-        // GET: Students/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
+            var studentViewModel = this.studentService.GetStudentDetails(id);
+            if (studentViewModel == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .Include(s => s.Enrollments)
-                .ThenInclude(e => e.Course)
-                .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.Id == id);
-
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            return View(student);
+            return View(studentViewModel);
         }
 
         // GET: Students/Create
@@ -99,14 +91,13 @@ namespace WorldUniversity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,EnrollmentDate")] Student student)
+        public async Task<IActionResult> Create(CreateStudentInputViewModel input)
         {
             try
-            {
+            {              
                 if (ModelState.IsValid)
                 {
-                    _context.Add(student);
-                    await _context.SaveChangesAsync();
+                    await this.studentService.Create(input);
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -115,7 +106,7 @@ namespace WorldUniversity.Controllers
                 ModelState.AddModelError("", "Unable to save changes. " +
                     "Try again and if the problem persists restart your PC.");
             }
-            return View(student);
+            return View(input);
         }
 
         // GET: Students/Edit/5
@@ -143,9 +134,7 @@ namespace WorldUniversity.Controllers
             {
                 return NotFound();
             }
-
             var studentToUpdate = await _context.Students.FirstOrDefaultAsync(s => s.Id == id);
-
             if (await TryUpdateModelAsync<Student>(
                 studentToUpdate,
                 "",

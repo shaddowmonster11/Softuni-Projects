@@ -20,7 +20,7 @@ namespace WorldUniversity.Controllers
         }
         public async Task<ActionResult> About()
         {
-            List<EnrollmentDateGroup> groups = new List<EnrollmentDateGroup>();
+            var groups = new List<EnrollmentDateGroup>();//fix to icollection
             var conn = _context.Database.GetDbConnection();
 
             try
@@ -28,10 +28,10 @@ namespace WorldUniversity.Controllers
                 await conn.OpenAsync();
                 using (var command = conn.CreateCommand())
                 {
-                    string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "
+                    string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "//FIX
                         + "FROM Students "
                         + "GROUP BY EnrollmentDate";
-                    command.CommandText = query;
+                    command.CommandText = query;                    
                     DbDataReader reader = await command.ExecuteReaderAsync();
 
                     if (reader.HasRows)
