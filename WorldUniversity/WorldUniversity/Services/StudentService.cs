@@ -21,16 +21,24 @@ namespace WorldUniversity.Services
         {
             var student = new Student
             {
-                Id=input.Id,
-                FirstName=input.FirstName,
-                LastName=input.LastName,
-                EnrollmentDate=input.EnrollmentDate,
+                Id = input.Id,
+                FirstName = input.FirstName,
+                LastName = input.LastName,
+                EnrollmentDate = input.EnrollmentDate,
             };
-           
-           await _context.AddAsync(student);
-           await _context.SaveChangesAsync();
+
+            await _context.AddAsync(student);
+            await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteStudent( int id)
+        {
+            var deletedStudent = _context.Students
+             .AsNoTracking()
+             .FirstOrDefault(m => m.Id == id);
+             _context.Students.Remove(deletedStudent);
+            await _context.SaveChangesAsync();
+        }
         public IQueryable<StudentViewModel> GetStudentAllData()
         {
             var student = _context.Students
@@ -52,7 +60,7 @@ namespace WorldUniversity.Services
         public StudentViewModel GetStudentDetails(int id)
         {
             var student = _context.Students
-                .Where(x=>x.Id==id)
+                .Where(x => x.Id == id)
                .Include(s => s.Enrollments)
                .ThenInclude(e => e.Course)
                .Select(x => new StudentViewModel
@@ -75,7 +83,7 @@ namespace WorldUniversity.Services
             updatedStudent.FirstName = firstName;
             updatedStudent.LastName = lastName;
             updatedStudent.EnrollmentDate = enrollmentDate;
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

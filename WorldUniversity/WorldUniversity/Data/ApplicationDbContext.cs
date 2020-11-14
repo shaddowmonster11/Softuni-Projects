@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using WorldUniversity.Models;
 
 namespace WorldUniversity.Data
@@ -34,6 +36,11 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<CourseAssignment>()
                     .HasKey(c => new { c.CourseId, c.InstructorId });
             base.OnModelCreating(modelBuilder);
+        }
+
+        internal IEnumerable<object> All()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -108,7 +108,6 @@ namespace WorldUniversity.Controllers
             return View(input);
         }
 
-        // GET: Students/Edit/5////////////////////////////////////////////////////////////////////
         public async Task<IActionResult> Edit(int id)
         {
             var student = studentService.GetStudentDetails(id);
@@ -119,7 +118,6 @@ namespace WorldUniversity.Controllers
             return View(student);
         }
 
-        // POST: Students/Edit/5
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(StudentViewModel studentViewModel)
@@ -129,22 +127,9 @@ namespace WorldUniversity.Controllers
             return RedirectToAction("Details", new { id = studentViewModel.Id });
         }
 
-        // GET: Students/Delete/5
-        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
+        public async Task<IActionResult> Delete(int id, bool? saveChangesError = false)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var student = await _context.Students
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (student == null)
-            {
-                return NotFound();
-            }
+            var student= this.studentService.GetStudentDetails(id);
 
             if (saveChangesError.GetValueOrDefault())
             {
@@ -155,12 +140,11 @@ namespace WorldUniversity.Controllers
             return View(student);
         }
 
-        // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string firstName, string lastName, DateTime enrollmentDate, int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var student = this.studentService.GetStudentDetails(id);
 
             if (student == null)
             {
@@ -169,8 +153,7 @@ namespace WorldUniversity.Controllers
 
             try
             {
-                _context.Students.Remove(student);
-                await _context.SaveChangesAsync();
+                await this.studentService.DeleteStudent(id);
                 return RedirectToAction(nameof(Index));
 
             }
