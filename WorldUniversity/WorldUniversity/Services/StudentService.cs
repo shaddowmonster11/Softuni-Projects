@@ -52,6 +52,7 @@ namespace WorldUniversity.Services
         public StudentViewModel GetStudentDetails(int id)
         {
             var student = _context.Students
+                .Where(x=>x.Id==id)
                .Include(s => s.Enrollments)
                .ThenInclude(e => e.Course)
                .Select(x => new StudentViewModel
@@ -65,6 +66,16 @@ namespace WorldUniversity.Services
                )
                .FirstOrDefault();
             return student;
+        }
+
+        public async Task UpdateStudent(string firstName, string lastName, DateTime enrollmentDate, int id)
+        {
+            var updatedStudent = _context.Students
+              .FirstOrDefault(s => s.Id == id);
+            updatedStudent.FirstName = firstName;
+            updatedStudent.LastName = lastName;
+            updatedStudent.EnrollmentDate = enrollmentDate;
+           await _context.SaveChangesAsync();
         }
     }
 }

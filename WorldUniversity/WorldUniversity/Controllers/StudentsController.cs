@@ -83,7 +83,6 @@ namespace WorldUniversity.Controllers
             return View(studentViewModel);
         }
 
-        // GET: Students/Create
         public IActionResult Create()
         {
             return View();
@@ -109,15 +108,10 @@ namespace WorldUniversity.Controllers
             return View(input);
         }
 
-        // GET: Students/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Students/Edit/5////////////////////////////////////////////////////////////////////
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var student = await _context.Students.FindAsync(id);
+            var student = studentService.GetStudentDetails(id);
             if (student == null)
             {
                 return NotFound();
@@ -128,31 +122,11 @@ namespace WorldUniversity.Controllers
         // POST: Students/Edit/5
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int? id)
+        public async Task<IActionResult> EditPost(StudentViewModel studentViewModel)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var studentToUpdate = await _context.Students.FirstOrDefaultAsync(s => s.Id == id);
-            if (await TryUpdateModelAsync<Student>(
-                studentToUpdate,
-                "",
-                s => s.FirstName, s => s.LastName, s => s.EnrollmentDate))
-            {
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError("", "Unable to save changes. " +
-                        "Try again please or restart your PC!");
-                }
-            }
-
-            return View(studentToUpdate);
+            await this.studentService.UpdateStudent(studentViewModel.FirstName
+                ,studentViewModel.LastName,studentViewModel.EnrollmentDate,studentViewModel.Id);
+            return RedirectToAction("Details", new { id = studentViewModel.Id });
         }
 
         // GET: Students/Delete/5
