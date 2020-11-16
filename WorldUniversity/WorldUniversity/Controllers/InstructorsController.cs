@@ -7,23 +7,16 @@ using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
 using WorldUniversity.Models.ViewModels;
-using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers
 {
     public class InstructorsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IInstructorService instructorService;
-        private readonly ICoursesService coursesService;
 
-        public InstructorsController(ApplicationDbContext context
-            ,IInstructorService instructorService
-            ,ICoursesService coursesService)
+        public InstructorsController(ApplicationDbContext context)
         {
             _context = context;
-            this.instructorService = instructorService;
-            this.coursesService = coursesService;
         }
 
         // GET: Instructors
@@ -87,23 +80,35 @@ namespace WorldUniversity.Controllers
         // GET: Instructors/Create
         public IActionResult Create()
         {
-            var courses = coursesService.GetAll();
-            var instructor = new GetInstructorsDetailsViewModel
-            {
-                CourseAssignments = courses,       
-            };
-            return View(instructor);
+            var instructor = new Instructor();
+            instructor.CourseAssignments = new List<CourseAssignment>();
+            PopulateAssignedCourseData(instructor);
+            return View();
         }
 
         // POST: Instructors/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(GetInstructorsDetailsViewModel instructor)
+        public async Task<IActionResult> Create([Bind("Firstname,HireDate,LastName,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
         {
-                                                                              
+            if (selectedCourses != null)
+            {
+                instructor.CourseAssignments = new List<CourseAssignment>();
+                foreach (var course in selectedCourses)
+                {
+                    var courseToAdd = new CourseAssignment
+                    {
+                        InstructorId = instructor.ID,
+                        CourseId = int.Parse(course)
+                    };
+                    instructor.CourseAssignments.Add(courseToAdd);
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                await this.instructorService.Create(instructor);
+                _context.Add(instructor);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             PopulateAssignedCourseData(instructor);
@@ -112,9 +117,20 @@ namespace WorldUniversity.Controllers
 
 
         // GET: Instructors/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            var instructor = instructorService.GetInstructorsDetails(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var instructor = await _context.Instructors
+                .Include(i => i.OfficeAssignment)
+                .Include(i => i.CourseAssignments)
+                    .ThenInclude(i => i.Course)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+
             if (instructor == null)
             {
                 return NotFound();
@@ -124,7 +140,7 @@ namespace WorldUniversity.Controllers
             return View(instructor);
         }
 
-        private void PopulateAssignedCourseData(GetInstructorsDetailsViewModel instructor)
+        private void PopulateAssignedCourseData(Instructor instructor)
         {
             var allCourses = _context.Courses;
             var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(c => c.CourseId));
@@ -144,21 +160,50 @@ namespace WorldUniversity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-       /* public async Task<IActionResult> Edit(GetInstructorsDetailsViewModel instructor, string[] selectedCourses)
+        public async Task<IActionResult> Edit(int? id, string[] selectedCourses)
         {
-            var instructorToUpdate = instructorService.UpdateInstructor(instructor.FirstName, instructor.LastName
-    , instructor.HireDate, instructor.OfficeAssignment, instructor.CourseAssignments, instructor.Id);
-            
-           *//* UpdateInstructorCourses(selectedCourses, instructor);*//*
-            PopulateAssignedCourseData(instructor);
-            return View(instructorToUpdate);
-        }*/
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-       /* private void UpdateInstructorCourses(string[] selectedCourses, GetInstructorsDetailsViewModel instructorToUpdate)
+            var instructorToUpdate = await _context.Instructors
+                    .Include(i => i.OfficeAssignment)
+                    .Include(i => i.CourseAssignments)
+                        .ThenInclude(i => i.Course)
+                    .FirstOrDefaultAsync(s => s.ID == id);
+
+            if (await TryUpdateModelAsync<Instructor>(
+                instructorToUpdate,
+                "",
+                i => i.FirstName, i => i.LastName, i => i.HireDate, i => i.OfficeAssignment))
+            {
+                if (String.IsNullOrWhiteSpace(instructorToUpdate.OfficeAssignment?.Location))
+                {
+                    instructorToUpdate.OfficeAssignment = null;
+                }
+                UpdateInstructorCourses(selectedCourses, instructorToUpdate);
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes. Please restart!");
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            UpdateInstructorCourses(selectedCourses, instructorToUpdate);
+            PopulateAssignedCourseData(instructorToUpdate);
+            return View(instructorToUpdate);
+        }
+
+        private void UpdateInstructorCourses(string[] selectedCourses, Instructor instructorToUpdate)
         {
             if (selectedCourses == null)
             {
-                instructorToUpdate.CourseAssignments = new List<AssignedCourseData>();
+                instructorToUpdate.CourseAssignments = new List<CourseAssignment>();
                 return;
             }
 
@@ -173,7 +218,7 @@ namespace WorldUniversity.Controllers
                     {
                         instructorToUpdate.CourseAssignments.Add(new CourseAssignment
                         {
-                            InstructorId = instructorToUpdate.Id,
+                            InstructorId = instructorToUpdate.ID,
                             CourseId = course.CourseId
                         });
                     }
@@ -187,7 +232,7 @@ namespace WorldUniversity.Controllers
                     }
                 }
             }
-        }*/
+        }
 
         // GET: Instructors/Delete/5
         public async Task<IActionResult> Delete(int? id)

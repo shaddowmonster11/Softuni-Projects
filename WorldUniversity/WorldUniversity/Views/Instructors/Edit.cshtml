@@ -1,4 +1,4 @@
-﻿@model WorldUniversity.Models.ViewModels.GetInstructorsDetailsViewModel
+﻿@model WorldUniversity.Models.Instructor
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ID" />
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />

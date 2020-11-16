@@ -1,4 +1,4 @@
-﻿@model WorldUniversity.Models.ViewModels.GetInstructorsDetailsViewModel
+﻿@model WorldUniversity.Models.Instructor
 
 @{
     ViewData["Title"] = "Create";
@@ -33,23 +33,28 @@
                 <span asp-validation-for="OfficeAssignment.Location" class="text-danger"></span>
             </div>
             <div>
-               
-                <div>
-                   
-                    @foreach (var course in Model.CourseAssignments)
-                    {
-                    <div>
-                        <input type="checkbox" value="@course.CourseId" name="SelectedCoursesId" />
-                        <label>@course.Title</label>
-                    </div>
-                    }
+                <table>
+                    <tr>
+                        @{
+                            List<WorldUniversity.Models.ViewModels.AssignedCourseData> courses = ViewBag.Courses;
+                            foreach (var course in courses)
+                            {
+                            @:</tr><tr><td>
+                                    <input type="checkbox"
+                                           name="selectedCourses"
+                                           value="@course.CourseId"
+                                           @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
+                                      @course.CourseId @: @course.Title
+                                @:</td>
+                            }
+                        @:</tr>
+                        }
+                    </table>
                 </div>
-                
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-</form>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
         </div>
     </div>
 
