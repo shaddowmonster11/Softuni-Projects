@@ -107,7 +107,7 @@ namespace WorldUniversity.Controllers
             }
             return View(input);
         }
-
+             //qwewqewqewqeq
         public async Task<IActionResult> Edit(int id)
         {
             var student = studentService.GetStudentDetails(id);
