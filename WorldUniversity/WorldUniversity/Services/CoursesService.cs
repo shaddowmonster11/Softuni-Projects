@@ -10,7 +10,6 @@ namespace WorldUniversity.Services
     public class CoursesService : ICoursesService
     {
         private readonly ApplicationDbContext _context;
-
         public CoursesService(ApplicationDbContext context)
         {
             _context = context;

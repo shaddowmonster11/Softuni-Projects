@@ -11,10 +11,11 @@ namespace WorldUniversity.Models.ViewModels
         public int Id { get; set; }    
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime HireDate { get; set; }//change format
+        public DateTime HireDate { get; set; }
         [BindProperty]
         public IEnumerable<AssignedCourseData> CourseAssignments { get; set; }
         public OfficeAssignment OfficeAssignment { get; set; }
         public int[] SelectedCoursesId { get; set; }
+        public string ShortHireDateFormat => HireDate.ToString("dd-MM-yyyy");
     }
 }

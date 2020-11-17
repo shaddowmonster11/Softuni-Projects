@@ -20,7 +20,6 @@ namespace WorldUniversity.Services
 
         public async Task Create(GetInstructorsDetailsViewModel input)
         {
-         /*   input.CourseAssignments = new List<CourseAssignment>();*/
             var instructor = new Instructor
             {
                 FirstName = input.FirstName,
@@ -57,7 +56,11 @@ namespace WorldUniversity.Services
                         FirstName = x.FirstName,
                         LastName = x.LastName,
                         HireDate = x.HireDate,
-                    /*    CourseAssignments = x.CourseAssignments,*/
+                        CourseAssignments=x.CourseAssignments.Select(ca=>new AssignedCourseData 
+                        {
+                            CourseId=ca.CourseId,
+                            Title=ca.Course.Title,
+                        }),
                         OfficeAssignment = x.OfficeAssignment,
                     }
                )
@@ -66,15 +69,32 @@ namespace WorldUniversity.Services
         }
         public async Task UpdateInstructor(string firstName, string lastName
             , DateTime hireDate, OfficeAssignment officeAssignment
-            , ICollection<CourseAssignment> courses, int id)
+            ,int[] selectedCourseId, int id)
         {
             var updatedInstructor = _context.Instructors
+                .Include(x=>x.CourseAssignments)
+                .Include(x=>x.OfficeAssignment)
                 .FirstOrDefault(s => s.ID == id);
             updatedInstructor.FirstName = firstName;
             updatedInstructor.LastName = lastName;
             updatedInstructor.HireDate = hireDate;
-            updatedInstructor.OfficeAssignment = officeAssignment;
-            updatedInstructor.CourseAssignments = courses;
+            updatedInstructor.OfficeAssignment= officeAssignment;
+            var listedAssignments = new List<CourseAssignment>();
+            if (selectedCourseId!=null)
+            {              
+                for (int i = 0; i < selectedCourseId.Length; i++)
+                {
+                    var course = _context.Courses.First(x => x.CourseId == selectedCourseId[i]);
+
+                        var courseAssigment = new CourseAssignment
+                        {
+                            Course = course,
+                            Instructor = updatedInstructor,
+                        };
+                        listedAssignments.Add(courseAssigment);
+                    }
+            }
+            updatedInstructor.CourseAssignments = listedAssignments;
             await _context.SaveChangesAsync();
         }
     }

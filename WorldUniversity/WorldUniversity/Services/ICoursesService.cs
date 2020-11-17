@@ -9,5 +9,6 @@ namespace WorldUniversity.Services
     public interface ICoursesService
     {
         IEnumerable<AssignedCourseData> GetAll();
+
     }
 }

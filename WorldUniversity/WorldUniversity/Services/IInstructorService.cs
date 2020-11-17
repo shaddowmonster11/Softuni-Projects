@@ -13,6 +13,6 @@ namespace WorldUniversity.Services
         GetInstructorsDetailsViewModel GetInstructorsDetails(int id);
         Task UpdateInstructor(string firstName, string lastName
             , DateTime hireDate,OfficeAssignment officeAssignment
-            , ICollection<CourseAssignment> courses, int id);
+            , int[] selectedCourseId, int id);
     }
 }

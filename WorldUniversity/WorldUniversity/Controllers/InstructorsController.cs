@@ -16,7 +16,7 @@ namespace WorldUniversity.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IInstructorService instructorService;
         private readonly ICoursesService coursesService;
-
+        //hello
         public InstructorsController(ApplicationDbContext context
             ,IInstructorService instructorService
             ,ICoursesService coursesService)
@@ -67,20 +67,9 @@ namespace WorldUniversity.Controllers
         }
 
         // GET: Instructors/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var instructor = await _context.Instructors
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (instructor == null)
-            {
-                return NotFound();
-            }
-
+            var instructor = instructorService.GetInstructorsDetails(id);
             return View(instructor);
         }
 
@@ -110,20 +99,6 @@ namespace WorldUniversity.Controllers
             return View(instructor);
         }
 
-
-        // GET: Instructors/Edit/5
-        public async Task<IActionResult> Edit(int id)
-        {
-            var instructor = instructorService.GetInstructorsDetails(id);
-            if (instructor == null)
-            {
-                return NotFound();
-            }
-
-            PopulateAssignedCourseData(instructor);
-            return View(instructor);
-        }
-
         private void PopulateAssignedCourseData(GetInstructorsDetailsViewModel instructor)
         {
             var allCourses = _context.Courses;
@@ -141,53 +116,33 @@ namespace WorldUniversity.Controllers
             }
             ViewData["Courses"] = viewModel;
         }
-
+        // GET: Instructors/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var courses = coursesService.GetAll();
+            var listOfCourses = new List<int>();
+            var instructor = instructorService.GetInstructorsDetails(id);
+            foreach (var assingment in instructor.CourseAssignments)
+            {
+                listOfCourses.Add(assingment.CourseId);
+            }
+            instructor.SelectedCoursesId = listOfCourses.ToArray();
+            instructor.CourseAssignments = courses;
+            return View(instructor);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-       /* public async Task<IActionResult> Edit(GetInstructorsDetailsViewModel instructor, string[] selectedCourses)
+        public async Task<IActionResult> Edit(GetInstructorsDetailsViewModel instructor)
         {
-            var instructorToUpdate = instructorService.UpdateInstructor(instructor.FirstName, instructor.LastName
-    , instructor.HireDate, instructor.OfficeAssignment, instructor.CourseAssignments, instructor.Id);
-            
-           *//* UpdateInstructorCourses(selectedCourses, instructor);*//*
-            PopulateAssignedCourseData(instructor);
-            return View(instructorToUpdate);
-        }*/
-
-       /* private void UpdateInstructorCourses(string[] selectedCourses, GetInstructorsDetailsViewModel instructorToUpdate)
-        {
-            if (selectedCourses == null)
-            {
-                instructorToUpdate.CourseAssignments = new List<AssignedCourseData>();
-                return;
-            }
-
-            var selectedCoursesNotNull = new HashSet<string>(selectedCourses);
-            var instructorCourses = new HashSet<int>
-                    (instructorToUpdate.CourseAssignments.Select(c => c.Course.CourseId));
-            foreach (var course in _context.Courses)
-            {
-                if (selectedCoursesNotNull.Contains(course.CourseId.ToString()))
-                {
-                    if (!instructorCourses.Contains(course.CourseId))
-                    {
-                        instructorToUpdate.CourseAssignments.Add(new CourseAssignment
-                        {
-                            InstructorId = instructorToUpdate.Id,
-                            CourseId = course.CourseId
-                        });
-                    }
-                }
-                else
-                {
-                    if (instructorCourses.Contains(course.CourseId))
-                    {
-                        CourseAssignment courseToRemove = instructorToUpdate.CourseAssignments.FirstOrDefault(i => i.CourseId == course.CourseId);
-                        _context.Remove(courseToRemove);
-                    }
-                }
-            }
-        }*/
+            await instructorService.UpdateInstructor(
+                instructor.FirstName,
+                instructor.LastName,
+                instructor.HireDate,
+                instructor.OfficeAssignment,
+                instructor.SelectedCoursesId,
+                instructor.Id);
+            return RedirectToAction("Details","Instructors",new {id=instructor.Id});
+        }
 
         // GET: Instructors/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -212,7 +167,7 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Instructor instructor = await _context.Instructors
+            Instructor instructor = await _context.Instructors//?????????????
                         .Include(i => i.CourseAssignments)
                         .SingleAsync(i => i.ID == id);
 

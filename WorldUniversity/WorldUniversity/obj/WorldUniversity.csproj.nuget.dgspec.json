@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shadd\\Documents\\GitHub\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\WorldUniversity.csproj": {}
+    "C:\\Users\\shadd\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\WorldUniversity.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shadd\\Documents\\GitHub\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\WorldUniversity.csproj": {
+    "C:\\Users\\shadd\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\WorldUniversity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shadd\\Documents\\GitHub\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\WorldUniversity.csproj",
+        "projectUniqueName": "C:\\Users\\shadd\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\WorldUniversity.csproj",
         "projectName": "WorldUniversity",
-        "projectPath": "C:\\Users\\shadd\\Documents\\GitHub\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\WorldUniversity.csproj",
+        "projectPath": "C:\\Users\\shadd\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\WorldUniversity.csproj",
         "packagesPath": "C:\\Users\\shadd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shadd\\Documents\\GitHub\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\obj\\",
+        "outputPath": "C:\\Users\\shadd\\Softuni-Projects\\WorldUniversity\\WorldUniversity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\shadd\\AppData\\Roaming\\NuGet\\NuGet.Config",
