@@ -142,23 +142,8 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var instuctor = this.instructorService.GetInstructorsDetails(id);
-
-            if (instuctor == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            try
-            {
-                await this.instructorService.DeleteInstructor(id);
-                return RedirectToAction(nameof(Index));
-
-            }
-            catch (DbUpdateException)
-            {
-                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
-            }
+            var instructor = instructorService.DeleteInstructor(id);     
+            return RedirectToAction(nameof(Index));
         }
 
         private bool InstructorExists(int id)
