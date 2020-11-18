@@ -142,7 +142,7 @@ namespace WorldUniversity.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string firstName, string lastName, DateTime enrollmentDate, int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var student = this.studentService.GetStudentDetails(id);
 

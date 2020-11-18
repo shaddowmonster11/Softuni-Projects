@@ -16,7 +16,6 @@ namespace WorldUniversity.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IInstructorService instructorService;
         private readonly ICoursesService coursesService;
-        //hello
         public InstructorsController(ApplicationDbContext context
             ,IInstructorService instructorService
             ,ICoursesService coursesService)
@@ -25,23 +24,10 @@ namespace WorldUniversity.Controllers
             this.instructorService = instructorService;
             this.coursesService = coursesService;
         }
-
         // GET: Instructors
         public async Task<IActionResult> Index(int? id, int? courseId)
         {
-            var viewModel = new InstructorIndexData();
-            viewModel.Instructors = await _context.Instructors
-                .Include(i => i.OfficeAssignment)
-                .Include(i => i.CourseAssignments)
-                    .ThenInclude(i => i.Course)
-                        .ThenInclude(i => i.Enrollments)
-                            .ThenInclude(i => i.Student)
-                .Include(i => i.CourseAssignments)
-                    .ThenInclude(i => i.Course)
-                        .ThenInclude(i => i.Department)
-                .OrderBy(i => i.LastName)
-                .ToListAsync();
-
+            var viewModel = instructorService.GetInstructorAllData();
             if (id != null)
             {
                 ViewData["InstructorId"] = id.Value;
@@ -145,21 +131,10 @@ namespace WorldUniversity.Controllers
         }
 
         // GET: Instructors/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var instructor = await _context.Instructors
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (instructor == null)
-            {
-                return NotFound();
-            }
-
-            return View(instructor);
+            await instructorService.DeleteInstructor(id);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Instructors/Delete/5
@@ -167,20 +142,23 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Instructor instructor = await _context.Instructors//?????????????
-                        .Include(i => i.CourseAssignments)
-                        .SingleAsync(i => i.ID == id);
+            var instuctor = this.instructorService.GetInstructorsDetails(id);
 
-            var departments = await _context.Departments
-                    .Where(d => d.InstructorId == id)
-                    .ToListAsync();
+            if (instuctor == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
-            departments.ForEach(d => d.InstructorId = null);
+            try
+            {
+                await this.instructorService.DeleteInstructor(id);
+                return RedirectToAction(nameof(Index));
 
-            _context.Instructors.Remove(instructor);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+            }
         }
 
         private bool InstructorExists(int id)

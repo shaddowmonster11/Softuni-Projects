@@ -43,6 +43,35 @@ namespace WorldUniversity.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteInstructor(int id)
+        {
+            var instructor = await _context.Instructors
+               .FirstOrDefaultAsync(m => m.ID == id);
+            _context.Instructors.Remove(instructor);
+            var departments = await _context.Departments
+                    .Where(d => d.InstructorId == id)
+                    .ToListAsync();
+            departments.ForEach(d => d.InstructorId = null);
+            await _context.SaveChangesAsync();
+        }
+
+        public InstructorIndexData GetInstructorAllData()
+        {
+            var viewModel = new InstructorIndexData();
+            viewModel.Instructors = _context.Instructors
+                .Include(i => i.OfficeAssignment)
+                .Include(i => i.CourseAssignments)
+                    .ThenInclude(i => i.Course)
+                        .ThenInclude(i => i.Enrollments)
+                            .ThenInclude(i => i.Student)
+                .Include(i => i.CourseAssignments)
+                    .ThenInclude(i => i.Course)
+                        .ThenInclude(i => i.Department)
+                .OrderBy(i => i.LastName)
+                .ToList();
+            return viewModel;
+        }
+
         public GetInstructorsDetailsViewModel GetInstructorsDetails(int id)
         {
             var instructor = _context.Instructors

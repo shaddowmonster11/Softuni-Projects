@@ -14,5 +14,7 @@ namespace WorldUniversity.Services
         Task UpdateInstructor(string firstName, string lastName
             , DateTime hireDate,OfficeAssignment officeAssignment
             , int[] selectedCourseId, int id);
+        InstructorIndexData GetInstructorAllData();
+        Task DeleteInstructor(int id);
     }
 }
