@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
+using WorldUniversity.Models;
 using WorldUniversity.Models.ViewModels;
 
 namespace WorldUniversity.Services
@@ -14,6 +16,21 @@ namespace WorldUniversity.Services
         {
             _context = context;
         }
+
+        public async Task Create(CourseViewModel input)
+        {
+            var courses = new Course
+            {
+                CourseId = input.CourseId,
+                DepartmentId= input.DepartmentId,
+                Title= input.Title,
+                Credits=input.Credits,
+            }
+            ;
+            _context.Add(courses);
+            await _context.SaveChangesAsync();
+        }
+
         public IEnumerable<AssignedCourseData> GetAll()
         {
             var courses = _context.Courses
@@ -24,6 +41,33 @@ namespace WorldUniversity.Services
                 })
                 .ToList();
             return courses;
+        }
+
+        public GetCoursesDetailsViewModel GetCoursesDetails(int id)
+        {
+            var course = _context.Courses
+            .Include(c => c.Department)
+            .AsNoTracking()
+            .Select(x=>new GetCoursesDetailsViewModel 
+            {
+                Title=x.Title,
+                CourseId=x.CourseId,
+                Credits=x.Credits,
+                CourseAssignments=x.CourseAssignments,
+                DepartmentId=x.DepartmentId,
+                Department=x.Department,
+                Enrollments=x.Enrollments,
+            })
+            .FirstOrDefault(m => m.CourseId == id);
+            return course;
+        }
+
+        public IQueryable<Department> PopulateDepartment(object selectedDepartment = null)
+        {
+            var departmentsQuery = from d in _context.Departments
+                                   orderby d.Name
+                                   select d;
+            return departmentsQuery;
         }
     }
 }

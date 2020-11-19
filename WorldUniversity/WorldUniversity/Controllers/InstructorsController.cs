@@ -24,7 +24,6 @@ namespace WorldUniversity.Controllers
             this.instructorService = instructorService;
             this.coursesService = coursesService;
         }
-        // GET: Instructors
         public async Task<IActionResult> Index(int? id, int? courseId)
         {
             var viewModel = instructorService.GetInstructorAllData();

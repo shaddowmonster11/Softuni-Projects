@@ -7,13 +7,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
+using WorldUniversity.Models.ViewModels;
+using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers
 {
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICoursesService coursesService;
 
+        public CoursesController(ApplicationDbContext context, ICoursesService coursesService)
+        {
+            _context = context;
+            this.coursesService = coursesService;
+        }
         [HttpGet]
         public IActionResult UpdateCourseCredits()
         {
@@ -32,12 +40,6 @@ namespace WorldUniversity.Controllers
             }
             return View();
         }
-
-        public CoursesController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         // GET: Courses
         public async Task<IActionResult> Index()
         {
@@ -48,41 +50,26 @@ namespace WorldUniversity.Controllers
         }
 
         // GET: Courses/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var course = await _context.Courses
-                .Include(c => c.Department)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.CourseId == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
-
+            var course = coursesService.GetCoursesDetails(id);
             return View(course);
         }
 
-        // GET: Courses/Create
         public IActionResult Create()
         {
             PopulateDepartmentsDropDownList();
             return View();
         }
 
-        // POST: Courses/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseId,Title,Credits,DepartmentId")] Course course)
+        public async Task<IActionResult> Create(CourseViewModel course)
         {
+            //Have to Add Validation For Id where CourseId=context.CourseId
             if (ModelState.IsValid)
             {
-                _context.Add(course);
-                await _context.SaveChangesAsync();
+                await coursesService.Create(course);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", course.DepartmentId);
@@ -178,12 +165,8 @@ namespace WorldUniversity.Controllers
 
         private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
         {
-            var departmentsQuery = from d in _context.Departments
-                                   orderby d.Name
-                                   select d;
-
+            var departmentsQuery = coursesService.PopulateDepartment(selectedDepartment);
             ViewBag.DepartmentId = new SelectList(departmentsQuery.AsNoTracking(), "DepartmentId", "Name", selectedDepartment);
         }
-
     }
 }
