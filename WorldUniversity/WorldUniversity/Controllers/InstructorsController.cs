@@ -73,8 +73,7 @@ namespace WorldUniversity.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GetInstructorsDetailsViewModel instructor)
-        {
-                                                                              
+        {                                                                              
             if (ModelState.IsValid)
             {
                 await this.instructorService.Create(instructor);
@@ -126,17 +125,15 @@ namespace WorldUniversity.Controllers
                 instructor.OfficeAssignment,
                 instructor.SelectedCoursesId,
                 instructor.Id);
-            return RedirectToAction("Details","Instructors",new {id=instructor.Id});
+            return RedirectToAction("Index","Instructors",new {id=instructor.Id});
         }
 
-        // GET: Instructors/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             await instructorService.DeleteInstructor(id);
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: Instructors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

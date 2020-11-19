@@ -31,6 +31,13 @@ namespace WorldUniversity.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteCourse(int id)
+        {
+            var course = await _context.Courses.FindAsync(id);
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
+        }
+
         public IEnumerable<AssignedCourseData> GetAll()
         {
             var courses = _context.Courses
@@ -52,11 +59,9 @@ namespace WorldUniversity.Services
             {
                 Title=x.Title,
                 CourseId=x.CourseId,
-                Credits=x.Credits,
-                CourseAssignments=x.CourseAssignments,
+                Credits=x.Credits,           
                 DepartmentId=x.DepartmentId,
                 Department=x.Department,
-                Enrollments=x.Enrollments,
             })
             .FirstOrDefault(m => m.CourseId == id);
             return course;

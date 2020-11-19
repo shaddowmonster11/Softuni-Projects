@@ -49,7 +49,6 @@ namespace WorldUniversity.Controllers
             return View(await courses.ToListAsync());
         }
 
-        // GET: Courses/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var course = coursesService.GetCoursesDetails(id);
@@ -128,22 +127,9 @@ namespace WorldUniversity.Controllers
         }
 
         // GET: Courses/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var course = await _context.Courses
-                .Include(c => c.Department)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.CourseId == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
-
+            var course = coursesService.GetCoursesDetails(id);
             return View(course);
         }
 
@@ -151,10 +137,8 @@ namespace WorldUniversity.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var course = await _context.Courses.FindAsync(id);
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
+        {         
+            await coursesService.DeleteCourse(id);
             return RedirectToAction(nameof(Index));
         }
         
