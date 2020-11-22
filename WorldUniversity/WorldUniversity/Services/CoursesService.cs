@@ -17,16 +17,20 @@ namespace WorldUniversity.Services
             _context = context;
         }
 
+        public bool CourseExists(int id)
+        {
+            return _context.Courses.Any(e => e.CourseId == id);
+        }
+
         public async Task Create(CourseViewModel input)
         {
             var courses = new Course
             {
                 CourseId = input.CourseId,
-                DepartmentId= input.DepartmentId,
-                Title= input.Title,
-                Credits=input.Credits,
-            }
-            ;
+                DepartmentId = input.DepartmentId,
+                Title = input.Title,
+                Credits = input.Credits,
+            };
             _context.Add(courses);
             await _context.SaveChangesAsync();
         }
@@ -47,6 +51,23 @@ namespace WorldUniversity.Services
                     CourseId = x.CourseId,
                 })
                 .ToList();
+            return courses;
+        }
+
+        public ICollection<CourseViewModel> GetAllCourses()
+        {
+            var courses = _context.Courses
+                 .Include(c => c.Department)
+                 .Select(c => new CourseViewModel
+                 {
+                     Title = c.Title,
+                     CourseId = c.CourseId,
+                     Credits = c.Credits,
+                     Department = c.Department,
+                     DepartmentId = c.DepartmentId,
+                 })
+                 .AsNoTracking()
+                 .ToList();                
             return courses;
         }
 
@@ -73,6 +94,18 @@ namespace WorldUniversity.Services
                                    orderby d.Name
                                    select d;
             return departmentsQuery;
+        }
+
+        public async Task UpdateCourse(int courseId, string title, int credits, int departmentId)
+        {
+           var updatedCourse= _context.Courses
+              .FirstOrDefault(s => s.CourseId == courseId);
+            updatedCourse.CourseId = courseId;
+            updatedCourse.Title = title;
+            updatedCourse.Credits = credits;
+            updatedCourse.DepartmentId = departmentId;
+            _context.Update(updatedCourse);
+            await _context.SaveChangesAsync();
         }
     }
 }

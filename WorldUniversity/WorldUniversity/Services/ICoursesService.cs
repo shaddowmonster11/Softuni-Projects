@@ -14,5 +14,8 @@ namespace WorldUniversity.Services
         IQueryable<Department> PopulateDepartment(object selectedDepartment = null);
         GetCoursesDetailsViewModel GetCoursesDetails(int id);
         Task DeleteCourse(int id);
+        ICollection<CourseViewModel> GetAllCourses();
+        Task UpdateCourse(int courseId,string title,int credits,int departmentId);
+        bool CourseExists(int id);
     }
 }

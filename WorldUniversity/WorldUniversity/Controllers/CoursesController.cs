@@ -40,13 +40,10 @@ namespace WorldUniversity.Controllers
             }
             return View();
         }
-        // GET: Courses
         public async Task<IActionResult> Index()
         {
-            var courses = _context.Courses
-                .Include(c => c.Department)
-                .AsNoTracking();
-            return View(await courses.ToListAsync());
+            var courses = coursesService.GetAllCourses();
+            return View(courses);
         }
 
         public async Task<IActionResult> Details(int id)
@@ -75,15 +72,9 @@ namespace WorldUniversity.Controllers
             return View(course);
         }
 
-        // GET: Courses/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var course = await _context.Courses.FindAsync(id);
+            var course = coursesService.GetCoursesDetails(id);
             if (course == null)
             {
                 return NotFound();
@@ -92,10 +83,9 @@ namespace WorldUniversity.Controllers
             return View(course);
         }
 
-        // POST: Courses/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CourseId,Title,Credits,DepartmentId")] Course course)
+        public async Task<IActionResult> Edit(int id, GetCoursesDetailsViewModel course)
         {
             if (id != course.CourseId)
             {
@@ -106,12 +96,12 @@ namespace WorldUniversity.Controllers
             {
                 try
                 {
-                    _context.Update(course);
-                    await _context.SaveChangesAsync();
+                    await coursesService.UpdateCourse(course.CourseId, course.Title
+                        , course.Credits, course.DepartmentId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CourseExists(course.CourseId))
+                    if (!coursesService.CourseExists(course.CourseId))
                     {
                         return NotFound();
                     }
@@ -126,25 +116,18 @@ namespace WorldUniversity.Controllers
             return View(course);
         }
 
-        // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             var course = coursesService.GetCoursesDetails(id);
             return View(course);
         }
 
-        // POST: Courses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {         
             await coursesService.DeleteCourse(id);
             return RedirectToAction(nameof(Index));
-        }
-        
-        private bool CourseExists(int id)
-        {
-            return _context.Courses.Any(e => e.CourseId == id);
         }
 
         private void PopulateDepartmentsDropDownList(object selectedDepartment = null)

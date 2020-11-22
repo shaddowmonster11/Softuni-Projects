@@ -32,7 +32,7 @@ namespace WorldUniversity.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nameDesc" : "";
             ViewData["DateSortParam"] = sortOrder == "date" ? "dateDesc" : "date";
-            DbInitializer dbInitializer = new DbInitializer();//get out
+            DbInitializer dbInitializer = new DbInitializer();
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -161,11 +161,6 @@ namespace WorldUniversity.Controllers
             {
                 return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }
-        }
-
-        private bool StudentExists(int id)
-        {
-            return _context.Students.Any(e => e.Id == id);
         }
     }
 }
