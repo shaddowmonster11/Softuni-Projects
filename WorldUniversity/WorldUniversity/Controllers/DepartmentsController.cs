@@ -7,23 +7,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
+using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers
 {
     public class DepartmentsController:Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IDepartmentsService departmentsService;
 
-        public DepartmentsController(ApplicationDbContext context)
+        public DepartmentsController(ApplicationDbContext context
+            ,IDepartmentsService departmentsService)
         {
             _context = context;
+            this.departmentsService = departmentsService;
         }
 
-        // GET: Departments
         public async Task<IActionResult> Index()
-        {
-            var ApplicationDbContext = _context.Departments.Include(d => d.Administrator);
-            return View(await ApplicationDbContext.ToListAsync());
+        {          
+            return View(departmentsService.GetAdmin());
         }
 
         // GET: Departments/Details/5
@@ -230,11 +232,6 @@ namespace WorldUniversity.Controllers
             {
                 return RedirectToAction(nameof(Delete), new { concurrencyError = true, id = department.DepartmentId });
             }
-        }
-
-        private bool DepartmentExists(int id)
-        {
-            return _context.Departments.Any(e => e.DepartmentId == id);
         }
     }
 }

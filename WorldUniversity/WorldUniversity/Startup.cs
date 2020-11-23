@@ -53,6 +53,8 @@ namespace WorldUniversity
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<IInstructorService, InstructorService>();
             services.AddTransient<ICoursesService, CoursesService>();
+            services.AddTransient<IDepartmentsService, DepartmentsService>();
+            services.AddTransient<IHomeService, HomeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

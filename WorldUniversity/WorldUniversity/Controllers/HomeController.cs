@@ -7,54 +7,23 @@ using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
 using WorldUniversity.Models.ViewModels;
+using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHomeService homeService;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context,IHomeService homeService)
         {
             _context = context;
+            this.homeService = homeService;
         }
-        public async Task<ActionResult> About()
-        {
-            var groups = new List<EnrollmentDateGroup>();//fix to icollection
-            var conn = _context.Database.GetDbConnection();
-
-            try
-            {
-                await conn.OpenAsync();
-                using (var command = conn.CreateCommand())
-                {
-                    string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "//FIX
-                        + "FROM Students "
-                        + "GROUP BY EnrollmentDate";
-                    command.CommandText = query;                    
-                    DbDataReader reader = await command.ExecuteReaderAsync();
-
-                    if (reader.HasRows)
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            var row = new EnrollmentDateGroup
-                            {
-                                EnrollmentDate = reader.GetDateTime(0),
-                                StudentCount = reader.GetInt32(1)
-                            };
-                            groups.Add(row);
-                        }
-                    }
-                    reader.Dispose();
-
-                }
-            }
-            finally
-            {
-                conn.Close();
-            }
-
+        public ActionResult About()
+        {         
+            var groups = _context.Database.GetDbConnection();//no tast without async
             return View(groups);
         }
         public IActionResult Index()
