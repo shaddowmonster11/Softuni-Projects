@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
+using WorldUniversity.Models.ViewModels;
 using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers
@@ -15,61 +16,54 @@ namespace WorldUniversity.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IDepartmentsService departmentsService;
+        private readonly IInstructorService instructorService;
 
         public DepartmentsController(ApplicationDbContext context
-            ,IDepartmentsService departmentsService)
+            ,IDepartmentsService departmentsService
+            ,IInstructorService instructorService)
         {
             _context = context;
             this.departmentsService = departmentsService;
+            this.instructorService = instructorService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {          
             return View(departmentsService.GetAdmin());
         }
 
         // GET: Departments/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            string query = "SELECT * FROM Departments WHERE DepartmentID = {0}";
-            var department = await _context.Departments
-                .FromSqlRaw(query, id)//Todo might break!!! Attention
-                .Include(d => d.Administrator)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.DepartmentId == id);
-            if (department == null)
-            {
-                return NotFound();
-            }
-
+            var department = departmentsService.GetDepartmentDetails(id);
             return View(department);
         }
 
         // GET: Departments/Create
         public IActionResult Create()
         {
-            ViewData["InstructorId"] = new SelectList(_context.Instructors, "ID", "FullName");
-            return View();
+            var instructors = instructorService.GetAllInstructors();
+
+            var department = new DepartmentViewModel
+            {
+                Instructors = instructors,
+            };
+
+            return View(department);
         }
 
         // POST: Departments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DepartmentId,Name,Budget,StartDate,InstructorId,RowVersion")] Department department)
+        public async Task<IActionResult> Create(DepartmentViewModel department)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(department);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(department);
             }
-            ViewData["InstructorId"] = new SelectList(_context.Instructors, "ID", "FullName", department.InstructorId);
-            return View(department);
+
+            await departmentsService.Create(department);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Departments/Edit/5

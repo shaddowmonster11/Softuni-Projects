@@ -13,7 +13,7 @@ namespace WorldUniversity.Models.ViewModels
         [Required]
         [StringLength(50, MinimumLength = 1)]
         [Display(Name = "First Name")]
-        public string FirstName { get; set; }///
+        public string FirstName { get; set; }
 
         [StringLength(50, MinimumLength = 1)]
         [Column("LastName")]
@@ -30,7 +30,7 @@ namespace WorldUniversity.Models.ViewModels
         {
             get
             {
-                return FirstName + ", " + LastName;
+                return FirstName + " " + LastName;
             }
         }
 

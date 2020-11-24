@@ -30,7 +30,7 @@ namespace WorldUniversity.Models
         [Display(Name = "Full Name")]
         public string FullName
         {
-            get { return FirstName + ", " + LastName; }
+            get { return FirstName + " " + LastName; }
         }
 
         public ICollection<CourseAssignment> CourseAssignments { get; set; }

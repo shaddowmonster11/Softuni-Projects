@@ -10,11 +10,17 @@ namespace WorldUniversity.Services
     public interface IInstructorService
     {
         Task Create(GetInstructorsDetailsViewModel input);
+
         GetInstructorsDetailsViewModel GetInstructorsDetails(int id);
+
         Task UpdateInstructor(string firstName, string lastName
             , DateTime hireDate,OfficeAssignment officeAssignment
             , int[] selectedCourseId, int id);
+
         InstructorIndexData GetInstructorAllData();
+
         Task DeleteInstructor(int id);
+
+        ICollection<GetInstructorsDetailsViewModel> GetAllInstructors();
     }
 }

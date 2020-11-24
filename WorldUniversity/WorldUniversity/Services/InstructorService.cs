@@ -55,6 +55,30 @@ namespace WorldUniversity.Services
             await _context.SaveChangesAsync();
         }
 
+        public ICollection<GetInstructorsDetailsViewModel> GetAllInstructors()
+        {
+            var instructors = _context.Instructors
+              .Include(i => i.OfficeAssignment)
+              .Include(i => i.CourseAssignments)
+                  .ThenInclude(i => i.Course)
+                    .Select(x => new GetInstructorsDetailsViewModel
+                    {
+                        Id = x.ID,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        HireDate = x.HireDate,
+                        CourseAssignments = x.CourseAssignments.Select(ca => new AssignedCourseData
+                        {
+                            CourseId = ca.CourseId,
+                            Title = ca.Course.Title,
+                        }),
+                        OfficeAssignment = x.OfficeAssignment,
+                    }
+               )
+              .ToList();
+            return instructors;
+        }
+
         public InstructorIndexData GetInstructorAllData()
         {
             var viewModel = new InstructorIndexData();

@@ -19,7 +19,7 @@ namespace WorldUniversity.Models.ViewModels
         {
             get
             {
-                return FirstName + ", " + LastName;
+                return FirstName + " " + LastName;
             }
         }
         public ICollection<Enrollment> Enrollments { get; set; }
