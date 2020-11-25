@@ -108,7 +108,7 @@ namespace WorldUniversity.Controllers
             return View(input);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var student = studentService.GetStudentDetails(id);
             if (student == null)
@@ -127,7 +127,7 @@ namespace WorldUniversity.Controllers
             return RedirectToAction("Details", new { id = studentViewModel.Id });
         }
 
-        public async Task<IActionResult> Delete(int id, bool? saveChangesError = false)
+        public IActionResult Delete(int id, bool? saveChangesError = false)
         {
             var student= this.studentService.GetStudentDetails(id);
 

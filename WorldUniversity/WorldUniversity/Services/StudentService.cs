@@ -31,7 +31,7 @@ namespace WorldUniversity.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteStudent( int id)
+        public async Task DeleteStudent(int id)
         {
             var deletedStudent = _context.Students
              .AsNoTracking()

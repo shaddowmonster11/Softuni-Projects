@@ -32,14 +32,11 @@ namespace WorldUniversity.Controllers
             return View(departmentsService.GetAdmin());
         }
 
-        // GET: Departments/Details/5
         public IActionResult Details(int id)
         {
             var department = departmentsService.GetDepartmentDetails(id);
             return View(department);
         }
-
-        // GET: Departments/Create
         public IActionResult Create()
         {
             var instructors = instructorService.GetAllInstructors();
@@ -52,7 +49,6 @@ namespace WorldUniversity.Controllers
             return View(department);
         }
 
-        // POST: Departments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DepartmentViewModel department)
@@ -66,69 +62,33 @@ namespace WorldUniversity.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Departments/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var department = await _context.Departments
-                .Include(i => i.Administrator)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.DepartmentId == id);
-
+            var department = departmentsService.GetDepartmentDetails(id);
+            var instructors = instructorService.GetAllInstructors();
+            department.Instructors = instructors;
             if (department == null)
             {
                 return NotFound();
-            }
-            ViewData["InstructorId"] = new SelectList(_context.Instructors, "ID", "FullName", department.InstructorId);
+            }          
             return View(department);
         }
 
-        // POST: Departments/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, byte[] rowVersion)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var departmentToUpdate = await _context.Departments
-                    .Include(i => i.Administrator)
-                    .FirstOrDefaultAsync(m => m.DepartmentId == id);
-
-            if (departmentToUpdate == null)
-            {
-                Department deletedDepartment = new Department();
-                await TryUpdateModelAsync(deletedDepartment);
-                ModelState.AddModelError(string.Empty, "Unable to save changes. Department was deleted by another user!");
-                ViewData["Instructor"] = new SelectList(_context.Instructors, "ID", "FullName", deletedDepartment.InstructorId);
-                return View(deletedDepartment);
-            }
-
-            _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVersion;
-
-            if (await TryUpdateModelAsync<Department>(
-                departmentToUpdate,
-                "",
-                s => s.Name,
-                s => s.StartDate,
-                s => s.Budget,
-                s => s.InstructorId))
-            {
-                try
-                {
-                    await _context.SaveChangesAsync();
+        public async Task<IActionResult> Edit(DepartmentViewModel department)
+        {        
+            try
+            { 
+                await departmentsService.UpdateDepartment(department.DepartmentId
+                    ,department.Name,department.Budget
+                    ,department.StartDate,(int)department.InstructorId);
                     return RedirectToAction(nameof(Index));
-                }
+              }
                 catch (DbUpdateConcurrencyException ex)
                 {
                     var exceptionEntry = ex.Entries.Single();
-                    var clientValues = (Department)exceptionEntry.Entity;
+                    var clientValues = (DepartmentViewModel)exceptionEntry.Entity;
                     var databaseEntry = exceptionEntry.GetDatabaseValues();
 
                     if (databaseEntry == null)
@@ -138,7 +98,7 @@ namespace WorldUniversity.Controllers
                     }
                     else
                     {
-                        var databaseValues = (Department)databaseEntry.ToObject();
+                        var databaseValues = (DepartmentViewModel)databaseEntry.ToObject();
 
                         if (databaseValues.Name != clientValues.Name)
                         {
@@ -163,29 +123,16 @@ namespace WorldUniversity.Controllers
                         ModelState.AddModelError(String.Empty, "The record you attempted to edit was modified by another user."
                                                                 + " The edit operation was cancelled and current values in the Database"
                                                                 + " have been displayed.");
-                        departmentToUpdate.RowVersion = (byte[])databaseValues.RowVersion;
+                    department.RowVersion = (byte[])databaseValues.RowVersion;
                         ModelState.Remove("RowVersion");
                     }
-                }
+                return View(department);
             }
-
-            ViewData["InstructorId"] = new SelectList(_context.Instructors, "ID", "FullName", departmentToUpdate.InstructorId);
-            return View(departmentToUpdate);
         }
 
-        // GET: Departments/Delete/5
-        public async Task<IActionResult> Delete(int? id, bool? concurrencyError)
+        public IActionResult Delete(int id, bool? concurrencyError)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var department = await _context.Departments
-                .Include(d => d.Administrator)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.DepartmentId == id);
-
+            var department = departmentsService.GetDepartmentDetails(id);
             if (department == null)
             {
                 if (concurrencyError.GetValueOrDefault())
@@ -207,18 +154,14 @@ namespace WorldUniversity.Controllers
             return View(department);
         }
 
-        // POST: Departments/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Department department)
+        public async Task<IActionResult> Delete(int id)
         {
+            var department = departmentsService.GetDepartmentDetails(id);
             try
             {
-                if (await _context.Departments.AnyAsync(m => m.DepartmentId == department.DepartmentId))
-                {
-                    _context.Departments.Remove(department);
-                    await _context.SaveChangesAsync();
-                }
+                await departmentsService.DeleteDepartment(id);
                 return RedirectToAction(nameof(Index));
             }
 

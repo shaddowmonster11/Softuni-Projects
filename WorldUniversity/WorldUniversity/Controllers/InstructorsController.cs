@@ -51,14 +51,12 @@ namespace WorldUniversity.Controllers
             return View(viewModel);
         }
 
-        // GET: Instructors/Details/5
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
             var instructor = instructorService.GetInstructorsDetails(id);
             return View(instructor);
         }
 
-        // GET: Instructors/Create
         public IActionResult Create()
         {
             var courses = coursesService.GetAll();
@@ -69,7 +67,6 @@ namespace WorldUniversity.Controllers
             return View(instructor);
         }
 
-        // POST: Instructors/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GetInstructorsDetailsViewModel instructor)
@@ -100,8 +97,7 @@ namespace WorldUniversity.Controllers
             }
             ViewData["Courses"] = viewModel;
         }
-        // GET: Instructors/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var courses = coursesService.GetAll();
             var listOfCourses = new List<int>();
@@ -128,23 +124,18 @@ namespace WorldUniversity.Controllers
             return RedirectToAction("Index","Instructors",new {id=instructor.Id});
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            await instructorService.DeleteInstructor(id);
-            return RedirectToAction(nameof(Index));
+            var instructor = instructorService.GetInstructorsDetails(id);
+            return View(instructor);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var instructor = instructorService.DeleteInstructor(id);     
+            await instructorService.DeleteInstructor(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool InstructorExists(int id)
-        {
-            return _context.Instructors.Any(e => e.ID == id);
         }
     }
 }

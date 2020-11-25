@@ -22,13 +22,13 @@ namespace WorldUniversity.Controllers
             _context = context;
             this.coursesService = coursesService;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var courses = coursesService.GetAllCourses();
             return View(courses);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
             var course = coursesService.GetCoursesDetails(id);
             return View(course);
@@ -54,7 +54,7 @@ namespace WorldUniversity.Controllers
             return View(course);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var course = coursesService.GetCoursesDetails(id);
             if (course == null)
@@ -98,7 +98,7 @@ namespace WorldUniversity.Controllers
             return View(course);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             var course = coursesService.GetCoursesDetails(id);
             return View(course);
