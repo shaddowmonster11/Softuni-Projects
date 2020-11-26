@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
 using WorldUniversity.Models.ViewModels;
 
 namespace WorldUniversity.Services
 {
-    public interface IInstructorService
+    public interface IInstructorsService
     {
         Task Create(GetInstructorsDetailsViewModel input);
 
         GetInstructorsDetailsViewModel GetInstructorsDetails(int id);
 
         Task UpdateInstructor(string firstName, string lastName
-            , DateTime hireDate,OfficeAssignment officeAssignment
+            , DateTime hireDate, OfficeAssignment officeAssignment
             , int[] selectedCourseId, int id);
 
         InstructorIndexData GetInstructorAllData();
@@ -22,5 +21,6 @@ namespace WorldUniversity.Services
         Task DeleteInstructor(int id);
 
         ICollection<GetInstructorsDetailsViewModel> GetAllInstructors();
+        bool InstructorExists(int id);
     }
 }

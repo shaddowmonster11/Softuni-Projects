@@ -563,7 +563,6 @@ C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\De
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.csprojAssemblyReference.cache
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\staticwebassets\WorldUniversity.StaticWebAssets.Manifest.cache
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\staticwebassets\WorldUniversity.StaticWebAssets.xml
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.MvcApplicationPartsAssemblyInfo.cs
@@ -613,3 +612,4 @@ C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\De
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.csproj.CopyComplete
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.dll
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.pdb
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.csprojAssemblyReference.cache

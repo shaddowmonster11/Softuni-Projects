@@ -50,14 +50,13 @@ namespace WorldUniversity
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddTransient<IStudentService, StudentService>();
-            services.AddTransient<IInstructorService, InstructorService>();
+            services.AddTransient<IStudentsService, StudentsService>();
+            services.AddTransient<IInstructorsService, InstructorsService>();
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<IDepartmentsService, DepartmentsService>();
             services.AddTransient<IHomeService, HomeService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -68,7 +67,6 @@ namespace WorldUniversity
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

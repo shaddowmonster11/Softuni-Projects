@@ -22,8 +22,8 @@ namespace WorldUniversity.Controllers
             this.homeService = homeService;
         }
         public ActionResult About()
-        {         
-            var groups = _context.Database.GetDbConnection();//no tast without async
+        {
+            var groups = homeService.GetGeneralInformation();
             return View(groups);
         }
         public IActionResult Index()
@@ -33,7 +33,6 @@ namespace WorldUniversity.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 

@@ -15,9 +15,9 @@ namespace WorldUniversity.Controllers
     public class StudentsController:Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IStudentService studentService;
+        private readonly IStudentsService studentService;
 
-        public StudentsController(ApplicationDbContext context,IStudentService studentService)
+        public StudentsController(ApplicationDbContext context,IStudentsService studentService)
         {
             _context = context;
             this.studentService = studentService;

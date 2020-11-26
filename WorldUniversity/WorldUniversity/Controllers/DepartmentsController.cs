@@ -16,11 +16,11 @@ namespace WorldUniversity.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IDepartmentsService departmentsService;
-        private readonly IInstructorService instructorService;
+        private readonly IInstructorsService instructorService;
 
         public DepartmentsController(ApplicationDbContext context
             ,IDepartmentsService departmentsService
-            ,IInstructorService instructorService)
+            ,IInstructorsService instructorService)
         {
             _context = context;
             this.departmentsService = departmentsService;

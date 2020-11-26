@@ -8,11 +8,11 @@ using WorldUniversity.Models.ViewModels;
 
 namespace WorldUniversity.Services
 {
-    public class StudentService : IStudentService
+    public class StudentsService : IStudentsService
     {
         private readonly ApplicationDbContext _context;
 
-        public StudentService(ApplicationDbContext context)
+        public StudentsService(ApplicationDbContext context)
         {
             _context = context;
         }

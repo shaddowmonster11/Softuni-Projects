@@ -7,7 +7,7 @@ using WorldUniversity.Models.ViewModels;
 
 namespace WorldUniversity.Services
 {
-    public interface IStudentService
+    public interface IStudentsService
     {
         Task Create(CreateStudentInputViewModel input);
         StudentViewModel GetStudentDetails(int id);

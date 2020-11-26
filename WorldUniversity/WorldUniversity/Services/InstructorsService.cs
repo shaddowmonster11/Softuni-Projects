@@ -9,11 +9,11 @@ using WorldUniversity.Models.ViewModels;
 
 namespace WorldUniversity.Services
 {
-    public class InstructorService : IInstructorService
+    public class InstructorsService : IInstructorsService
     {
         private readonly ApplicationDbContext _context;
 
-        public InstructorService(ApplicationDbContext context)
+        public InstructorsService(ApplicationDbContext context)
         {
             _context = context;
         }

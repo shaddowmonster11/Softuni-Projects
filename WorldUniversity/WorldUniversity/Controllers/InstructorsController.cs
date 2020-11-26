@@ -14,10 +14,10 @@ namespace WorldUniversity.Controllers
     public class InstructorsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IInstructorService instructorService;
+        private readonly IInstructorsService instructorService;
         private readonly ICoursesService coursesService;
         public InstructorsController(ApplicationDbContext context
-            ,IInstructorService instructorService
+            ,IInstructorsService instructorService
             ,ICoursesService coursesService)
         {
             _context = context;
@@ -30,7 +30,7 @@ namespace WorldUniversity.Controllers
             if (id != null)
             {
                 ViewData["InstructorId"] = id.Value;
-                Instructor instructor = viewModel.Instructors.Where(i => i.ID == id.Value).Single();
+                var instructor = viewModel.Instructors.Where(i => i.ID == id.Value).Single();
                 viewModel.Courses = instructor.CourseAssignments.Select(s => s.Course);
             }
 
