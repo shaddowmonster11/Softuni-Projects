@@ -39,7 +39,7 @@
                     @foreach (var course in Model.CourseAssignments)
                     {
                     <div>
-                        <input type="checkbox" value="@course.CourseId" name="SelectedCoursesId" />
+                        <input type="checkbox" value="@course.Id" name="SelectedCoursesId" />
                         <label>@course.Title</label>
                     </div>
                     }

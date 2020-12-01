@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
 using WorldUniversity.Models.ViewModels;
+using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.Services
 {
@@ -19,14 +20,13 @@ namespace WorldUniversity.Services
 
         public bool CourseExists(int id)
         {
-            return _context.Courses.Any(e => e.CourseId == id);
+            return _context.Courses.Any(e => e.Id == id);
         }
 
-        public async Task Create(CourseViewModel input)
+        public async Task Create(CourseInputModel input)
         {
             var courses = new Course
             {
-                CourseId = input.CourseId,
                 DepartmentId = input.DepartmentId,
                 Title = input.Title,
                 Credits = input.Credits,
@@ -48,7 +48,7 @@ namespace WorldUniversity.Services
                 .Select(x => new AssignedCourseData
                 {
                     Title = x.Title,
-                    CourseId = x.CourseId,
+                    Id = x.Id,
                 })
                 .ToList();
             return courses;
@@ -61,7 +61,7 @@ namespace WorldUniversity.Services
                  .Select(c => new CourseViewModel
                  {
                      Title = c.Title,
-                     CourseId = c.CourseId,
+                     Id = c.Id,
                      Credits = c.Credits,
                      Department = c.Department,
                      DepartmentId = c.DepartmentId,
@@ -79,12 +79,12 @@ namespace WorldUniversity.Services
             .Select(x=>new GetCoursesDetailsViewModel 
             {
                 Title=x.Title,
-                CourseId=x.CourseId,
+                Id=x.Id,
                 Credits=x.Credits,           
                 DepartmentId=x.DepartmentId,
                 Department=x.Department,
             })
-            .FirstOrDefault(m => m.CourseId == id);
+            .FirstOrDefault(m => m.Id == id);
             return course;
         }
 
@@ -96,11 +96,11 @@ namespace WorldUniversity.Services
             return departmentsQuery;
         }
 
-        public async Task UpdateCourse(int courseId, string title, int credits, int departmentId)
+        public async Task UpdateCourse(int Id, string title, int credits, int departmentId)
         {
            var updatedCourse= _context.Courses
-              .FirstOrDefault(s => s.CourseId == courseId);
-            updatedCourse.CourseId = courseId;
+              .FirstOrDefault(s => s.Id == Id);
+            updatedCourse.Id = Id;
             updatedCourse.Title = title;
             updatedCourse.Credits = credits;
             updatedCourse.DepartmentId = departmentId;

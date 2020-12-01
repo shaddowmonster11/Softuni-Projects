@@ -8,7 +8,7 @@ namespace WorldUniversity.Models.ViewModels
 {
     public class GetCoursesDetailsViewModel
     {
-        public int CourseId { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public int Credits { get; set; }
         public int DepartmentId { get; set; }

@@ -24,7 +24,7 @@ namespace WorldUniversity.Controllers
             this.instructorService = instructorService;
             this.coursesService = coursesService;
         }
-        public async Task<IActionResult> Index(int? id, int? courseId)
+        public async Task<IActionResult> Index(int? id, int? Id)
         {
             var viewModel = instructorService.GetInstructorAllData();
             if (id != null)
@@ -34,10 +34,10 @@ namespace WorldUniversity.Controllers
                 viewModel.Courses = instructor.CourseAssignments.Select(s => s.Course);
             }
 
-            if (courseId != null)
+            if (Id != null)
             {
-                ViewData["CourseId"] = courseId.Value;
-                var selectedCourse = viewModel.Courses.Where(x => x.CourseId == courseId).Single();
+                ViewData["Id"] = Id.Value;
+                var selectedCourse = viewModel.Courses.Where(x => x.Id == Id).Single();
 
                 await _context.Entry(selectedCourse).Collection(x => x.Enrollments).LoadAsync();
 
@@ -83,16 +83,16 @@ namespace WorldUniversity.Controllers
         private void PopulateAssignedCourseData(GetInstructorsDetailsViewModel instructor)
         {
             var allCourses = _context.Courses;
-            var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(c => c.CourseId));
+            var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(c => c.Id));
             var viewModel = new List<AssignedCourseData>();
 
             foreach (var course in allCourses)
             {
                 viewModel.Add(new AssignedCourseData
                 {
-                    CourseId = course.CourseId,
+                    Id = course.Id,
                     Title = course.Title,
-                    Assigned = instructorCourses.Contains(course.CourseId)
+                    Assigned = instructorCourses.Contains(course.Id)
                 });
             }
             ViewData["Courses"] = viewModel;
@@ -104,7 +104,7 @@ namespace WorldUniversity.Controllers
             var instructor = instructorService.GetInstructorsDetails(id);
             foreach (var assingment in instructor.CourseAssignments)
             {
-                listOfCourses.Add(assingment.CourseId);
+                listOfCourses.Add(assingment.Id);
             }
             instructor.SelectedCoursesId = listOfCourses.ToArray();
             instructor.CourseAssignments = courses;

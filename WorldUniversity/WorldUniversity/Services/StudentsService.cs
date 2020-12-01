@@ -25,6 +25,7 @@ namespace WorldUniversity.Services
                 FirstName = input.FirstName,
                 LastName = input.LastName,
                 EnrollmentDate = input.EnrollmentDate,
+                //Have to add enrollement Here
             };
 
             await _context.AddAsync(student);

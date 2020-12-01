@@ -34,7 +34,7 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
             modelBuilder.Entity<CourseAssignment>()
-                    .HasKey(c => new { c.CourseId, c.InstructorId });
+                    .HasKey(c => new { c.Id, c.InstructorId });
             base.OnModelCreating(modelBuilder);
         }
 

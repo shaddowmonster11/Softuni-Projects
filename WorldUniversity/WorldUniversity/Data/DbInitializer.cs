@@ -85,25 +85,25 @@ namespace WorldUniversity.Data
 
             var courses = new Course[]
             {
-                new Course {CourseId = 1050, Title = "Basic Algoritms",      Credits = 3,
+                new Course {Id = 1050, Title = "Basic Algoritms",      Credits = 3,
                     DepartmentId = departments.Single( s => s.Name == "Mathematics and Science").DepartmentId
                 },
-                new Course {CourseId = 4022, Title = "Programming C#", Credits = 3,
+                new Course {Id = 4022, Title = "Programming C#", Credits = 3,
                     DepartmentId = departments.Single( s => s.Name == "Advanced Programming").DepartmentId
                 },
-                new Course {CourseId = 4041, Title = "Programming java", Credits = 3,
+                new Course {Id = 4041, Title = "Programming java", Credits = 3,
                     DepartmentId = departments.Single( s => s.Name == "Advanced Programming").DepartmentId
                 },
-                new Course {CourseId = 1045, Title = "VSM",       Credits = 4,
+                new Course {Id = 1045, Title = "VSM",       Credits = 4,
                     DepartmentId = departments.Single( s => s.Name == "Robotics and Future Science").DepartmentId
                 },
-                new Course {CourseId = 3141, Title = "Front End",   Credits = 4,
+                new Course {Id = 3141, Title = "Front End",   Credits = 4,
                     DepartmentId = departments.Single( s => s.Name == "Robotics and Future Science").DepartmentId
                 },
-                new Course {CourseId = 2021, Title = "Html",    Credits = 3,
+                new Course {Id = 2021, Title = "Html",    Credits = 3,
                     DepartmentId = departments.Single( s => s.Name == "Advanced Design").DepartmentId
                 },
-                new Course {CourseId = 2042, Title = "CSS",     Credits = 4,
+                new Course {Id = 2042, Title = "CSS",     Credits = 4,
                     DepartmentId = departments.Single( s => s.Name == "Advanced Design").DepartmentId
                 },
             };
@@ -136,31 +136,31 @@ namespace WorldUniversity.Data
             var courseInstructors = new CourseAssignment[]
             {
                 new CourseAssignment {
-                    CourseId = courses.Single(c => c.Title == "Basic Algoritms" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Petrov").ID
                     },
                 new CourseAssignment {
-                    CourseId = courses.Single(c => c.Title == "VSM" ).CourseId,
+                    Id = courses.Single(c => c.Title == "VSM" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Stoichkov").ID
                     },
                 new CourseAssignment {
-                    CourseId = courses.Single(c => c.Title == "Programming C#" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Programming C#" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Radichkov").ID
                     },
                 new CourseAssignment {
-                    CourseId = courses.Single(c => c.Title == "Programming java" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Programming java" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Radichkov").ID
                     },
                 new CourseAssignment {
-                    CourseId = courses.Single(c => c.Title == "Front End" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Front End" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Stoichkov").ID
                     },
                 new CourseAssignment {
-                    CourseId = courses.Single(c => c.Title == "Html" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Html" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Hristov").ID
                     },
                 new CourseAssignment {
-                    CourseId = courses.Single(c => c.Title == "CSS" ).CourseId,
+                    Id = courses.Single(c => c.Title == "CSS" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Hristov").ID
                     },
             };
@@ -175,51 +175,51 @@ namespace WorldUniversity.Data
             {
                 new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Ivanov").Id,
-                    CourseId = courses.Single(c => c.Title == "Basic Algoritms" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
                     Grade = Grade.A
                 },
                     new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Mutafov").Id,
-                    CourseId = courses.Single(c => c.Title == "Programming java" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Programming java" ).Id,
                     Grade = Grade.C
                     },
                     new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Stracimirov").Id,
-                    CourseId = courses.Single(c => c.Title == "Programming C#" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Programming C#" ).Id,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Randulov").Id,
-                    CourseId = courses.Single(c => c.Title == "Basic Algoritms" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Stoqnova").Id,
-                    CourseId = courses.Single(c => c.Title == "Front End" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Front End" ).Id,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Petrov").Id,
-                    CourseId = courses.Single(c => c.Title == "Html" ).CourseId,
+                    Id = courses.Single(c => c.Title == "Html" ).Id,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Hristov").Id,
-                    CourseId = courses.Single(c => c.Title == "Programming C#" ).CourseId
+                    Id = courses.Single(c => c.Title == "Programming C#" ).Id
                     },
                     new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Hristov").Id,
-                    CourseId = courses.Single(c => c.Title == "Programming java").CourseId,
+                    Id = courses.Single(c => c.Title == "Programming java").Id,
                     Grade = Grade.B
                     },
                 new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Mutafov").Id,
-                    CourseId = courses.Single(c => c.Title == "General Programming").CourseId,
+                    Id = courses.Single(c => c.Title == "General Programming").Id,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Petrov").Id,
-                    CourseId = courses.Single(c => c.Title == "CSS").CourseId,
+                    Id = courses.Single(c => c.Title == "CSS").Id,
                     Grade = Grade.B
                     }
                 
@@ -230,7 +230,7 @@ namespace WorldUniversity.Data
                 var enrollmentInDataBase = context.Enrollments.Where(
                     s =>
                             s.Student.Id == e.StudentId &&
-                            s.Course.CourseId == e.CourseId).SingleOrDefault();
+                            s.Course.Id == e.Id).SingleOrDefault();
                 
                 if (enrollmentInDataBase == null)
                 {

@@ -30,7 +30,7 @@ namespace WorldUniversity.Services
             var courseAssignments = new List<CourseAssignment>();
             for (int i = 0; i < input.SelectedCoursesId.Length; i++)
             {
-                var course = _context.Courses.First(x => x.CourseId == input.SelectedCoursesId[i]);
+                var course = _context.Courses.First(x => x.Id == input.SelectedCoursesId[i]);
                 var courseAssigment = new CourseAssignment
                 {
                     Course = course,
@@ -69,7 +69,7 @@ namespace WorldUniversity.Services
                         HireDate = x.HireDate,
                         CourseAssignments = x.CourseAssignments.Select(ca => new AssignedCourseData
                         {
-                            CourseId = ca.CourseId,
+                            Id = ca.Id,
                             Title = ca.Course.Title,
                         }),
                         OfficeAssignment = x.OfficeAssignment,
@@ -111,7 +111,7 @@ namespace WorldUniversity.Services
                         HireDate = x.HireDate,
                         CourseAssignments = x.CourseAssignments.Select(ca => new AssignedCourseData
                         {
-                            CourseId = ca.CourseId,
+                            Id = ca.Id,
                             Title = ca.Course.Title,
                         }),
                         OfficeAssignment = x.OfficeAssignment,
@@ -128,7 +128,7 @@ namespace WorldUniversity.Services
 
         public async Task UpdateInstructor(string firstName, string lastName
             , DateTime hireDate, OfficeAssignment officeAssignment
-            , int[] selectedCourseId, int id)
+            , int[] selectedId, int id)
         {
             var updatedInstructor = _context.Instructors
                 .Include(x => x.CourseAssignments)
@@ -139,11 +139,11 @@ namespace WorldUniversity.Services
             updatedInstructor.HireDate = hireDate;
             updatedInstructor.OfficeAssignment = officeAssignment;
             var listedAssignments = new List<CourseAssignment>();
-            if (selectedCourseId != null)
+            if (selectedId != null)
             {
-                for (int i = 0; i < selectedCourseId.Length; i++)
+                for (int i = 0; i < selectedId.Length; i++)
                 {
-                    var course = _context.Courses.First(x => x.CourseId == selectedCourseId[i]);
+                    var course = _context.Courses.First(x => x.Id == selectedId[i]);
 
                     var courseAssigment = new CourseAssignment
                     {

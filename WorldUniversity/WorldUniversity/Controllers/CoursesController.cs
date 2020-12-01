@@ -9,6 +9,7 @@ using WorldUniversity.Data;
 using WorldUniversity.Models;
 using WorldUniversity.Models.ViewModels;
 using WorldUniversity.Services;
+using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.Controllers
 {
@@ -42,9 +43,9 @@ namespace WorldUniversity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CourseViewModel course)
+        public async Task<IActionResult> Create(CourseInputModel course)
         {
-            //Have to Add Validation For Id where CourseId=context.CourseId
+            //Have to Add Validation For Id where Id=context.Id
             if (ModelState.IsValid)
             {
                 await coursesService.Create(course);
@@ -69,7 +70,7 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, GetCoursesDetailsViewModel course)
         {
-            if (id != course.CourseId)
+            if (id != course.Id)
             {
                 return NotFound();
             }
@@ -78,12 +79,12 @@ namespace WorldUniversity.Controllers
             {
                 try
                 {
-                    await coursesService.UpdateCourse(course.CourseId, course.Title
+                    await coursesService.UpdateCourse(course.Id, course.Title
                         , course.Credits, course.DepartmentId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!coursesService.CourseExists(course.CourseId))
+                    if (!coursesService.CourseExists(course.Id))
                     {
                         return NotFound();
                     }
