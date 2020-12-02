@@ -1,4 +1,4 @@
-﻿namespace WorldUniversity.Models.ViewModels
+﻿namespace WorldUniversity.ViewModels.Courses
 {
     public class AssignedCourseData
     {

@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
-using WorldUniversity.Models.ViewModels;
 using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers

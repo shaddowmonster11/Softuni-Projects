@@ -1,4 +1,4 @@
-﻿@model WorldUniversity.Models.ViewModels.GetCoursesDetailsViewModel
+﻿@model WorldUniversity.ViewModels.Courses.GetCoursesDetailsViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,9 +13,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Id" class="font-italic font-weight-bold"></label>
+                <label asp-for="Id" class="control-label"></label>
                 <br />
-                <label class="text-success">@Model.Id</label>
+                <span class="control-label">@Model.Id</span>
             </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>

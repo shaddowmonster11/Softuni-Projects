@@ -6,9 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
-using WorldUniversity.Models.ViewModels;
 using WorldUniversity.Repositories;
 using WorldUniversity.Services;
+using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {

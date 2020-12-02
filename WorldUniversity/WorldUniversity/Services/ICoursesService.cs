@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
-using WorldUniversity.Models.ViewModels;
 using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.Services

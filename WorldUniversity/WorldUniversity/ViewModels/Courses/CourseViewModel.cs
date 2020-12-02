@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WorldUniversity.Models;
 
-namespace WorldUniversity.Models.ViewModels
+namespace WorldUniversity.ViewModels.Courses
 {
     public class CourseViewModel
     {
         [Display(Name = "Number")]
         public int Id { get; set; }
-        
+
         public string Title { get; set; }
 
         public int Credits { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using WorldUniversity.Models;
 
-namespace WorldUniversity.Models.ViewModels
+namespace WorldUniversity.ViewModels.Instructors
 {
     public class InstructorIndexData
     {

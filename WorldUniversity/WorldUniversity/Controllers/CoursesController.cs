@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
-using WorldUniversity.Models.ViewModels;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Courses;
 
@@ -44,8 +43,7 @@ namespace WorldUniversity.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CourseInputModel course)
-        {
-            //Have to Add Validation For Id where Id=context.Id
+        {   
             if (ModelState.IsValid)
             {
                 await coursesService.Create(course);

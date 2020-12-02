@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
-using WorldUniversity.Models.ViewModels;
+using WorldUniversity.ViewModels.Instructors;
 
 namespace WorldUniversity.Services
 {

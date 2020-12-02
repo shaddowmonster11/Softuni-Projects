@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WorldUniversity.Models;
 
-namespace WorldUniversity.Models.ViewModels
+namespace WorldUniversity.ViewModels.Students
 {
     public class StudentViewModel
     {

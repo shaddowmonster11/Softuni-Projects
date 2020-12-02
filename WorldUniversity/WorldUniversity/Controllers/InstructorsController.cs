@@ -6,8 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
-using WorldUniversity.Models.ViewModels;
 using WorldUniversity.Services;
+using WorldUniversity.ViewModels.Courses;
+using WorldUniversity.ViewModels.Instructors;
 
 namespace WorldUniversity.Controllers
 {
@@ -24,11 +25,12 @@ namespace WorldUniversity.Controllers
             this.instructorService = instructorService;
             this.coursesService = coursesService;
         }
-        public async Task<IActionResult> Index(int? id, int? Id)
+        public async Task<IActionResult> Index(int? id, int? Id)//its null for some reason
         {
             var viewModel = instructorService.GetInstructorAllData();
             if (id != null)
             {
+                
                 ViewData["InstructorId"] = id.Value;
                 var instructor = viewModel.Instructors.Where(i => i.ID == id.Value).Single();
                 viewModel.Courses = instructor.CourseAssignments.Select(s => s.Course);

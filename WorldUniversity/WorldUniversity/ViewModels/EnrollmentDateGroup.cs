@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WorldUniversity.Models.ViewModels
+namespace WorldUniversity.ViewModels
 {
     public class EnrollmentDateGroup
     {

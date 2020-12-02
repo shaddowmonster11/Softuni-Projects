@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
-using WorldUniversity.Models.ViewModels;
+using WorldUniversity.ViewModels.Courses;
+using WorldUniversity.ViewModels.Instructors;
 
 namespace WorldUniversity.Services
 {
