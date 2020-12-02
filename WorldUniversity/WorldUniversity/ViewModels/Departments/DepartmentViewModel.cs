@@ -11,7 +11,6 @@ namespace WorldUniversity.ViewModels.Departments
         public int DepartmentId { get; set; }
 
         public string Name { get; set; }
-
         public decimal Budget { get; set; }
 
         [DataType(DataType.Date)]

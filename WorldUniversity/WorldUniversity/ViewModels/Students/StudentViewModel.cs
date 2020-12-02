@@ -24,6 +24,7 @@ namespace WorldUniversity.ViewModels.Students
             }
         }
         public ICollection<Enrollment> Enrollments { get; set; }
+        public string ShortEnrollemntFormat => EnrollmentDate.ToString("dd-MM-yyyy");
     }
 }
 

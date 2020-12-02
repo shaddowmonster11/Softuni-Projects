@@ -5,34 +5,30 @@
 }
 
 <h2>Details</h2>
-
-<div>
     <h4>Student</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EnrollmentDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EnrollmentDate)
-        </dd>
+    <div class="dl-horizontal">
+        <div class="form-group">
+            <label asp-for="FirstName" class="font-weight-bold"></label>
+            <br />
+            <span class="control-label">@Model.FirstName</span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="font-weight-bold"></label>
+            <br />
+            <span class="control-label">@Model.LastName</span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EnrollmentDate" class="font-weight-bold"></label>
+            <br />
+            <span class="control-label">@Model.ShortEnrollemntFormat</span>
+        </div>
+        </div>
         @*we write courses here!*@
-        <dt class="col-sm-2">
+        <div class="col-sm-2">
             @Html.DisplayNameFor(model => model.Enrollments)
-        </dt>
-        <dd class="col-sm-10">
+        </div>
+        <div class="col-sm-10">
             <table class="table">
                 <tr>
                     <th>Course Title</th>
@@ -50,9 +46,7 @@
                     </tr>
                 }
             </table>
-        </dd>
-    </dl>
-</div>
+    </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
