@@ -47,7 +47,7 @@
                     @{
                         foreach (var course in item.CourseAssignments)
                         {
-                            @course.Course.Id @course.Course.Title  <br />
+                             @course.Course.Title  <br />
                         }
                     }
                 </td>
@@ -81,7 +81,7 @@
             }
             <tr class="@selectedRow">
                 <td>
-                    @Html.ActionLink("Select", "Index", new { Id = item.Id })
+                    @Html.ActionLink("Select", "Index", new { courseId = item.Id })
                 </td>
                 <td>
                     @item.Id

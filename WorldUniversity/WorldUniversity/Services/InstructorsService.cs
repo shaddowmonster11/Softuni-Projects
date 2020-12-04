@@ -13,7 +13,6 @@ namespace WorldUniversity.Services
     public class InstructorsService : IInstructorsService
     {
         private readonly ApplicationDbContext _context;
-
         public InstructorsService(ApplicationDbContext context)
         {
             _context = context;
@@ -149,7 +148,9 @@ namespace WorldUniversity.Services
                     var courseAssigment = new CourseAssignment
                     {
                         Course = course,
+                        Id= course.Id,
                         Instructor = updatedInstructor,
+                        InstructorId=updatedInstructor.ID,
                     };
                     listedAssignments.Add(courseAssigment);
                 }

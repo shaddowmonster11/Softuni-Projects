@@ -38,6 +38,8 @@ namespace WorldUniversity.Services
         {
             var course = await _context.Courses.FindAsync(id);
             _context.Courses.Remove(course);
+            var courseAssigment = _context.CourseAssignments.Where(x=>x.Course==course).SingleOrDefault();
+            _context.CourseAssignments.Remove(courseAssigment);
             await _context.SaveChangesAsync();
         }
 

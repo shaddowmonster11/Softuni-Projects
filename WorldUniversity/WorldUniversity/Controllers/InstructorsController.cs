@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
-using WorldUniversity.Models;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Instructors;
@@ -25,31 +22,21 @@ namespace WorldUniversity.Controllers
             this.instructorService = instructorService;
             this.coursesService = coursesService;
         }
-        public async Task<IActionResult> Index(int? id, int? Id)//its null for some reason
+        public IActionResult Index(int? id, int? courseId)
         {
             var viewModel = instructorService.GetInstructorAllData();
             if (id != null)
             {
-                
-                ViewData["InstructorId"] = id.Value;
-                var instructor = viewModel.Instructors.Where(i => i.ID == id.Value).Single();
+                ViewData["InstructorID"] = id.Value;
+                var instructor = viewModel.Instructors.Where(i => i.ID == id).Single();
                 viewModel.Courses = instructor.CourseAssignments.Select(s => s.Course);
             }
 
-            if (Id != null)
+            if (courseId != null)
             {
-                ViewData["Id"] = Id.Value;
-                var selectedCourse = viewModel.Courses.Where(x => x.Id == Id).Single();
-
-                await _context.Entry(selectedCourse).Collection(x => x.Enrollments).LoadAsync();
-
-                foreach (Enrollment enrollment in selectedCourse.Enrollments)
-                {
-                    await _context.Entry(enrollment).Reference(x => x.Student).LoadAsync();
-                }
-                viewModel.Enrollments = selectedCourse.Enrollments;
-            }
-
+                ViewData["Id"] = courseId.Value;
+                viewModel.Enrollments = viewModel.Courses.Where(x => x.Id == courseId).Single().Enrollments;
+            }       
             return View(viewModel);
         }
 

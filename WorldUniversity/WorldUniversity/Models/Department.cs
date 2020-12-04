@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WorldUniversity.Models
 {
     public class Department
-    {
+    { 
         public int DepartmentId { get; set; }
 
         [StringLength(50, MinimumLength = 3)]
