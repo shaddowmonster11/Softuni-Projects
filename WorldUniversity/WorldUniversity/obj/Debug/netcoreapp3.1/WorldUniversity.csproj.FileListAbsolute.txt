@@ -565,8 +565,6 @@ C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\De
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\staticwebassets\WorldUniversity.StaticWebAssets.Manifest.cache
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\staticwebassets\WorldUniversity.StaticWebAssets.xml
-C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.RazorAssemblyInfo.cache
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.RazorAssemblyInfo.cs
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.AssemblyInfoInputs.cache
@@ -613,3 +611,12 @@ C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\De
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.dll
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.pdb
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.csprojAssemblyReference.cache
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\SendGrid.dll
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\StarkbankEcdsa.dll
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\RegisterConfirmation.cshtml.g.cs
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Views\Courses\Enrollment.cshtml.g.cs

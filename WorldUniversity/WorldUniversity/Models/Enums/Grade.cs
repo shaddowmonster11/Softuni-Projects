@@ -7,6 +7,10 @@ namespace WorldUniversity.Models.Enums
 {
     public enum Grade
     {
-        A, B, C, D, F
+        A=6,
+        B=5,
+        C=4,
+        D=3,
+        E=2,       
     }
 }

@@ -31,7 +31,7 @@ namespace WorldUniversity.Models
         {
             get
             {
-                return FirstName + ", " + LastName;
+                return FirstName + " " + LastName;
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -34,7 +35,11 @@ namespace WorldUniversity.Controllers
             ViewData["Message"] = "Your contact page.";
             return View();
         }
-
+     /*   [Authorize(Policy = "RequireAdministratorRole")]
+        public IActionResult AdminOnly()
+        {
+            return View();
+        }*/
         public IActionResult Privacy()
         {
             return View();

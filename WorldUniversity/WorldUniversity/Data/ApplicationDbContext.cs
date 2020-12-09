@@ -37,10 +37,5 @@ namespace WorldUniversity.Data
                     .HasKey(c => new { c.Id, c.InstructorId });
             base.OnModelCreating(modelBuilder);
         }
-
-        internal IEnumerable<object> All()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

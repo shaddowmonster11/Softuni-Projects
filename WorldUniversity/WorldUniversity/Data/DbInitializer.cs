@@ -85,27 +85,16 @@ namespace WorldUniversity.Data
 
             var courses = new Course[]
             {
-                new Course {Id = 1050, Title = "Basic Algoritms",      Credits = 3,
+                new Course {Title = "Basic Algoritms",Credits = 3,
                     DepartmentId = departments.Single( s => s.Name == "Mathematics and Science").DepartmentId
                 },
-                new Course {Id = 4022, Title = "Programming C#", Credits = 3,
+                new Course {Title = "VSM",Credits = 4,
                     DepartmentId = departments.Single( s => s.Name == "Advanced Programming").DepartmentId
                 },
-                new Course {Id = 4041, Title = "Programming java", Credits = 3,
+                new Course {Title = "Html",Credits = 3,
                     DepartmentId = departments.Single( s => s.Name == "Advanced Programming").DepartmentId
                 },
-                new Course {Id = 1045, Title = "VSM",       Credits = 4,
-                    DepartmentId = departments.Single( s => s.Name == "Robotics and Future Science").DepartmentId
-                },
-                new Course {Id = 3141, Title = "Front End",   Credits = 4,
-                    DepartmentId = departments.Single( s => s.Name == "Robotics and Future Science").DepartmentId
-                },
-                new Course {Id = 2021, Title = "Html",    Credits = 3,
-                    DepartmentId = departments.Single( s => s.Name == "Advanced Design").DepartmentId
-                },
-                new Course {Id = 2042, Title = "CSS",     Credits = 4,
-                    DepartmentId = departments.Single( s => s.Name == "Advanced Design").DepartmentId
-                },
+
             };
 
             foreach (Course c in courses)
@@ -137,12 +126,16 @@ namespace WorldUniversity.Data
             {
                 new CourseAssignment {
                     Id = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
-                    InstructorId = instructors.Single(i => i.LastName == "Petrov").ID
+                    InstructorId = instructors.Single(i => i.LastName == "Petrov").ID,
+                   Course=courses.Single(c => c.Title == "Basic Algoritms" ),
+                   
                     },
-                new CourseAssignment {
+                /*new CourseAssignment {
                     Id = courses.Single(c => c.Title == "VSM" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Stoichkov").ID
                     },
+
+
                 new CourseAssignment {
                     Id = courses.Single(c => c.Title == "Programming C#" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Radichkov").ID
@@ -163,6 +156,7 @@ namespace WorldUniversity.Data
                     Id = courses.Single(c => c.Title == "CSS" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Hristov").ID
                     },
+*/
             };
 
             foreach (CourseAssignment ci in courseInstructors)
@@ -175,10 +169,12 @@ namespace WorldUniversity.Data
             {
                 new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Ivanov").Id,
-                    Id = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
-                    Grade = Grade.A
+                    Grade = Grade.A,
+                    Course=courses.Single(c => c.Title == "Basic Algoritms" ),
+                    Student= students.Single(s => s.LastName == "Ivanov"),
+                    
                 },
-                    new Enrollment {
+                    /*new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Mutafov").Id,
                     Id = courses.Single(c => c.Title == "Programming java" ).Id,
                     Grade = Grade.C
@@ -221,7 +217,7 @@ namespace WorldUniversity.Data
                     StudentId = students.Single(s => s.LastName == "Petrov").Id,
                     Id = courses.Single(c => c.Title == "CSS").Id,
                     Grade = Grade.B
-                    }
+                    }*/
                 
         };
 

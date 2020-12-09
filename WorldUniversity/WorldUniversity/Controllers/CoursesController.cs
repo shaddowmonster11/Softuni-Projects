@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
+using WorldUniversity.Models.Enums;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Courses;
+using WorldUniversity.ViewModels.Enrollements;
+using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {
@@ -27,7 +28,18 @@ namespace WorldUniversity.Controllers
             var courses = coursesService.GetAllCourses();
             return View(courses);
         }
+        public IActionResult Enrollment()
+        {
 
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Enrollment(CreateEnrollemntViewModel enrollment)
+        {         
+            coursesService.EnrollStudent(enrollment.FullName, enrollment.CourseTitle, enrollment.StudentGrade);
+            return View();
+        }
         public IActionResult Details(int id)
         {
             var course = coursesService.GetCoursesDetails(id);
@@ -43,7 +55,7 @@ namespace WorldUniversity.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CourseInputModel course)
-        {   
+        {
             if (ModelState.IsValid)
             {
                 await coursesService.Create(course);
@@ -106,7 +118,7 @@ namespace WorldUniversity.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
-        {         
+        {
             await coursesService.DeleteCourse(id);
             return RedirectToAction(nameof(Index));
         }

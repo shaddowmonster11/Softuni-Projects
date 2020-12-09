@@ -304,9 +304,6 @@ namespace WorldUniversity.Data.Migrations
                     b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EnrollmentId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("Grade")
                         .HasColumnType("int");
 

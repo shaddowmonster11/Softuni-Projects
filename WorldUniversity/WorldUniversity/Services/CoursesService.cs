@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
+using WorldUniversity.Models.Enums;
 using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.Services
@@ -38,8 +39,40 @@ namespace WorldUniversity.Services
         {
             var course = await _context.Courses.FindAsync(id);
             _context.Courses.Remove(course);
-            var courseAssigment = _context.CourseAssignments.Where(x=>x.Course==course).SingleOrDefault();
-            _context.CourseAssignments.Remove(courseAssigment);
+            var courseAssigment = _context.CourseAssignments.Where(x => x.Course == course).SingleOrDefault();
+
+            if (courseAssigment != null)
+            {
+                _context.CourseAssignments.Remove(courseAssigment);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task EnrollStudent(string studentFullName, string courseTitle, string studentCourseGrade)
+        {
+            var enrollments = new Enrollment
+            {
+                StudentId = _context.Students.Single(s => s.FullName == studentFullName).Id,
+                Course = _context.Courses.Single(c => c.Title == courseTitle),
+                Student = _context.Students.Single(s => s.FullName == studentFullName),
+                Grade = (Grade)Enum.Parse(typeof(Grade), studentCourseGrade),
+            };
+            var enrollmentInDataBase = _context.Enrollments.Where(
+                s =>
+                        s.StudentId == enrollments.StudentId &&
+                        s.Course.Id == enrollments.Course.Id)
+            .SingleOrDefault();
+
+            if (enrollmentInDataBase == null)
+            {
+                await _context.Enrollments.AddAsync(enrollments);
+            }
+            else
+            {
+                
+            }
+
             await _context.SaveChangesAsync();
         }
 
@@ -68,7 +101,7 @@ namespace WorldUniversity.Services
                      DepartmentId = c.DepartmentId,
                  })
                  .AsNoTracking()
-                 .ToList();                
+                 .ToList();
             return courses;
         }
 
@@ -77,13 +110,13 @@ namespace WorldUniversity.Services
             var course = _context.Courses
             .Include(c => c.Department)
             .AsNoTracking()
-            .Select(x=>new GetCoursesDetailsViewModel 
+            .Select(x => new GetCoursesDetailsViewModel
             {
-                Title=x.Title,
-                Id=x.Id,
-                Credits=x.Credits,           
-                DepartmentId=x.DepartmentId,
-                Department=x.Department,
+                Title = x.Title,
+                Id = x.Id,
+                Credits = x.Credits,
+                DepartmentId = x.DepartmentId,
+                Department = x.Department,
             })
             .FirstOrDefault(m => m.Id == id);
             return course;
@@ -99,8 +132,8 @@ namespace WorldUniversity.Services
 
         public async Task UpdateCourse(int Id, string title, int credits, int departmentId)
         {
-           var updatedCourse= _context.Courses
-              .FirstOrDefault(s => s.Id == Id);
+            var updatedCourse = _context.Courses
+               .FirstOrDefault(s => s.Id == Id);
             updatedCourse.Id = Id;
             updatedCourse.Title = title;
             updatedCourse.Credits = credits;

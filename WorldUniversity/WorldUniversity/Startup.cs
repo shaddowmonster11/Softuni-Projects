@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using WorldUniversity.Models;
 using WorldUniversity.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace WorldUniversity
 {
@@ -39,7 +40,8 @@ namespace WorldUniversity
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.Configure<IdentityOptions>(opts => {
                 opts.Password.RequiredLength = 8;
@@ -47,6 +49,11 @@ namespace WorldUniversity
                 opts.Password.RequireLowercase = false;
                 opts.Password.RequireUppercase = false;
                 opts.Password.RequireDigit = true;
+            });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministratorRole",
+                     policy => policy.RequireRole("Administrator"));
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -56,6 +63,7 @@ namespace WorldUniversity
             services.AddTransient<IDepartmentsService, DepartmentsService>();
             services.AddTransient<IHomeService, HomeService>();
         }
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
