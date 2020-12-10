@@ -49,14 +49,19 @@ namespace WorldUniversity.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task EnrollStudent(string studentFullName, string courseTitle, string studentCourseGrade)
+        public async Task EnrollStudent(string studentFirstName, string studentLastName
+            , string courseTitle, string studentCourseGrade)
         {
+            var student = await _context.Students
+                .FirstOrDefaultAsync(s=>s.FirstName == studentFirstName && s.LastName == studentLastName);
+            var course = _context.Courses.Single(c => c.Title == courseTitle);
+            var grade = (Grade)Enum.Parse(typeof(Grade), studentCourseGrade);
             var enrollments = new Enrollment
             {
-                StudentId = _context.Students.Single(s => s.FullName == studentFullName).Id,
-                Course = _context.Courses.Single(c => c.Title == courseTitle),
-                Student = _context.Students.Single(s => s.FullName == studentFullName),
-                Grade = (Grade)Enum.Parse(typeof(Grade), studentCourseGrade),
+                StudentId = student.Id,
+                Course = course,
+                Student = student,
+                Grade = grade,
             };
             var enrollmentInDataBase = _context.Enrollments.Where(
                 s =>
@@ -68,11 +73,6 @@ namespace WorldUniversity.Services
             {
                 await _context.Enrollments.AddAsync(enrollments);
             }
-            else
-            {
-                
-            }
-
             await _context.SaveChangesAsync();
         }
 

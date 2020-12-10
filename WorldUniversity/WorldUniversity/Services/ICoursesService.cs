@@ -12,7 +12,7 @@ namespace WorldUniversity.Services
 {
     public interface ICoursesService
     {
-        Task EnrollStudent(string studentFullName, string courseTitle, string studentCourseGrade);
+        Task EnrollStudent(string studentFirstName, string studentLastName, string courseTitle, string studentCourseGrade);
         IEnumerable<AssignedCourseData> GetAll();
         Task Create(CourseInputModel input);
         IQueryable<Department> PopulateDepartment(object selectedDepartment = null);

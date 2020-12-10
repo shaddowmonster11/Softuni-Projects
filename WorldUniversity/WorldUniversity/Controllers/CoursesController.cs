@@ -35,9 +35,9 @@ namespace WorldUniversity.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Enrollment(CreateEnrollemntViewModel enrollment)
-        {         
-            coursesService.EnrollStudent(enrollment.FullName, enrollment.CourseTitle, enrollment.StudentGrade);
+        public async Task<IActionResult> Enrollment(CreateEnrollemntViewModel enrollment)
+        {
+            await coursesService.EnrollStudent(enrollment.FirstName, enrollment.LastName, enrollment.CourseTitle, enrollment.StudentGrade);
             return View();
         }
         public IActionResult Details(int id)
