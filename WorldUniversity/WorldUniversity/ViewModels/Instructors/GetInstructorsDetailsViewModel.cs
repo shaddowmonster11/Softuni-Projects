@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
@@ -19,5 +20,10 @@ namespace WorldUniversity.ViewModels.Instructors
         public OfficeAssignment OfficeAssignment { get; set; }
         public int[] SelectedCoursesId { get; set; }
         public string ShortHireDateFormat => HireDate.ToString("dd-MM-yyyy");
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
     }
 }

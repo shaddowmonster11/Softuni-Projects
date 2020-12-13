@@ -1,23 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
-using WorldUniversity.Models;
 using WorldUniversity.Repositories;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {
-    public class StudentsController:Controller
+    [Authorize]
+    public class StudentsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IStudentsService studentService;
 
-        public StudentsController(ApplicationDbContext context,IStudentsService studentService)
+        public StudentsController(ApplicationDbContext context, IStudentsService studentService)
         {
             _context = context;
             this.studentService = studentService;
@@ -93,7 +93,7 @@ namespace WorldUniversity.Controllers
         public async Task<IActionResult> Create(CreateStudentInputViewModel input)
         {
             try
-            {              
+            {
                 if (ModelState.IsValid)
                 {
                     await this.studentService.Create(input);
@@ -123,13 +123,13 @@ namespace WorldUniversity.Controllers
         public async Task<IActionResult> EditPost(StudentViewModel studentViewModel)
         {
             await this.studentService.UpdateStudent(studentViewModel.FirstName
-                ,studentViewModel.LastName,studentViewModel.EnrollmentDate,studentViewModel.Id);
+                , studentViewModel.LastName, studentViewModel.EnrollmentDate, studentViewModel.Id);
             return RedirectToAction("Details", new { id = studentViewModel.Id });
         }
 
         public IActionResult Delete(int id, bool? saveChangesError = false)
         {
-            var student= this.studentService.GetStudentDetails(id);
+            var student = this.studentService.GetStudentDetails(id);
 
             if (saveChangesError.GetValueOrDefault())
             {

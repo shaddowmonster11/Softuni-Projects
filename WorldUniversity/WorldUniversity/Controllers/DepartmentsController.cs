@@ -1,37 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
-using WorldUniversity.Models;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Departments;
 
 namespace WorldUniversity.Controllers
 {
-    public class DepartmentsController:Controller
+    [Authorize]
+    public class DepartmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IDepartmentsService departmentsService;
         private readonly IInstructorsService instructorService;
 
         public DepartmentsController(ApplicationDbContext context
-            ,IDepartmentsService departmentsService
-            ,IInstructorsService instructorService)
+            , IDepartmentsService departmentsService
+            , IInstructorsService instructorService)
         {
             _context = context;
             this.departmentsService = departmentsService;
             this.instructorService = instructorService;
         }
-
         public IActionResult Index()
-        {          
+        {
             return View(departmentsService.GetAdmin());
         }
-
         public IActionResult Details(int id)
         {
             var department = departmentsService.GetDepartmentDetails(id);
@@ -61,7 +58,6 @@ namespace WorldUniversity.Controllers
             await departmentsService.Create(department);
             return RedirectToAction(nameof(Index));
         }
-
         public IActionResult Edit(int id)
         {
             var department = departmentsService.GetDepartmentDetails(id);
@@ -70,66 +66,63 @@ namespace WorldUniversity.Controllers
             if (department == null)
             {
                 return NotFound();
-            }          
+            }
             return View(department);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(DepartmentViewModel department)
-        {        
+        {
             try
-            { 
+            {
                 await departmentsService.UpdateDepartment(department.DepartmentId
-                    ,department.Name,department.Budget
-                    ,department.StartDate,(int)department.InstructorId);
-                    return RedirectToAction(nameof(Index));
-              }
-                catch (DbUpdateConcurrencyException ex)
+                    , department.Name, department.Budget
+                    , department.StartDate, (int)department.InstructorId);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                var exceptionEntry = ex.Entries.Single();
+                var clientValues = (DepartmentViewModel)exceptionEntry.Entity;
+                var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                if (databaseEntry == null)
                 {
-                    var exceptionEntry = ex.Entries.Single();
-                    var clientValues = (DepartmentViewModel)exceptionEntry.Entity;
-                    var databaseEntry = exceptionEntry.GetDatabaseValues();
+                    ModelState.AddModelError(string.Empty,
+                        "Unable to save changes, department was deleted by another user!");
+                }
+                else
+                {
+                    var databaseValues = (DepartmentViewModel)databaseEntry.ToObject();
 
-                    if (databaseEntry == null)
+                    if (databaseValues.Name != clientValues.Name)
                     {
-                        ModelState.AddModelError(string.Empty,
-                            "Unable to save changes, department was deleted by another user!");
+                        ModelState.AddModelError("Name", $"Current value: {databaseValues.Name}");
                     }
-                    else
+                    if (databaseValues.Budget != clientValues.Budget)
                     {
-                        var databaseValues = (DepartmentViewModel)databaseEntry.ToObject();
+                        ModelState.AddModelError("Budget", $"Current value: {databaseValues.Budget:c}");
+                    }
+                    if (databaseValues.StartDate != clientValues.StartDate)
+                    {
+                        ModelState.AddModelError("StartDate", $"Current value: {databaseValues.StartDate:d}");
+                    }
+                    if (databaseValues.InstructorId != clientValues.InstructorId)
+                    {
+                        var databaseInstructor = instructorService.GetInstructorsDetails(databaseValues.InstructorId);
+                        ModelState.AddModelError("InstructorId", $"Current value: {databaseInstructor?.FullName}");
+                    }
 
-                        if (databaseValues.Name != clientValues.Name)
-                        {
-                            ModelState.AddModelError("Name", $"Current value: {databaseValues.Name}");
-                        }
-                        if (databaseValues.Budget != clientValues.Budget)
-                        {
-                            ModelState.AddModelError("Budget", $"Current value: {databaseValues.Budget:c}");
-                        }
-                        if (databaseValues.StartDate != clientValues.StartDate)
-                        {
-                            ModelState.AddModelError("StartDate", $"Current value: {databaseValues.StartDate:d}");
-                        }
-                        if (databaseValues.InstructorId != clientValues.InstructorId)
-                        {
-                            Instructor databaseInstructor = await _context.Instructors
-                                                            .FirstOrDefaultAsync(i => i.ID == databaseValues.InstructorId);
-
-                            ModelState.AddModelError("InstructorId", $"Current value: {databaseInstructor?.FullName}");
-                        }
-
-                        ModelState.AddModelError(String.Empty, "The record you attempted to edit was modified by another user."
-                                                                + " The edit operation was cancelled and current values in the Database"
-                                                                + " have been displayed.");
+                    ModelState.AddModelError(String.Empty, "The record you attempted to edit was modified by another user."
+                                                            + " The edit operation was cancelled and current values in the Database"
+                                                            + " have been displayed.");
                     department.RowVersion = (byte[])databaseValues.RowVersion;
-                        ModelState.Remove("RowVersion");
-                    }
+                    ModelState.Remove("RowVersion");
+                }
                 return View(department);
             }
         }
-
         public IActionResult Delete(int id, bool? concurrencyError)
         {
             var department = departmentsService.GetDepartmentDetails(id);

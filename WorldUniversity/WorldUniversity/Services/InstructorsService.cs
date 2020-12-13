@@ -96,7 +96,7 @@ namespace WorldUniversity.Services
             return viewModel;
         }
 
-        public GetInstructorsDetailsViewModel GetInstructorsDetails(int id)
+        public GetInstructorsDetailsViewModel GetInstructorsDetails(int ?id)
         {
             var instructor = _context.Instructors
                 .Where(x => x.ID == id)

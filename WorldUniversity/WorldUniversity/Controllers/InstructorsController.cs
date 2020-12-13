@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,14 +10,15 @@ using WorldUniversity.ViewModels.Instructors;
 
 namespace WorldUniversity.Controllers
 {
+    [Authorize]
     public class InstructorsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IInstructorsService instructorService;
         private readonly ICoursesService coursesService;
         public InstructorsController(ApplicationDbContext context
-            ,IInstructorsService instructorService
-            ,ICoursesService coursesService)
+            , IInstructorsService instructorService
+            , ICoursesService coursesService)
         {
             _context = context;
             this.instructorService = instructorService;
@@ -36,7 +38,7 @@ namespace WorldUniversity.Controllers
             {
                 ViewData["Id"] = courseId.Value;
                 viewModel.Enrollments = viewModel.Courses.Where(x => x.Id == courseId).Single().Enrollments;
-            }       
+            }
             return View(viewModel);
         }
 
@@ -51,7 +53,7 @@ namespace WorldUniversity.Controllers
             var courses = coursesService.GetAll();
             var instructor = new GetInstructorsDetailsViewModel
             {
-                CourseAssignments = courses,       
+                CourseAssignments = courses,
             };
             return View(instructor);
         }
@@ -59,7 +61,7 @@ namespace WorldUniversity.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GetInstructorsDetailsViewModel instructor)
-        {                                                                              
+        {
             if (ModelState.IsValid)
             {
                 await this.instructorService.Create(instructor);
@@ -110,7 +112,7 @@ namespace WorldUniversity.Controllers
                 instructor.OfficeAssignment,
                 instructor.SelectedCoursesId,
                 instructor.Id);
-            return RedirectToAction("Index","Instructors",new {id=instructor.Id});
+            return RedirectToAction("Index", "Instructors", new { id = instructor.Id });
         }
 
         public IActionResult Delete(int id)

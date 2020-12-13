@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -13,6 +14,7 @@ using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {
+    [Authorize]
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,13 +30,14 @@ namespace WorldUniversity.Controllers
             var courses = coursesService.GetAllCourses();
             return View(courses);
         }
+        [Authorize]
         public IActionResult Enrollment()
         {
-
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Enrollment(CreateEnrollemntViewModel enrollment)
         {
             await coursesService.EnrollStudent(enrollment.FirstName, enrollment.LastName, enrollment.CourseTitle, enrollment.StudentGrade);

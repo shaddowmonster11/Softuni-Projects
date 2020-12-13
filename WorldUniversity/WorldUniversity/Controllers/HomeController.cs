@@ -11,6 +11,7 @@ using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,25 +22,29 @@ namespace WorldUniversity.Controllers
             _context = context;
             this.homeService = homeService;
         }
+        [AllowAnonymous]
         public ActionResult About()
         {
             var groups = homeService.GetGeneralInformation();
             return View(groups);
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
             return View();
         }
-     /*   [Authorize(Policy = "RequireAdministratorRole")]
-        public IActionResult AdminOnly()
-        {
-            return View();
-        }*/
+        /*   [Authorize(Policy = "RequireAdministratorRole")]
+           public IActionResult AdminOnly()
+           {
+               return View();
+           }*/
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();

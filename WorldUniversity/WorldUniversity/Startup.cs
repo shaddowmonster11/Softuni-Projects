@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Http;
 using WorldUniversity.Models;
 using WorldUniversity.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace WorldUniversity
 {
@@ -39,10 +41,18 @@ namespace WorldUniversity
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+                /*            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                                .AddRoles<IdentityRole>()
+                               .AddEntityFrameworkStores<ApplicationDbContext>();*/
+                services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)          
+               .AddEntityFrameworkStores<ApplicationDbContext>();
             services.Configure<IdentityOptions>(opts => {
                 opts.Password.RequiredLength = 8;
                 opts.Password.RequireNonAlphanumeric = false;
@@ -50,11 +60,11 @@ namespace WorldUniversity
                 opts.Password.RequireUppercase = false;
                 opts.Password.RequireDigit = true;
             });
-            services.AddAuthorization(options =>
+            /*services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
                      policy => policy.RequireRole("Administrator"));
-            });
+            });*/
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<IStudentsService, StudentsService>();
@@ -83,6 +93,10 @@ namespace WorldUniversity
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            /*app.UseMvc(routes =>
+            {
+                routes.MapRoute("defaut", "{controller=Home}/{action=Index}/{id?}");
+            });*/
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
