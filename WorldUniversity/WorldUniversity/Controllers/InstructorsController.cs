@@ -67,27 +67,12 @@ namespace WorldUniversity.Controllers
                 await this.instructorService.Create(instructor);
                 return RedirectToAction(nameof(Index));
             }
-            PopulateAssignedCourseData(instructor);
+            var allCourses = coursesService.GetAllCourses();
+            var viewModel = instructorService.PopulateAssignedCourseData(instructor,allCourses);
+            ViewData["Courses"] = viewModel;
             return View(instructor);
         }
 
-        private void PopulateAssignedCourseData(GetInstructorsDetailsViewModel instructor)
-        {
-            var allCourses = _context.Courses;
-            var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(c => c.Id));
-            var viewModel = new List<AssignedCourseData>();
-
-            foreach (var course in allCourses)
-            {
-                viewModel.Add(new AssignedCourseData
-                {
-                    Id = course.Id,
-                    Title = course.Title,
-                    Assigned = instructorCourses.Contains(course.Id)
-                });
-            }
-            ViewData["Courses"] = viewModel;
-        }
         public IActionResult Edit(int id)
         {
             var courses = coursesService.GetAll();

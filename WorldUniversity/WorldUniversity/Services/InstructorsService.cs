@@ -13,6 +13,7 @@ namespace WorldUniversity.Services
     public class InstructorsService : IInstructorsService
     {
         private readonly ApplicationDbContext _context;
+
         public InstructorsService(ApplicationDbContext context)
         {
             _context = context;
@@ -124,6 +125,23 @@ namespace WorldUniversity.Services
         public bool InstructorExists(int id)
         {
             return _context.Instructors.Any(e => e.ID == id);
+        }
+
+        public List<AssignedCourseData> PopulateAssignedCourseData(GetInstructorsDetailsViewModel instructor,
+            ICollection<CourseViewModel> allCourses)
+        {
+            var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(c => c.Id));
+            var viewModel = new List<AssignedCourseData>();
+            foreach (var course in allCourses)
+            {
+                viewModel.Add(new AssignedCourseData
+                {
+                    Id = course.Id,
+                    Title = course.Title,
+                    Assigned = instructorCourses.Contains(course.Id)
+                });
+            }
+            return viewModel;
         }
 
         public async Task UpdateInstructor(string firstName, string lastName

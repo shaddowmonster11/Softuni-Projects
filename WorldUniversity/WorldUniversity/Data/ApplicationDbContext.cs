@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using WorldUniversity.Models;
 
 namespace WorldUniversity.Data
@@ -37,6 +35,10 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<CourseAssignment>()
                     .HasKey(c => new { c.Id, c.InstructorId });
             base.OnModelCreating(modelBuilder);
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
     }
 }

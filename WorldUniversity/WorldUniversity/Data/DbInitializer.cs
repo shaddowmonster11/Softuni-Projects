@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
 using WorldUniversity.Models;
 using WorldUniversity.Models.Enums;
+using WorldUniversity.ViewModels.Administration;
 
 namespace WorldUniversity.Data
 {
     public class DbInitializer
-    {
+    {        
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
@@ -16,7 +16,7 @@ namespace WorldUniversity.Data
             {
                 return;
             }
-
+           
             var students = new Student[]
             {
                 new Student { FirstName = "Ivan",   LastName = "Ivanov",
@@ -128,35 +128,9 @@ namespace WorldUniversity.Data
                     Id = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Petrov").ID,
                    Course=courses.Single(c => c.Title == "Basic Algoritms" ),
-                   
-                    },
-                /*new CourseAssignment {
-                    Id = courses.Single(c => c.Title == "VSM" ).Id,
-                    InstructorId = instructors.Single(i => i.LastName == "Stoichkov").ID
+
                     },
 
-
-                new CourseAssignment {
-                    Id = courses.Single(c => c.Title == "Programming C#" ).Id,
-                    InstructorId = instructors.Single(i => i.LastName == "Radichkov").ID
-                    },
-                new CourseAssignment {
-                    Id = courses.Single(c => c.Title == "Programming java" ).Id,
-                    InstructorId = instructors.Single(i => i.LastName == "Radichkov").ID
-                    },
-                new CourseAssignment {
-                    Id = courses.Single(c => c.Title == "Front End" ).Id,
-                    InstructorId = instructors.Single(i => i.LastName == "Stoichkov").ID
-                    },
-                new CourseAssignment {
-                    Id = courses.Single(c => c.Title == "Html" ).Id,
-                    InstructorId = instructors.Single(i => i.LastName == "Hristov").ID
-                    },
-                new CourseAssignment {
-                    Id = courses.Single(c => c.Title == "CSS" ).Id,
-                    InstructorId = instructors.Single(i => i.LastName == "Hristov").ID
-                    },
-*/
             };
 
             foreach (CourseAssignment ci in courseInstructors)
@@ -172,67 +146,24 @@ namespace WorldUniversity.Data
                     Grade = Grade.A,
                     Course=courses.Single(c => c.Title == "Basic Algoritms" ),
                     Student= students.Single(s => s.LastName == "Ivanov"),
-                    
+
                 },
-                    /*new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Mutafov").Id,
-                    Id = courses.Single(c => c.Title == "Programming java" ).Id,
-                    Grade = Grade.C
-                    },
-                    new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Stracimirov").Id,
-                    Id = courses.Single(c => c.Title == "Programming C#" ).Id,
-                    Grade = Grade.B
-                    },
-                    new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Randulov").Id,
-                    Id = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
-                    Grade = Grade.B
-                    },
-                    new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Stoqnova").Id,
-                    Id = courses.Single(c => c.Title == "Front End" ).Id,
-                    Grade = Grade.B
-                    },
-                    new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Petrov").Id,
-                    Id = courses.Single(c => c.Title == "Html" ).Id,
-                    Grade = Grade.B
-                    },
-                    new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Hristov").Id,
-                    Id = courses.Single(c => c.Title == "Programming C#" ).Id
-                    },
-                    new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Hristov").Id,
-                    Id = courses.Single(c => c.Title == "Programming java").Id,
-                    Grade = Grade.B
-                    },
-                new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Mutafov").Id,
-                    Id = courses.Single(c => c.Title == "General Programming").Id,
-                    Grade = Grade.B
-                    },
-                    new Enrollment {
-                    StudentId = students.Single(s => s.LastName == "Petrov").Id,
-                    Id = courses.Single(c => c.Title == "CSS").Id,
-                    Grade = Grade.B
-                    }*/
                 
         };
-
+           
             foreach (Enrollment e in enrollments)
             {
                 var enrollmentInDataBase = context.Enrollments.Where(
                     s =>
                             s.Student.Id == e.StudentId &&
                             s.Course.Id == e.Id).SingleOrDefault();
-                
+
                 if (enrollmentInDataBase == null)
                 {
                     context.Enrollments.Add(e);
                 }
             }
+
             context.SaveChanges();
         }
     }

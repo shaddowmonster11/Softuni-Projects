@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +37,7 @@ namespace WorldUniversity
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            }); 
+            });
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -48,11 +48,8 @@ namespace WorldUniversity
                                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
-                /*            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                                .AddRoles<IdentityRole>()
-                               .AddEntityFrameworkStores<ApplicationDbContext>();*/
-                services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)          
-               .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+           .AddEntityFrameworkStores<ApplicationDbContext>();
             services.Configure<IdentityOptions>(opts => {
                 opts.Password.RequiredLength = 8;
                 opts.Password.RequireNonAlphanumeric = false;
@@ -73,9 +70,10 @@ namespace WorldUniversity
             services.AddTransient<IDepartmentsService, DepartmentsService>();
             services.AddTransient<IHomeService, HomeService>();
         }
-
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app,
+            IWebHostEnvironment env,
+            UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -85,18 +83,16 @@ namespace WorldUniversity
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 app.UseHsts();
             }
+            IdentityDataInitializer.SeedData(userManager, roleManager);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            /*app.UseMvc(routes =>
-            {
-                routes.MapRoute("defaut", "{controller=Home}/{action=Index}/{id?}");
-            });*/
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

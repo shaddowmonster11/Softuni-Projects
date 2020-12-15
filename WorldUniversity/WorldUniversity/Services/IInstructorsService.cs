@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
+using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Instructors;
 
 namespace WorldUniversity.Services
@@ -22,5 +23,7 @@ namespace WorldUniversity.Services
 
         ICollection<GetInstructorsDetailsViewModel> GetAllInstructors();
         bool InstructorExists(int id);
+        List<AssignedCourseData> PopulateAssignedCourseData(GetInstructorsDetailsViewModel instructor
+            , ICollection<CourseViewModel> allCourses);
     }
 }
