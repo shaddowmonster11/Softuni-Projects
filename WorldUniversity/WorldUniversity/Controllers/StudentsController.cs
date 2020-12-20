@@ -11,7 +11,7 @@ using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize]
+      [Authorize(Roles = "Admin")]
     public class StudentsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,33 +26,13 @@ namespace WorldUniversity.Controllers
         public async Task<IActionResult> Index(
             string sortOrder,
             string currentFilter,
-            string searchString,
             int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nameDesc" : "";
             ViewData["DateSortParam"] = sortOrder == "date" ? "dateDesc" : "date";
             DbInitializer dbInitializer = new DbInitializer();
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewData["CurrentFilter"] = searchString;
-
             var studentViewModel = this.studentService.GetStudentAllData();
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                studentViewModel = studentViewModel.Where(s =>
-                                        s.FirstName.Contains(searchString) ||
-                                        s.LastName.Contains(searchString));
-            }
-
             switch (sortOrder)
             {
                 case "nameDesc":

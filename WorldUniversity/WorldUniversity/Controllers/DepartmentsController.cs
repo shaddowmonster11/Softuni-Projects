@@ -10,7 +10,7 @@ using WorldUniversity.ViewModels.Departments;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class DepartmentsController : Controller
     {
         private readonly ApplicationDbContext _context;

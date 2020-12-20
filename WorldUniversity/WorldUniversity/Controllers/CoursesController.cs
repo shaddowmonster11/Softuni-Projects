@@ -2,19 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
-using WorldUniversity.Models;
-using WorldUniversity.Models.Enums;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Enrollements;
-using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;

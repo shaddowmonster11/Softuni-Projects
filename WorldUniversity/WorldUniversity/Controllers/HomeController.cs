@@ -5,12 +5,12 @@ using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly IHomeService homeService;
 
-        public HomeController(ApplicationDbContext context, IHomeService homeService)
+        public HomeController(IHomeService homeService)
         {
             this.homeService = homeService;
         }

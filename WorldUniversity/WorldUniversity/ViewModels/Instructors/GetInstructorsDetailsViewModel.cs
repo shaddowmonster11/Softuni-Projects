@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
@@ -11,9 +12,20 @@ namespace WorldUniversity.ViewModels.Instructors
 {
     public class GetInstructorsDetailsViewModel
     {
+        [Required]
         public int Id { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        [StringLength(50)]
         public string FirstName { get; set; }
+        [Required]
+        [Column("LastName")]
+        [Display(Name = "Last Name")]
+        [StringLength(50)]
         public string LastName { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hire Date")]
         public DateTime HireDate { get; set; }
         [BindProperty]
         public IEnumerable<AssignedCourseData> CourseAssignments { get; set; }

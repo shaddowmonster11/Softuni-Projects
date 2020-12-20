@@ -3,7 +3,6 @@
   text-align: center;
   word-break: break-all;
 }
-
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -56,8 +55,8 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
 .footer {
   position: absolute;

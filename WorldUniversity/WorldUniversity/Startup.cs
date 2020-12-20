@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
-using WorldUniversity.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http;
-using WorldUniversity.Models;
+using System;
+using System.ComponentModel;
+using WorldUniversity.Data;
 using WorldUniversity.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
+using WorldUniversity.Services.Messaging;
 
 namespace WorldUniversity
 {
@@ -27,10 +23,8 @@ namespace WorldUniversity
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -48,20 +42,41 @@ namespace WorldUniversity
                                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-           .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.Configure<IdentityOptions>(opts => {
+            /*         services.AddAuthentication().AddGoogle(options =>
+                     {
+                         options.ClientId = "371659122539-uej12m1b0s5sv45jg7d45csgvaa19rh6.apps.googleusercontent.com";
+                         options.ClientSecret = "Zh5IF3-S9VA23421ECZ5ZFXd";
+                     });*/
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DeleteRolePolicy",
+                    policy => policy.RequireClaim("Delete Role"));
+                options.AddPolicy("CreateRolePolicy",
+                     policy => policy.RequireClaim("Create Role"));
+                options.AddPolicy("EditRolePolicy",
+                   policy => policy.RequireClaim("Edit Role"));
+            });
+            services.AddIdentity<IdentityUser, IdentityRole>
+                (
+                options => options.SignIn.RequireConfirmedAccount = true
+                )
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultUI()
+        .AddDefaultTokenProviders();
+            services.AddTransient<IMailHelper>(serviceProvider =>
+               new MailHelper(
+                   this.Configuration["MailSender:Email"],
+                   this.Configuration["MailSender:Password"]));
+            services.Configure<IdentityOptions>(opts =>
+            {
                 opts.Password.RequiredLength = 8;
                 opts.Password.RequireNonAlphanumeric = false;
                 opts.Password.RequireLowercase = false;
                 opts.Password.RequireUppercase = false;
                 opts.Password.RequireDigit = true;
+                opts.SignIn.RequireConfirmedAccount = true;
+                opts.SignIn.RequireConfirmedEmail = true;
             });
-            /*services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequireAdministratorRole",
-                     policy => policy.RequireRole("Administrator"));
-            });*/
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<IStudentsService, StudentsService>();

@@ -12,11 +12,11 @@ namespace WorldUniversity.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 1)]
+        [StringLength(50)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [StringLength(50, MinimumLength = 1)]
+        [StringLength(50)]
         [Column("LastName")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
@@ -26,15 +26,11 @@ namespace WorldUniversity.Models
         [Display(Name = "Enrollment Date")]
         public DateTime EnrollmentDate { get; set; }
 
+        public ICollection<Enrollment> Enrollments { get; set; }
         [Display(Name = "Full Name")]
         public string FullName
         {
-            get
-            {
-                return FirstName + " " + LastName;
-            }
+            get { return FirstName + " " + LastName; }
         }
-
-        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

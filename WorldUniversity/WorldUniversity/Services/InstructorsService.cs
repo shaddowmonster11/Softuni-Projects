@@ -97,7 +97,7 @@ namespace WorldUniversity.Services
             return viewModel;
         }
 
-        public GetInstructorsDetailsViewModel GetInstructorsDetails(int ?id)
+        public GetInstructorsDetailsViewModel GetInstructorsDetails(int? id)
         {
             var instructor = _context.Instructors
                 .Where(x => x.ID == id)
@@ -166,9 +166,9 @@ namespace WorldUniversity.Services
                     var courseAssigment = new CourseAssignment
                     {
                         Course = course,
-                        Id= course.Id,
+                        Id = course.Id,
                         Instructor = updatedInstructor,
-                        InstructorId=updatedInstructor.ID,
+                        InstructorId = updatedInstructor.ID,
                     };
                     listedAssignments.Add(courseAssigment);
                 }
