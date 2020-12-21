@@ -24,32 +24,11 @@ namespace WorldUniversity.Controllers
         }
 
         public async Task<IActionResult> Index(
-            string sortOrder,
-            string currentFilter,
             int? pageNumber)
         {
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nameDesc" : "";
-            ViewData["DateSortParam"] = sortOrder == "date" ? "dateDesc" : "date";
-            DbInitializer dbInitializer = new DbInitializer();
-            var studentViewModel = this.studentService.GetStudentAllData();
-            switch (sortOrder)
-            {
-                case "nameDesc":
-                    studentViewModel = studentViewModel.OrderByDescending(s => s.FirstName);
-                    break;
-                case "date":
-                    studentViewModel = studentViewModel.OrderBy(s => s.EnrollmentDate);
-                    break;
-                case "dateDesc":
-                    studentViewModel = studentViewModel.OrderByDescending(s => s.EnrollmentDate);
-                    break;
-                default:
-                    studentViewModel = studentViewModel.OrderBy(s => s.LastName);
-                    break;
-            }
-            int pageSize = 3;
-            return View(await PaginatedList<StudentViewModel>.CreateAsync(studentViewModel.AsNoTracking(), pageNumber ?? 1, pageSize));
+            var studentViewModel = this.studentService.GetStudentAllData();          
+            return View(await PaginatedList<StudentViewModel>
+                .CreateAsync(studentViewModel.AsNoTracking(), pageNumber ?? 1));
         }
 
         public IActionResult Details(int id)

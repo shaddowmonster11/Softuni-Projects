@@ -673,3 +673,8 @@ C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\De
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BasicLayout.cshtml.g.cs
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\lib\bootstrap\dist\css\bootstrap_slates.css
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\lib\bootstrap\dist\css\bootstrap.min_slates.css
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\css\site.min.css
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\css\contact.css
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\css\sb-admin-2.css
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\css\sb-admin-2.min.css
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\css\site.css

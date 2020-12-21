@@ -1,53 +1,79 @@
 ﻿@model WorldUniversity.Repositories.PaginatedList<WorldUniversity.ViewModels.Students.StudentViewModel>
-
 @{
     ViewData["Title"] = "Index";
 }
-
-<h2>Students</h2>
-
+<div class="container-fluid">
+    <p>
+        <a class="btn btn-success" style="width:auto"
+           asp-action="Create">
+            Create New Student
+        </a>
+    </p>
+</div>
 <div class="container-fluid" id="print">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <a onclick="PrintOnlyTable()" class="btn btn-primary btn-icon-split text-white rounded-pill float-right">
-                <span class="icon text-white-50">
-                    <i class="fas fa-print"></i>
-                </span>
-                <span class="text">Print</span>
-            </a>
-        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover font-italic " id="example" width="100%">
                     <thead>
                         <tr>
-                            <th colspan="5" class="text-center">Cleaning Checklist For: @DateTime.UtcNow.ToLocalTime().ToString("d")</th>
+                            <th colspan="6" class="text-center">Student Body</th>
                         </tr>
                         <tr class="bg-primary text-gray-400">
-                            <th class="text-center align-middle">Room</th>
-                            <th class="text-center align-middle">Room Type</th>
-                            <th class="text-center align-middle">Daily Cleanup</th>
-                            <th class="text-center align-middle">Full Cleanup</th>
-                            <th class="text-center align-middle">Checked</th>
+                            <th class="text-center align-middle">First Name</th>
+                            <th class="text-center align-middle">Last Name</th>
+                            <th class="text-center align-middle">Date of Enrollment</th>
+                            <th class="text-center align-middle">Student Details</th>
+                            <th class="text-center align-middle">Edit Student</th>
+                            <th class="text-center align-middle">Delete Student</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th class="text-center align-middle">@item.FirstName</th>
+                                    <th class="text-center align-middle">@item.LastName</th>
+                                    <th class="text-center align-middle">@item.ShortEnrollemntFormat</th>
+                                    <th class="text-center">
+                                        <a class="btn btn-primary" style="width:auto"
+                                           asp-action="Details" asp-route-id="@item.Id">
+                                            Details
+                                        </a>
+                                    </th>
+                                    <th class="text-center">
+                                        <a class="btn btn-primary" style="width:auto"
+                                           asp-action="Edit" asp-route-id="@item.Id">
+                                            Edit
+                                        </a>
+                                    </th>
+                                    <th class="text-center">
+                                        <a class="btn text-center btn-danger" style="width:auto"
+                                           asp-action="Delete" asp-route-id="@item.Id">
+                                            Delete
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="5" class="text-right"></th>
+                            <th colspan="6" class="text-right"></th>
                         </tr>
-
                         <tr>
-                            <th colspan="4" class="text-right">Total Rooms:</th>
+                            <th colspan="5" class="text-right">Total Number Of Students</th>
                             <th colspan="1" class="text-center">@Model.Count()</th>
                         </tr>
                     </tfoot>
-                    <tbody>
-                       
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
+@section Scripts
+{
+    <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
+}
