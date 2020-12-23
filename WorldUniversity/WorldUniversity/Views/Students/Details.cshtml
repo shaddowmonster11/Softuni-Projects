@@ -7,8 +7,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-body">
-            <h2>Details</h2>
-            <h4>Student</h4>
+            <h2>Student Details</h2>
             <hr />
             <div class="dl-horizontal">
                 <div class="form-group">
@@ -27,12 +26,11 @@
                     <span class="control-label">@Model.ShortEnrollemntFormat</span>
                 </div>
             </div>
-            @*we write courses here!*@
-            <div class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Enrollments)
+            <div class="col-sm-10 ">
+                <h3>Enrollments</h3>
             </div>
             <div class="col-sm-10">
-                <table class="table">
+                <table class="table text-black-50">
                     <tr>
                         <th>Course Title</th>
                         <th>Grade</th>
@@ -50,61 +48,20 @@
                     }
                 </table>
             </div>
-            <div>
-                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                <a asp-action="Index">Back to List</a>
-            </div>
-        </div>
-    </div>
-</div>    <div class="container-fluid">
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <h2>Details</h2>
-            <h4>Student</h4>
-            <hr />
-            <div class="dl-horizontal">
-                <div class="form-group">
-                    <label asp-for="FirstName" class="font-weight-bold"></label>
-                    <br />
-                    <span class="control-label">@Model.FirstName</span>
+            <div class="form-group">
+                <div class="row">
+                    <a class="btn btn-success" style="width:auto"
+                       asp-action="Edit" asp-route-id="@Model.Id">
+                        Edit Student
+                    </a>
                 </div>
-                <div class="form-group">
-                    <label asp-for="LastName" class="font-weight-bold"></label>
-                    <br />
-                    <span class="control-label">@Model.LastName</span>
+                <br />  
+                <div class="row">
+                    <a class="btn btn-primary" style="width:auto"
+                       asp-action="Index">
+                        Back to List
+                    </a>
                 </div>
-                <div class="form-group">
-                    <label asp-for="EnrollmentDate" class="font-weight-bold"></label>
-                    <br />
-                    <span class="control-label">@Model.ShortEnrollemntFormat</span>
-                </div>
-            </div>
-            @*we write courses here!*@
-            <div class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Enrollments)
-            </div>
-            <div class="col-sm-10">
-                <table class="table">
-                    <tr>
-                        <th>Course Title</th>
-                        <th>Grade</th>
-                    </tr>
-                    @foreach (var item in Model.Enrollments)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modeltem => item.Course.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelitem => item.Grade)
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            <div>
-                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                <a asp-action="Index">Back to List</a>
             </div>
         </div>
     </div>

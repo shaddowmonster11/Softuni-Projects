@@ -12,7 +12,7 @@
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
-}
+}nav-link
 
 .btn-primary {
     color: #fff;
@@ -68,3 +68,4 @@ html {
     width: 100%;
     white-space: nowrap;
 }
+

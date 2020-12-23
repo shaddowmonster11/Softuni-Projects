@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="~/css/site.css" />
     @RenderSection("Style", required: false)
 </head>
-<body class="bg-light">   
+<body class="bg-dark">   
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
                     <div class="container">
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WorldUniversity</a>
+                        <a class="navbar-brand text-white" asp-controller="Home" asp-action="Index">WorldUniversity</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -33,13 +33,13 @@
                             </ul>
                             <ul class="navbar-nav flex-fill">
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                                    <a class="nav-link text-white" asp-controller="Home" asp-action="About">About</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                    <a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Privacy</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white" asp-controller="Home" asp-action="Contact">Contact</a>
                                 </li>
                             </ul>
                         </div>
