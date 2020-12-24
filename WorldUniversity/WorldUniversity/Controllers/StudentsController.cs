@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
-using WorldUniversity.Data;
 using WorldUniversity.Repositories;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Students;
@@ -14,12 +11,10 @@ namespace WorldUniversity.Controllers
       [Authorize(Roles = "Admin")]
     public class StudentsController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IStudentsService studentService;
 
-        public StudentsController(ApplicationDbContext context, IStudentsService studentService)
+        public StudentsController(IStudentsService studentService)
         {
-            _context = context;
             this.studentService = studentService;
         }
 

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using WorldUniversity.Data;
+using WorldUniversity.Models.Enums;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Enrollements;
@@ -13,13 +15,16 @@ namespace WorldUniversity.Controllers
     [Authorize(Roles = "Admin")]
     public class CoursesController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly ICoursesService coursesService;
+        private readonly IDepartmentsService departmentsService;
+        private readonly IStudentsService studentsService;
 
-        public CoursesController(ApplicationDbContext context, ICoursesService coursesService)
+        public CoursesController(ICoursesService coursesService
+            , IDepartmentsService departmentsService, IStudentsService studentsService)
         {
-            _context = context;
             this.coursesService = coursesService;
+            this.departmentsService = departmentsService;
+            this.studentsService = studentsService;
         }
         public IActionResult Index()
         {
@@ -29,14 +34,27 @@ namespace WorldUniversity.Controllers
         [Authorize]
         public IActionResult Enrollment()
         {
-            return View();
+            var students = studentsService.GetStudentAllData().ToList();
+            var courses = coursesService.GetAllCourses();
+            var student = new CreateEnrollemntViewModel
+            {
+                Students = students,
+                Courses = courses,
+            };
+            return View(student);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<IActionResult> Enrollment(CreateEnrollemntViewModel enrollment)
         {
-            await coursesService.EnrollStudent(enrollment.FirstName, enrollment.LastName, enrollment.CourseTitle, enrollment.StudentGrade);
+            if (ModelState.IsValid)
+            {
+                await coursesService.EnrollStudent(enrollment.StudentId
+                 , enrollment.CourseId
+                 , enrollment.StudentGrade);
+                return RedirectToAction(nameof(Index));
+            }          
             return View();
         }
         public IActionResult Details(int id)
@@ -47,8 +65,13 @@ namespace WorldUniversity.Controllers
 
         public IActionResult Create()
         {
-            PopulateDepartmentsDropDownList();
-            return View();
+            var departments = departmentsService.GetAdmin();
+
+            var department = new CourseInputModel
+            {
+                Departments = departments,
+            };
+            return View(department);
         }
 
         [HttpPost]
@@ -60,7 +83,6 @@ namespace WorldUniversity.Controllers
                 await coursesService.Create(course);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", course.DepartmentId);
             return View(course);
         }
 
@@ -71,7 +93,6 @@ namespace WorldUniversity.Controllers
             {
                 return NotFound();
             }
-            PopulateDepartmentsDropDownList(course.DepartmentId);
             return View(course);
         }
 
@@ -104,7 +125,6 @@ namespace WorldUniversity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", course.DepartmentId);
             return View(course);
         }
 
@@ -120,12 +140,6 @@ namespace WorldUniversity.Controllers
         {
             await coursesService.DeleteCourse(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
-        {
-            var departmentsQuery = coursesService.PopulateDepartment(selectedDepartment);
-            ViewBag.DepartmentId = new SelectList(departmentsQuery.AsNoTracking(), "DepartmentId", "Name", selectedDepartment);
         }
     }
 }

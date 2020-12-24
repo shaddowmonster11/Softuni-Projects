@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Linq;
 using WorldUniversity.Models;
 using WorldUniversity.Models.Enums;
-using WorldUniversity.ViewModels.Administration;
 
 namespace WorldUniversity.Data
 {
     public class DbInitializer
-    {        
+    {
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
@@ -16,7 +14,7 @@ namespace WorldUniversity.Data
             {
                 return;
             }
-           
+
             var students = new Student[]
             {
                 new Student { FirstName = "Ivan",   LastName = "Ivanov",
@@ -31,7 +29,7 @@ namespace WorldUniversity.Data
                     EnrollmentDate = DateTime.Parse("2011-01-01") },
                 new Student { FirstName = "Pesho",    LastName = "Petrov",
                     EnrollmentDate = DateTime.Parse("2013-01-01") },
-                new Student { FirstName = "Hristomir",     LastName = "Hristov",
+                new Student { FirstName = "Hristomir",    LastName = "Hristov",
                     EnrollmentDate = DateTime.Parse("2004-01-01") }
             };
 
@@ -148,9 +146,9 @@ namespace WorldUniversity.Data
                     Student= students.Single(s => s.LastName == "Ivanov"),
 
                 },
-                
+
         };
-           
+
             foreach (Enrollment e in enrollments)
             {
                 var enrollmentInDataBase = context.Enrollments.Where(

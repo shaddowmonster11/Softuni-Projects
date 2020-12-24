@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WorldUniversity.Data;
 using WorldUniversity.Services;
 
 namespace WorldUniversity.Controllers

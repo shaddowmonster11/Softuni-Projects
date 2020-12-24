@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WorldUniversity.Data;
 using WorldUniversity.Services;
-using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Instructors;
 
 namespace WorldUniversity.Controllers
@@ -13,14 +11,11 @@ namespace WorldUniversity.Controllers
     [Authorize(Roles = "Admin")]
     public class InstructorsController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IInstructorsService instructorService;
         private readonly ICoursesService coursesService;
-        public InstructorsController(ApplicationDbContext context
-            , IInstructorsService instructorService
+        public InstructorsController(IInstructorsService instructorService
             , ICoursesService coursesService)
-        {
-            _context = context;
+        {         
             this.instructorService = instructorService;
             this.coursesService = coursesService;
         }

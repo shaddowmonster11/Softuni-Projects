@@ -32,7 +32,5 @@ namespace WorldUniversity.ViewModels.Students
                 return FirstName + " " + LastName;
             }
         }
-
-        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

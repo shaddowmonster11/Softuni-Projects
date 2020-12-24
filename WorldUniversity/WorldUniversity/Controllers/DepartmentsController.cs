@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using WorldUniversity.Data;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Departments;
 
@@ -13,15 +12,12 @@ namespace WorldUniversity.Controllers
     [Authorize(Roles = "Admin")]
     public class DepartmentsController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IDepartmentsService departmentsService;
         private readonly IInstructorsService instructorService;
 
-        public DepartmentsController(ApplicationDbContext context
-            , IDepartmentsService departmentsService
+        public DepartmentsController(IDepartmentsService departmentsService
             , IInstructorsService instructorService)
         {
-            _context = context;
             this.departmentsService = departmentsService;
             this.instructorService = instructorService;
         }

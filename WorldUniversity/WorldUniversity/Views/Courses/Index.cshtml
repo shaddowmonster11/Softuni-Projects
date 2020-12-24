@@ -3,54 +3,81 @@
 @{
     ViewData["Title"] = "Courses";
 }
-
-<h2>Courses</h2>
-<p>
-    <a asp-action="Create">Create New Course</a>   
-</p>
-<p>
-    <a asp-action="Enrollment" asp-route-id="model.id">Enrollment</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Credits)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Credits)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Department.Name)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>| 
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>| 
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container-fluid">
+    <p>
+        <a class="btn btn-success" style="width:auto"
+           asp-action="Create">
+            Create New Course
+        </a>
+        <a class="btn btn-success" style="width:auto"
+           asp-action="Enrollment" asp-route-id="model.id">
+            Create New Enrollment
+        </a>
+</div>
+<div class="container-fluid" id="print">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover font-italic " id="example" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="6" class="text-center">Courses</th>
+                        </tr>
+                        <tr class="bg-primary text-gray-400">
+                            <th class="text-center align-middle">Title</th>
+                            <th class="text-center align-middle">Credits</th>
+                            <th class="text-center align-middle">Department</th>
+                            <th class="text-center align-middle">Course Details</th>
+                            <th class="text-center align-middle">Edit Course</th>
+                            <th class="text-center align-middle">Delete Course</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th class="text-center align-middle">@item.Title</th>
+                                    <th class="text-center align-middle">@item.Credits</th>
+                                    <th class="text-center align-middle">@item.Department.Name</th>
+                                    <th class="text-center">
+                                        <a class="btn btn-primary" style="width:auto"
+                                           asp-action="Details" asp-route-id="@item.Id">
+                                            Details
+                                        </a>
+                                    </th>
+                                    <th class="text-center">
+                                        <a class="btn btn-primary" style="width:auto"
+                                           asp-action="Edit" asp-route-id="@item.Id">
+                                            Edit
+                                        </a>
+                                    </th>
+                                    <th class="text-center">
+                                        <a class="btn text-center btn-danger" style="width:auto"
+                                           asp-action="Delete" asp-route-id="@item.Id">
+                                            Delete
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="6" class="text-right"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="5" class="text-right">Total Number Of Courses</th>
+                            <th colspan="1" class="text-center">@Model.Count()</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
+}

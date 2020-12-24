@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
+using WorldUniversity.ViewModels.Departments;
 
 namespace WorldUniversity.ViewModels.Courses
 {
@@ -16,6 +17,7 @@ namespace WorldUniversity.ViewModels.Courses
         [Display(Name = "Department")]
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+        public IEnumerable<DepartmentViewModel> Departments { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
     }

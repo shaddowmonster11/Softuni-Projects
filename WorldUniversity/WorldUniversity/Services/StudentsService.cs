@@ -25,7 +25,6 @@ namespace WorldUniversity.Services
                 FirstName = input.FirstName,
                 LastName = input.LastName,
                 EnrollmentDate = input.EnrollmentDate,
-                //Have to add enrollement Here
             };
 
             await _context.AddAsync(student);
@@ -37,6 +36,14 @@ namespace WorldUniversity.Services
             var deletedStudent = _context.Students
              .AsNoTracking()
              .FirstOrDefault(m => m.Id == id);
+            if (_context.Enrollments.Any(x=>x.StudentId==id))
+            {
+                var enrollmentToRemove = _context.Enrollments.Where(x => x.StudentId == id).ToList();
+                foreach (var subject in enrollmentToRemove)
+                {
+                    _context.Enrollments.Remove(subject);
+                }
+            }
              _context.Students.Remove(deletedStudent);
             await _context.SaveChangesAsync();
         }

@@ -7,6 +7,7 @@ using WorldUniversity.Data;
 using WorldUniversity.Models;
 using WorldUniversity.Models.Enums;
 using WorldUniversity.ViewModels.Courses;
+using WorldUniversity.ViewModels.Departments;
 
 namespace WorldUniversity.Services
 {
@@ -49,12 +50,12 @@ namespace WorldUniversity.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task EnrollStudent(string studentFirstName, string studentLastName
-            , string courseTitle, string studentCourseGrade)
+        public async Task EnrollStudent(int studentId
+            , int courseId, string studentCourseGrade)
         {
             var student = await _context.Students
-                .FirstOrDefaultAsync(s=>s.FirstName == studentFirstName && s.LastName == studentLastName);
-            var course = _context.Courses.Single(c => c.Title == courseTitle);
+                .FirstOrDefaultAsync(s => s.Id==studentId);
+            var course = _context.Courses.Single(c => c.Id == courseId);
             var grade = (Grade)Enum.Parse(typeof(Grade), studentCourseGrade);
             var enrollments = new Enrollment
             {
@@ -107,6 +108,22 @@ namespace WorldUniversity.Services
 
         public GetCoursesDetailsViewModel GetCoursesDetails(int id)
         {
+            var departments = _context.Departments
+                   .Include(d => d.Administrator)
+                   .Include(d => d.Courses)
+                   .Select(a => new DepartmentViewModel
+                   {
+                       DepartmentId = a.DepartmentId,
+                       InstructorId = a.InstructorId,
+                       Name = a.Name,
+                       Budget = a.Budget,
+                       StartDate = a.StartDate,
+                       RowVersion = a.RowVersion,
+                       Administrator = a.Administrator,
+                       Courses = a.Courses,
+                   })
+                   .ToList();
+
             var course = _context.Courses
             .Include(c => c.Department)
             .AsNoTracking()
@@ -117,19 +134,11 @@ namespace WorldUniversity.Services
                 Credits = x.Credits,
                 DepartmentId = x.DepartmentId,
                 Department = x.Department,
+                Departments = departments,
             })
             .FirstOrDefault(m => m.Id == id);
             return course;
         }
-
-        public IQueryable<Department> PopulateDepartment(object selectedDepartment = null)
-        {
-            var departmentsQuery = from d in _context.Departments
-                                   orderby d.Name
-                                   select d;
-            return departmentsQuery;
-        }
-
         public async Task UpdateCourse(int Id, string title, int credits, int departmentId)
         {
             var updatedCourse = _context.Courses
