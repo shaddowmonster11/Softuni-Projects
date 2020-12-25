@@ -16,8 +16,8 @@ namespace WorldUniversity.Services
         public DepartmentsService(ApplicationDbContext context)
         {
             _context = context;
-        }
-        public async Task Create(DepartmentViewModel input)
+        }      
+        public async Task Create(DepartmentInputModel input)
         {
             var department = new Department
             {
@@ -26,7 +26,7 @@ namespace WorldUniversity.Services
                 Budget = input.Budget,
                 StartDate = input.StartDate,
                 InstructorId = input.InstructorId,
-                RowVersion = input.RowVersion
+                RowVersion = input.RowVersion,            
             };
             await _context.AddAsync(department);
             await _context.SaveChangesAsync();

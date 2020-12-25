@@ -11,7 +11,7 @@ namespace WorldUniversity.Services
         IEnumerable<DepartmentViewModel> GetAdmin();
         bool DepartmentExists(int id);
         DepartmentViewModel GetDepartmentDetails(int id);
-        Task Create(DepartmentViewModel input);
+        Task Create(DepartmentInputModel input);
         Task DeleteDepartment(int id);
         Task UpdateDepartment(int departmentId,string name
             , decimal budget,DateTime startDate,int instructorId);

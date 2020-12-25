@@ -34,7 +34,7 @@ namespace WorldUniversity.Controllers
         {
             var instructors = instructorService.GetAllInstructors();
 
-            var department = new DepartmentViewModel
+            var department = new DepartmentInputModel
             {
                 Instructors = instructors,
             };
@@ -44,7 +44,7 @@ namespace WorldUniversity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DepartmentViewModel department)
+        public async Task<IActionResult> Create(DepartmentInputModel department)
         {
             if (!ModelState.IsValid)
             {

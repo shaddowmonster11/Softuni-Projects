@@ -4,57 +4,80 @@
     ViewData["Title"] = "Departments";
 }
 
-<h2>Departments</h2>
-
-<p>
-    <a asp-action="Create">Create New Department</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Budget)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RowVersion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Administrator)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Budget)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RowVersion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Administrator.FullName)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.DepartmentId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.DepartmentId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.DepartmentId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container-fluid">
+    <p>
+        <a class="btn btn-success" style="width:auto"
+           asp-action="Create">
+            Create New Department
+        </a>
+    </p>
+</div>
+<div class="container-fluid" id="print">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover font-italic " id="example" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="8" class="text-center">Departments</th>
+                        </tr>
+                        <tr class="bg-primary text-gray-400">
+                            <th class="text-center align-middle">Name</th>
+                            <th class="text-center align-middle">Budget</th>
+                            <th class="text-center align-middle">Date Of Creation</th>
+                            <th class="text-center align-middle">Administrator</th>
+                            <th class="text-center align-middle">Department Details</th>
+                            <th class="text-center align-middle">Edit Department</th>
+                            <th class="text-center align-middle">Delete Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th class="text-center align-middle">@item.Name</th>
+                                    <th class="text-center align-middle">@item.Budget.ToString("0.00")</th>
+                                    <th class="text-center align-middle">@item.ShortStartDateFormat</th>
+                                    <th class="text-center align-middle">@item.Administrator.FullName</th>
+                                    <th class="text-center">
+                                        <a class="btn btn-primary" style="width:auto"
+                                           asp-action="Details" asp-route-id="@item.DepartmentId">
+                                            Details
+                                        </a>
+                                    </th>
+                                    <th class="text-center">
+                                        <a class="btn btn-primary" style="width:auto"
+                                           asp-action="Edit" asp-route-id="@item.DepartmentId">
+                                            Edit
+                                        </a>
+                                    </th>
+                                    <th class="text-center">
+                                        <a class="btn text-center btn-danger" style="width:auto"
+                                           asp-action="Delete" asp-route-id="@item.DepartmentId">
+                                            Delete
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="8" class="text-right"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="6" class="text-right">Total Number Of Departments</th>
+                            <th colspan="3" class="text-center">@Model.Count()</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
+}

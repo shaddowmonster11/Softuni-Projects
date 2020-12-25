@@ -1,6 +1,5 @@
 ﻿@model WorldUniversity.ViewModels.Courses.CourseInputModel
 
-
 @{
     ViewData["Title"] = "Create";
     var departmentId = Model.Departments.Select(x => new SelectListItem(x.Name, x.DepartmentId.ToString()));
