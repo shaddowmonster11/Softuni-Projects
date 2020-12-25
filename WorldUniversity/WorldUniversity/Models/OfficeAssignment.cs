@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WorldUniversity.Models
 {
@@ -10,11 +6,7 @@ namespace WorldUniversity.Models
     {
         [Key]
         public int InstructorId { get; set; }
-
-        [StringLength(50)]
-        [Display(Name = "Office Location")]
         public string Location { get; set; }
-
         public Instructor Instructor { get; set; }
     }
 }

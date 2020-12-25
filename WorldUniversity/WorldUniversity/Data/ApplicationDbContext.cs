@@ -33,7 +33,7 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
             modelBuilder.Entity<CourseAssignment>()
-                    .HasKey(c => new { c.Id, c.InstructorId });
+                  .HasKey(c => new { c.Id, c.InstructorId });
             base.OnModelCreating(modelBuilder);
             foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

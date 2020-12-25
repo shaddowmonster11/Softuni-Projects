@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using WorldUniversity.Models;
 using WorldUniversity.Models.Enums;
+using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.Data
 {
@@ -119,7 +121,6 @@ namespace WorldUniversity.Data
                 context.OfficeAssignments.Add(o);
             }
             context.SaveChanges();
-
             var courseInstructors = new CourseAssignment[]
             {
                 new CourseAssignment {

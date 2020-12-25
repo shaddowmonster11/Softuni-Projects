@@ -28,26 +28,24 @@ namespace WorldUniversity.Services
                 HireDate = input.HireDate,
                 OfficeAssignment = input.OfficeAssignment,
             };
-            var courseAssignments = new List<CourseAssignment>();
-            for (int i = 0; i < input.SelectedCoursesId.Length; i++)
-            {
-                var course = _context.Courses.First(x => x.Id == input.SelectedCoursesId[i]);
-                var courseAssigment = new CourseAssignment
-                {
-                    Course = course,
-                    Instructor = instructor,
-                };
-                courseAssignments.Add(courseAssigment);
-            }
-            instructor.CourseAssignments = courseAssignments;
+          
             await _context.AddAsync(instructor);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteInstructor(int id)
-        {
+        {       
+            var office = await _context.OfficeAssignments
+                .FirstOrDefaultAsync(o => o.InstructorId == id);
+            _context.OfficeAssignments.Remove(office);
+            var courseAssigment = _context.CourseAssignments
+                 .Where(o => o.InstructorId == id).ToList();
+            foreach (var item in courseAssigment)
+            {
+                _context.CourseAssignments.Remove(item);
+            }
             var instructor = await _context.Instructors
-               .FirstOrDefaultAsync(m => m.ID == id);
+            .FirstOrDefaultAsync(m => m.ID == id);
             _context.Instructors.Remove(instructor);
             var departments = await _context.Departments
                     .Where(d => d.InstructorId == id)

@@ -603,7 +603,6 @@ C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\De
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.csproj.CopyComplete
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.dll
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.pdb
-C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.csprojAssemblyReference.cache
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\SendGrid.dll
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\StarkbankEcdsa.dll
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\Razor\Views\Courses\Enrollment.cshtml.g.cs
@@ -742,3 +741,4 @@ C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\De
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\lib\jquery\dist\jquery.min.map
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\lib\jquery\dist\jquery.slim.js
 C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\bin\Debug\netcoreapp3.1\wwwroot\lib\jquery\jquery.js
+C:\Users\shadd\Desktop\TortoiseRepository\WorldUniversity\WorldUniversity\obj\Debug\netcoreapp3.1\WorldUniversity.csprojAssemblyReference.cache

@@ -15,7 +15,7 @@ namespace WorldUniversity.Controllers
         private readonly ICoursesService coursesService;
         public InstructorsController(IInstructorsService instructorService
             , ICoursesService coursesService)
-        {         
+        {
             this.instructorService = instructorService;
             this.coursesService = coursesService;
         }
@@ -63,7 +63,7 @@ namespace WorldUniversity.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var allCourses = coursesService.GetAllCourses();
-            var viewModel = instructorService.PopulateAssignedCourseData(instructor,allCourses);
+            var viewModel = instructorService.PopulateAssignedCourseData(instructor, allCourses);
             ViewData["Courses"] = viewModel;
             return View(instructor);
         }

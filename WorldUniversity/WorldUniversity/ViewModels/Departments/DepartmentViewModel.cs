@@ -25,8 +25,6 @@ namespace WorldUniversity.ViewModels.Departments
         public DateTime StartDate { get; set; }
         [Display(Name = "Administrator")]
         public int? InstructorId { get; set; }
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
         public Instructor Administrator { get; set; }
         public ICollection<Course> Courses { get; set; }
         public ICollection<GetInstructorsDetailsViewModel> Instructors { get; set; }

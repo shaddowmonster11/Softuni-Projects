@@ -35,7 +35,6 @@ namespace WorldUniversity.Services
             _context.Add(courses);
             await _context.SaveChangesAsync();
         }
-
         public async Task DeleteCourse(int id)
         {
             var course = await _context.Courses.FindAsync(id);
@@ -118,7 +117,6 @@ namespace WorldUniversity.Services
                        Name = a.Name,
                        Budget = a.Budget,
                        StartDate = a.StartDate,
-                       RowVersion = a.RowVersion,
                        Administrator = a.Administrator,
                        Courses = a.Courses,
                    })

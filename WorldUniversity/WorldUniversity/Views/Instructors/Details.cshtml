@@ -4,29 +4,43 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
-    <h4>Instructor</h4>
-    <hr />
-    <div class="dl-horizontal">
-        <div class="form-group">
-            <label asp-for="FirstName" class="font-weight-bold"></label>
-            <br />
-            <span class="control-label">@Model.FirstName</span>
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h2>Instructor Details</h2>
+            <hr />
+            <div class="dl-horizontal">
+                <div class="form-group">
+                    <label asp-for="FirstName" class="font-weight-bold"></label>
+                    <br />
+                    <span class="control-label">@Model.FirstName</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="font-weight-bold"></label>
+                    <br />
+                    <span class="control-label">@Model.LastName</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HireDate" class="font-weight-bold"></label>
+                    <br />
+                    <span class="control-label">@Model.ShortHireDateFormat</span>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <a class="btn btn-success" style="width:auto"
+                           asp-action="Edit" asp-route-id="@Model.Id">
+                            Edit Instructor
+                        </a>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <a class="btn btn-primary" style="width:auto"
+                           asp-action="Index">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="LastName" class="font-weight-bold"></label>
-            <br />
-            <span class="control-label">@Model.LastName</span>
-        </div>
-        <div class="form-group">
-            <label asp-for="HireDate" class="font-weight-bold"></label>
-            <br />
-            <span class="control-label">@Model.ShortHireDateFormat</span>
-          </div>
-        </div>  
-            
-        <div>
-            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-            <a asp-action="Index">Back to List</a>
-        </div>
+    </div>
+</div>

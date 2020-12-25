@@ -19,14 +19,14 @@ namespace WorldUniversity.Services
         }      
         public async Task Create(DepartmentInputModel input)
         {
+            
             var department = new Department
             {
                 DepartmentId = input.DepartmentId,
                 Name = input.Name,
                 Budget = input.Budget,
                 StartDate = input.StartDate,
-                InstructorId = input.InstructorId,
-                RowVersion = input.RowVersion,            
+                InstructorId = input.InstructorId, 
             };
             await _context.AddAsync(department);
             await _context.SaveChangesAsync();
@@ -60,7 +60,6 @@ namespace WorldUniversity.Services
                      Name = a.Name,
                      Budget = a.Budget,
                      StartDate = a.StartDate,
-                     RowVersion = a.RowVersion,
                      Administrator = a.Administrator,
                      Courses = a.Courses,
                  })
@@ -80,7 +79,6 @@ namespace WorldUniversity.Services
                     Name = x.Name,
                     Budget = x.Budget,
                     StartDate = x.StartDate,
-                    RowVersion = x.RowVersion,
                     Administrator = x.Administrator,
                     Courses = x.Courses,
                 })

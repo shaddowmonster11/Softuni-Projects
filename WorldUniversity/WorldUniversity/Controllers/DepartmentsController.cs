@@ -113,8 +113,6 @@ namespace WorldUniversity.Controllers
                     ModelState.AddModelError(String.Empty, "The record you attempted to edit was modified by another user."
                                                             + " The edit operation was cancelled and current values in the Database"
                                                             + " have been displayed.");
-                    department.RowVersion = (byte[])databaseValues.RowVersion;
-                    ModelState.Remove("RowVersion");
                 }
                 return View(department);
             }
