@@ -15,6 +15,6 @@ namespace WorldUniversity.Services
         Task DeleteCourse(int id);
         ICollection<CourseViewModel> GetAllCourses();
         Task UpdateCourse(int Id, string title, int credits, int departmentId);
-        bool CourseExists(int id);
+        bool CourseExists(string name);
     }
 }

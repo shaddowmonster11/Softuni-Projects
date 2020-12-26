@@ -14,6 +14,6 @@ namespace WorldUniversity.Services
         IQueryable<StudentViewModel> GetStudentAllData();
         Task UpdateStudent(string firstName,string lastName,DateTime enrollmentDate,int id);
         Task DeleteStudent(int id);
-        bool StudentExists(int id);
+        bool StudentExists(string firstName, string lastName);
     }
 }

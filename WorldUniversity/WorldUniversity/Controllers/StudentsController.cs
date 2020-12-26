@@ -8,7 +8,7 @@ using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {
-      [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class StudentsController : Controller
     {
         private readonly IStudentsService studentService;
@@ -21,7 +21,7 @@ namespace WorldUniversity.Controllers
         public async Task<IActionResult> Index(
             int? pageNumber)
         {
-            var studentViewModel = this.studentService.GetStudentAllData();          
+            var studentViewModel = this.studentService.GetStudentAllData();
             return View(await PaginatedList<StudentViewModel>
                 .CreateAsync(studentViewModel.AsNoTracking(), pageNumber ?? 1));
         }
@@ -48,6 +48,13 @@ namespace WorldUniversity.Controllers
         {
             try
             {
+                if (studentService.StudentExists(input.FirstName, input.LastName))
+                {
+                    ViewBag.ErrorTitle = "Dublicated Name";
+                    ViewBag.ErrorMessage = $"Course with Title {input.FirstName} {input.LastName} already exists";
+                    return View("Error");
+
+                }
                 if (ModelState.IsValid)
                 {
                     await this.studentService.Create(input);

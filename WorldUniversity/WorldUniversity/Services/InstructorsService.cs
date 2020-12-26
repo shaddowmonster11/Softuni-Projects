@@ -28,13 +28,13 @@ namespace WorldUniversity.Services
                 HireDate = input.HireDate,
                 OfficeAssignment = input.OfficeAssignment,
             };
-          
+
             await _context.AddAsync(instructor);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteInstructor(int id)
-        {       
+        {
             var office = await _context.OfficeAssignments
                 .FirstOrDefaultAsync(o => o.InstructorId == id);
             _context.OfficeAssignments.Remove(office);
@@ -120,9 +120,9 @@ namespace WorldUniversity.Services
             return instructor;
         }
 
-        public bool InstructorExists(int id)
+        public bool InstructorExists(string firstName, string lastName)
         {
-            return _context.Instructors.Any(e => e.ID == id);
+            return _context.Instructors.Any(e => e.FirstName == firstName && e.LastName == lastName);
         }
 
         public List<AssignedCourseData> PopulateAssignedCourseData(GetInstructorsDetailsViewModel instructor,

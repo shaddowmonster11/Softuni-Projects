@@ -22,7 +22,7 @@ namespace WorldUniversity.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
-
+        public DbSet<ContactForm> ContactForm { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>().ToTable("Courses");
@@ -32,8 +32,10 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<Instructor>().ToTable("Instructors");
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
+            modelBuilder.Entity<ContactForm>().ToTable("ContractForms");
             modelBuilder.Entity<CourseAssignment>()
                   .HasKey(c => new { c.Id, c.InstructorId });
+          
             base.OnModelCreating(modelBuilder);
             foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

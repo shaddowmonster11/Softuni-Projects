@@ -19,7 +19,6 @@ namespace WorldUniversity.Services
         }      
         public async Task Create(DepartmentInputModel input)
         {
-            
             var department = new Department
             {
                 DepartmentId = input.DepartmentId,
@@ -29,7 +28,7 @@ namespace WorldUniversity.Services
                 InstructorId = input.InstructorId, 
             };
             await _context.AddAsync(department);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();           
         }
         public async Task DeleteDepartment(int id)
         {
@@ -43,9 +42,9 @@ namespace WorldUniversity.Services
                 await _context.SaveChangesAsync();
             }
         }
-        public bool DepartmentExists(int id)
+        public bool DepartmentExists(string name)
         {
-            return _context.Departments.Any(e => e.DepartmentId == id);
+            return _context.Departments.Any(e => e.Name == name);
         }
 
         public IEnumerable<DepartmentViewModel> GetAdmin()

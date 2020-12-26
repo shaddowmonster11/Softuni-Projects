@@ -19,9 +19,9 @@ namespace WorldUniversity.Services
             _context = context;
         }
 
-        public bool CourseExists(int id)
+        public bool CourseExists(string name)
         {
-            return _context.Courses.Any(e => e.Id == id);
+            return _context.Courses.Any(e => e.Title == name);
         }
 
         public async Task Create(CourseInputModel input)

@@ -57,6 +57,13 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GetInstructorsDetailsViewModel instructor)
         {
+            if (instructorService.InstructorExists(instructor.FirstName,instructor.LastName))
+            {
+                ViewBag.ErrorTitle = "Dublicated Name";
+                ViewBag.ErrorMessage = $"Course with Title {instructor.FirstName} {instructor.LastName} already exists";
+                return View("Error");
+
+            }
             if (ModelState.IsValid)
             {
                 await this.instructorService.Create(instructor);

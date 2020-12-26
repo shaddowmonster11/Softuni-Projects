@@ -22,7 +22,7 @@ namespace WorldUniversity.Services
         Task DeleteInstructor(int id);
 
         ICollection<GetInstructorsDetailsViewModel> GetAllInstructors();
-        bool InstructorExists(int id);
+        bool InstructorExists(string firstName, string lastName);
         List<AssignedCourseData> PopulateAssignedCourseData(GetInstructorsDetailsViewModel instructor
             , ICollection<CourseViewModel> allCourses);
     }

@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WorldUniversity.Models.Enums;
 using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Enrollements;
@@ -54,7 +51,7 @@ namespace WorldUniversity.Controllers
                  , enrollment.CourseId
                  , enrollment.StudentGrade);
                 return RedirectToAction(nameof(Index));
-            }          
+            }
             return View();
         }
         public IActionResult Details(int id)
@@ -78,6 +75,13 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CourseInputModel course)
         {
+            if (coursesService.CourseExists(course.Title))
+            {
+                ViewBag.ErrorTitle = "Dublicated Name";
+                ViewBag.ErrorMessage = $"Course with Title {course.Title} already exists";
+                return View("Error");
+
+            }
             if (ModelState.IsValid)
             {
                 await coursesService.Create(course);
@@ -114,7 +118,7 @@ namespace WorldUniversity.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!coursesService.CourseExists(course.Id))
+                    if (!coursesService.CourseExists(course.Title))
                     {
                         return NotFound();
                     }

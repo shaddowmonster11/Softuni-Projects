@@ -93,9 +93,9 @@ namespace WorldUniversity.Services
             updatedStudent.EnrollmentDate = enrollmentDate;
             await _context.SaveChangesAsync();
         }
-        public bool StudentExists(int id)
+        public bool StudentExists(string firstName, string lastName)
         {
-            return _context.Students.Any(e => e.Id == id);
+            return _context.Students.Any(e => e.FirstName == firstName && e.LastName == lastName);
         }
     }
 }

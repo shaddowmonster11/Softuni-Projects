@@ -215,6 +215,23 @@ namespace WorldUniversity.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WorldUniversity.Models.ContactForm", b =>
+                {
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("ContractForm");
+                });
+
             modelBuilder.Entity("WorldUniversity.Models.Course", b =>
                 {
                     b.Property<int>("Id")

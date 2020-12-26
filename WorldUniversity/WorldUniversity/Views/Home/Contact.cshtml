@@ -1,13 +1,15 @@
-﻿@section style
+﻿@model WorldUniversity.ViewModels.Home.ContactFormInputModel
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+@section style
 {
     <link href="~/css/contact.css" rel="stylesheet" />
 }
 <h2 class="h1-responsive font-weight-bold text-center my-5">Contact us</h2>
 <p class="text-center w-responsive mx-auto pb-5">
     Without worries write to us and we will respond.
-</p>
-
-<div class="row">
+</p>    <div class="row">
 
     <div class="w-responsive mx-auto pb-5">
 
@@ -39,4 +41,40 @@
             </div>
         </div>
     </div>
+</div>
+<div class="p-4">
+    <div class="text-center">
+        <h1 class="h3 mb-4 font-italic text-white-50">Send Us Email!</h1>
+    </div>
+    <form class="user text-center text-white-50" method="post">
+        <div class="form-group row was-validated">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control form-control-user text-center" placeholder="Full Name" required>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control form-control-user text-center" placeholder="E-Mail" required>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row was-validated justify-content-center">
+            <div class="col-sm-8 mb-3 mb-sm-0">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control form-control-user text-center" placeholder="Title" required>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group was-validated">
+            <label asp-for="Content"></label>
+            <textarea asp-for="Content" class="form-control" style="height: 200px" placeholder="Content" maxlength="20000"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <hr />
+        <input type="hidden" id="RecaptchaValue" />
+        <button type="submit" class="btn btn-success btn-user btn-block mb-5">
+            Submit
+        </button>
+    </form>
 </div>

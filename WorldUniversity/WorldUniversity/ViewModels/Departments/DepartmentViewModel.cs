@@ -29,6 +29,5 @@ namespace WorldUniversity.ViewModels.Departments
         public ICollection<Course> Courses { get; set; }
         public ICollection<GetInstructorsDetailsViewModel> Instructors { get; set; }
         public string ShortStartDateFormat => StartDate.ToString("dd-MM-yyyy");
-
     }
 }

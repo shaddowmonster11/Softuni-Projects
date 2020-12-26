@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace WorldUniversity.Repositories
 {
-    public interface IRepository<TEntity> : IDisposable
-       where TEntity : class
+   public interface IRepository<TEntity> : IDisposable
+        where TEntity : class
     {
         IQueryable<TEntity> All();
 

@@ -9,7 +9,7 @@ namespace WorldUniversity.Services
     public interface IDepartmentsService
     {
         IEnumerable<DepartmentViewModel> GetAdmin();
-        bool DepartmentExists(int id);
+        bool DepartmentExists(string name);
         DepartmentViewModel GetDepartmentDetails(int id);
         Task Create(DepartmentInputModel input);
         Task DeleteDepartment(int id);

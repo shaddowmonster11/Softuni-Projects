@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.ComponentModel;
 using WorldUniversity.Data;
+using WorldUniversity.Models;
+using WorldUniversity.Repositories;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Messaging;
 
@@ -27,6 +29,10 @@ namespace WorldUniversity
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.FromMinutes(30);
+            });
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -42,11 +48,6 @@ namespace WorldUniversity
                                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
-            /*         services.AddAuthentication().AddGoogle(options =>
-                     {
-                         options.ClientId = "371659122539-uej12m1b0s5sv45jg7d45csgvaa19rh6.apps.googleusercontent.com";
-                         options.ClientSecret = "Zh5IF3-S9VA23421ECZ5ZFXd";
-                     });*/
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("DeleteRolePolicy",
@@ -84,6 +85,7 @@ namespace WorldUniversity
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<IDepartmentsService, DepartmentsService>();
             services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<IContactService, ContactService>();
         }
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,

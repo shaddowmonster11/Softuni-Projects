@@ -50,13 +50,18 @@ namespace WorldUniversity.Controllers
             {
                 return View(department);
             }
-
+            if (departmentsService.DepartmentExists(department.Name))
+            {
+                ViewBag.ErrorTitle = "Dublicated Name";
+                ViewBag.ErrorMessage =$"Department with name {department.Name} already exists";
+                return View("Error");
+            }
             await departmentsService.Create(department);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Edit(int id)
         {
-            var department = departmentsService.GetDepartmentDetails(id);
+            var department = departmentsService.GetDepartmentDetails(id);             
             var instructors = instructorService.GetAllInstructors();
             department.Instructors = instructors;
             if (department == null)
