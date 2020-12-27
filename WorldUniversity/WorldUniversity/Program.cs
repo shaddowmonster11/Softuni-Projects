@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
 using System;
 using WorldUniversity.Data;
 
@@ -21,7 +20,7 @@ namespace WorldUniversity
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     DbInitializer.Initialize(context);
-               
+
                 }
                 catch (Exception ex)
                 {
@@ -38,7 +37,7 @@ namespace WorldUniversity
             logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
             logging.AddConsole();
             logging.AddDebug();
-            logging.AddEventSourceLogger();;
+            logging.AddEventSourceLogger(); ;
         })
              .UseStartup<Startup>();
     }

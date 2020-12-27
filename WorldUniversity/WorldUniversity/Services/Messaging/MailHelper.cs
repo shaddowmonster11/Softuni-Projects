@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
@@ -28,7 +25,7 @@ namespace WorldUniversity.Services.Messaging
             var toAddress = new MailAddress(this.email);
 
             string bodyBuilder = "<div style=\"background-color: #BADEF7;\"><a href=\"https://localhost:44313\" title=\"HTML Email Check\" target=\"_blank\">"
-                + "<p style=\"text-align: center;\">"           
+                + "<p style=\"text-align: center;\">"
                 + "</p>"
                 + "</a>"
                 + "<p style=\"text-align: center;\">"
@@ -70,7 +67,7 @@ namespace WorldUniversity.Services.Messaging
                 + "<br>"
                 + "<br>"
                 + "<br>"
-                + $"<a href=\"{url}\" style=\"background-color:#134668;border:1px solid #134668;border-radius:5px;color:#ffffff;display:inline-block;font-size:16px;line-height:44px;text-align:center;text-decoration:none;width:150px;\">Click here</a>"
+                + $"<a href=\"{url}\" style=\"background-color:#134668;border:1px solid #134668;border-radius:5px;color:#ffffff;display:inline-block;font-size:16px;line-height:44px;text-align:center;text-decoration:none;width:150px;\">Click here to confirm your email</a>"
                 + "</div>";
 
             await this.SendMessageAsync(fromAddress, toAddress, subject, bodyBuilder);

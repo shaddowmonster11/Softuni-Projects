@@ -36,7 +36,7 @@ namespace WorldUniversity.Services
             var deletedStudent = _context.Students
              .AsNoTracking()
              .FirstOrDefault(m => m.Id == id);
-            if (_context.Enrollments.Any(x=>x.StudentId==id))
+            if (_context.Enrollments.Any(x => x.StudentId == id))
             {
                 var enrollmentToRemove = _context.Enrollments.Where(x => x.StudentId == id).ToList();
                 foreach (var subject in enrollmentToRemove)
@@ -44,7 +44,7 @@ namespace WorldUniversity.Services
                     _context.Enrollments.Remove(subject);
                 }
             }
-             _context.Students.Remove(deletedStudent);
+            _context.Students.Remove(deletedStudent);
             await _context.SaveChangesAsync();
         }
         public IQueryable<StudentViewModel> GetStudentAllData()

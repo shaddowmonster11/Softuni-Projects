@@ -9,7 +9,7 @@ using WorldUniversity.ViewModels.Enrollements;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Moderator")]
     public class CoursesController : Controller
     {
         private readonly ICoursesService coursesService;

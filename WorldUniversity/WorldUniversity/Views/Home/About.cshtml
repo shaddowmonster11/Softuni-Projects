@@ -2,27 +2,51 @@
 @{
     ViewData["Title"] = "Statistics";
 }
-
-<h2>Student Body Statistics</h2>
-<table>
-    <tr>
-        <th>
-            EnrollmentDate
-        </th>
-        <th>
-            Students
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDate)
-            </td>
-            <td>
-                @item.StudentCount
-            </td>
-        </tr>
-    }
-</table>
+    <div class="container-fluid" id="print">
+        <div class="card shadow">
+            <div class="card-header text-center">
+                <h6 class="m-0 font-weight-bold text-primary">Sofia</h6>
+            </div>
+            <div class="card-body">
+                <div class="text-center" id="displayMomentSofia"></div>
+                <hr />
+                <div class="text-center" id="displayJsDateSofia">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+<div class="container-fluid" id="print">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover font-italic " id="example" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="2" class="text-center">Student Body Statistics</th>
+                        </tr>
+                        <tr class="bg-primary text-gray-400">
+                            <th class="text-center align-middle">Date Of Student Enrollement in World University</th>
+                            <th class="text-center align-middle">Number Of Students Enrolled On That Date </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {                               
+                                <tr>
+                                    <th class="text-center align-middle">@item.ShortEnrolledDate</th>
+                                    <th class="text-center align-middle">@item.StudentCount</th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/custom/Index.js" asp-append-version="true"></script>
+<script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>

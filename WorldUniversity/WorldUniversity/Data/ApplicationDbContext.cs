@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using WorldUniversity.Models;
 
 namespace WorldUniversity.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        private IDbContextTransaction _currentTransaction;
         public ApplicationDbContext()
         {
 
@@ -35,7 +39,7 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<ContactForm>().ToTable("ContractForms");
             modelBuilder.Entity<CourseAssignment>()
                   .HasKey(c => new { c.Id, c.InstructorId });
-          
+
             base.OnModelCreating(modelBuilder);
             foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

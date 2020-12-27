@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using WorldUniversity.Services.Messaging;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account
@@ -20,7 +17,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IMailHelper mailHelper;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager,IMailHelper mailHelper )
+        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IMailHelper mailHelper)
         {
             _userManager = userManager;
             this.mailHelper = mailHelper;

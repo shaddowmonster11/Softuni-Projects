@@ -9,7 +9,7 @@ using WorldUniversity.ViewModels.Departments;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Moderator")]
     public class DepartmentsController : Controller
     {
         private readonly IDepartmentsService departmentsService;
@@ -53,7 +53,7 @@ namespace WorldUniversity.Controllers
             if (departmentsService.DepartmentExists(department.Name))
             {
                 ViewBag.ErrorTitle = "Dublicated Name";
-                ViewBag.ErrorMessage =$"Department with name {department.Name} already exists";
+                ViewBag.ErrorMessage = $"Department with name {department.Name} already exists";
                 return View("Error");
             }
             await departmentsService.Create(department);
@@ -61,7 +61,7 @@ namespace WorldUniversity.Controllers
         }
         public IActionResult Edit(int id)
         {
-            var department = departmentsService.GetDepartmentDetails(id);             
+            var department = departmentsService.GetDepartmentDetails(id);
             var instructors = instructorService.GetAllInstructors();
             department.Instructors = instructors;
             if (department == null)

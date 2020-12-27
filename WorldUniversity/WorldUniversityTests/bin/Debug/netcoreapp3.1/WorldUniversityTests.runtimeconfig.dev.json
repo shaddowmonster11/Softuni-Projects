@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\shadd\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\shadd\\.nuget\\packages"
+    ]
+  }
+}

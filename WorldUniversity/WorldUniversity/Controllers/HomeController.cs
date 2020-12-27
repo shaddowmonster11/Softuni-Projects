@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Messaging;
+using WorldUniversity.ViewModels.Error;
 using WorldUniversity.ViewModels.Home;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly IHomeService homeService;
@@ -15,8 +16,8 @@ namespace WorldUniversity.Controllers
         private readonly IMailHelper mailHelper;
 
         public HomeController(IHomeService homeService
-            ,IContactService contactService
-            ,IMailHelper mailHelper)
+            , IContactService contactService
+            , IMailHelper mailHelper)
         {
             this.homeService = homeService;
             this.contactService = contactService;
@@ -60,7 +61,8 @@ namespace WorldUniversity.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View();
+            return this.View(
+                new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
     }
 }

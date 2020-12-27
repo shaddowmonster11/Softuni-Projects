@@ -16,7 +16,7 @@ namespace WorldUniversity.Services
         public DepartmentsService(ApplicationDbContext context)
         {
             _context = context;
-        }      
+        }
         public async Task Create(DepartmentInputModel input)
         {
             var department = new Department
@@ -25,10 +25,10 @@ namespace WorldUniversity.Services
                 Name = input.Name,
                 Budget = input.Budget,
                 StartDate = input.StartDate,
-                InstructorId = input.InstructorId, 
+                InstructorId = input.InstructorId,
             };
             await _context.AddAsync(department);
-            await _context.SaveChangesAsync();           
+            await _context.SaveChangesAsync();
         }
         public async Task DeleteDepartment(int id)
         {
@@ -86,7 +86,7 @@ namespace WorldUniversity.Services
         }
 
         public async Task UpdateDepartment(int departmentId, string name
-            , decimal budget, DateTime startDate,int intructorId)
+            , decimal budget, DateTime startDate, int intructorId)
         {
             var updatedDepartment = _context.Departments
             .FirstOrDefault(s => s.DepartmentId == departmentId);

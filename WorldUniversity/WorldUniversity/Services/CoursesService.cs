@@ -53,7 +53,7 @@ namespace WorldUniversity.Services
             , int courseId, string studentCourseGrade)
         {
             var student = await _context.Students
-                .FirstOrDefaultAsync(s => s.Id==studentId);
+                .FirstOrDefaultAsync(s => s.Id == studentId);
             var course = _context.Courses.Single(c => c.Id == courseId);
             var grade = (Grade)Enum.Parse(typeof(Grade), studentCourseGrade);
             var enrollments = new Enrollment

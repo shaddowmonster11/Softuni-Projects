@@ -225,7 +225,6 @@ namespace WorldUniversity.Areas.Identity.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
@@ -266,7 +265,6 @@ namespace WorldUniversity.Areas.Identity.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
@@ -312,14 +310,12 @@ namespace WorldUniversity.Areas.Identity.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "CreateRolePolicy")]
         public IActionResult CreateRole()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Policy = "CreateRolePolicy")]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
@@ -345,7 +341,6 @@ namespace WorldUniversity.Areas.Identity.Controllers
             return View(model);
         }
         [HttpGet]
-        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
@@ -374,7 +369,6 @@ namespace WorldUniversity.Areas.Identity.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await roleManager.FindByIdAsync(model.Id);
@@ -396,7 +390,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
 
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError("", error.Description);    
                 }
 
                 return View(model);
@@ -440,6 +434,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
             return View(model);
         }
         [HttpPost]
+
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
             var role = await roleManager.FindByIdAsync(roleId);

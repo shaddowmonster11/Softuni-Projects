@@ -18,11 +18,12 @@ namespace WorldUniversity.Data
                 var user = new IdentityUser();
                 user.UserName = "user@wumail.bg";
                 user.Email = "user@wumail.bg";
+                user.EmailConfirmed = true;
                 var result = userManager.CreateAsync(user, "12345678").Result;
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user,"User").Wait();
+                    userManager.AddToRoleAsync(user, "User").Wait();
                 }
             }
 
@@ -36,11 +37,24 @@ namespace WorldUniversity.Data
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user,"Admin").Wait();
+                    userManager.AddToRoleAsync(user, "Admin").Wait();
+                }
+            }
+
+            if (userManager.FindByNameAsync("mod@wumail.bg").Result == null)
+            {
+                var user = new IdentityUser();
+                user.UserName = "mod@wumail.bg";
+                user.Email = "mod@wumail.bg";
+                user.EmailConfirmed = true;
+                var result = userManager.CreateAsync(user, "12345678").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Moderator").Wait();
                 }
             }
         }
-
         public static void SeedRoles(RoleManager<IdentityRole> roleManager)
         {
             if (!roleManager.RoleExistsAsync("User").Result)
@@ -60,6 +74,15 @@ namespace WorldUniversity.Data
                 var roleResult = roleManager.
                 CreateAsync(role).Result;
             }
+            if (!roleManager.RoleExistsAsync("Moderator").Result)
+            {
+                var role = new IdentityRole();
+                role.Name = "Moderator";
+                role.NormalizedName = "Perform some the operations.";
+                var roleResult = roleManager.
+                CreateAsync(role).Result;
+            }
+
         }
     }
 }

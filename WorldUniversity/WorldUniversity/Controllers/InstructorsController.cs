@@ -8,7 +8,7 @@ using WorldUniversity.ViewModels.Instructors;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Moderator")]
     public class InstructorsController : Controller
     {
         private readonly IInstructorsService instructorService;
@@ -57,7 +57,7 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GetInstructorsDetailsViewModel instructor)
         {
-            if (instructorService.InstructorExists(instructor.FirstName,instructor.LastName))
+            if (instructorService.InstructorExists(instructor.FirstName, instructor.LastName))
             {
                 ViewBag.ErrorTitle = "Dublicated Name";
                 ViewBag.ErrorMessage = $"Course with Title {instructor.FirstName} {instructor.LastName} already exists";

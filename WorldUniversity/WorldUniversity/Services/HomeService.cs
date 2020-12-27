@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.ViewModels;
 
@@ -38,7 +35,7 @@ namespace WorldUniversity.Services
                             var row = new EnrollmentDateGroup
                             {
                                 EnrollmentDate = reader.GetDateTime(0),
-                                StudentCount = reader.GetInt32(1)
+                                StudentCount = reader.GetInt32(1),
                             };
                             groups.Add(row);
                         }

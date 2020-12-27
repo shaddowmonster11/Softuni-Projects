@@ -11,7 +11,7 @@ namespace WorldUniversity.Services
     {
         Task Create(GetInstructorsDetailsViewModel input);
 
-        GetInstructorsDetailsViewModel GetInstructorsDetails(int ?id);
+        GetInstructorsDetailsViewModel GetInstructorsDetails(int? id);
 
         Task UpdateInstructor(string firstName, string lastName
             , DateTime hireDate, OfficeAssignment officeAssignment

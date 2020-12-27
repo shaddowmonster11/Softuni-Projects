@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using WorldUniversity.Models;
-using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.ViewModels.Instructors
 {

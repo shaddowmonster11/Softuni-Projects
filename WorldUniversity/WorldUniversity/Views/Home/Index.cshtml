@@ -1,3 +1,51 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-}   
+    this.ViewData["Title"] = "Home Page";
+}
+@if (TempData.ContainsKey("Message"))
+{
+    var statusMessageClass = TempData["Message"].ToString().StartsWith("Error") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass alert-dismissible fade show" role="alert">
+        @TempData["Message"].ToString()
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+}
+<div class="container-fluid">
+    <img class="rounded w-100" src="https://res.cloudinary.com/monster11/image/upload/l_text:montserrat_100:World University!/v1609086931/Test/img1-1200x800_hilvcr.jpg" alt="First slide">
+    <div class="jumbotron bg-light">
+        <h1 class="display-4 text-center font-weight-bold">Why choose World University? </h1>
+        <div class="row mb-3">
+            <div class="col-md-6 p-3">
+                <p class="lead text-justify font-italic">Finding the suitable software for every University, School or Course Facility is especially important. Without a suitable solution, the amount of student who may have heard about your establishment might significantly decrease.</p>
+                <p class="lead text-justify font-italic">My World University suitable for various education facility teams. It is the newest software program for small and big education facilities from every part of the world. You can enjoy it’s simple and modern design while working with it. The program is suitable for everyone and everyone can easily learn how to work with it.</p>
+            </div>
+            <div class="col-md-6 p-3">
+                <p class="lead text-justify font-italic">Would University is suitable for computers devices, and it offers amazing features – creating, updating and deleting:Students, Courses ,Instructors ,Departments , In Courses you can Enroll Students in different courses you create and students countains information about the courses they are enrolled in.You can create,delete,edit roles and users also you can modify the roles which are existing and so you can set up administrators to manage your facilities!.</p>
+                <p class="lead text-justify font-italic">We promise that your expectations will be fulfilled! </p>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6 p-3">
+            <img class="rounded w-100 h-100" src="https://res.cloudinary.com/monster11/image/upload/v1609092770/Test/989b372343469f0150ce24b11a108557_ilapol.png">
+        </div>
+        <div class="col-md-6 p-3">
+            <img class="rounded w-100 h-100" src="https://res.cloudinary.com/monster11/image/upload/v1609093087/Test/e3a10f85deefdfb9f5ef4b9fd2b3d59e_jwbnrg.png">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6 p-3">
+            <img class="rounded w-100 h-100" src="https://res.cloudinary.com/monster11/image/upload/v1609092798/Test/b378e90d38c4fc3e58caca31f34ec41a_zknhbb.png">
+        </div>
+        <div class="col-md-6 p-3">
+            <img class="rounded w-100 h-100" src="https://res.cloudinary.com/monster11/image/upload/v1609092791/Test/3143c95bc969268b418c9efeb6ca6b83_artyo4.png">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6 p-3">
+            <img class="rounded w-100 h-100" src="https://res.cloudinary.com/monster11/image/upload/v1609092800/Test/686439276db1da706f3d496f18fccd9d_n4z6or.png">
+        </div>
+        <div class="col-md-6 p-3">
+            <img class="rounded w-100 h-100" src="https://res.cloudinary.com/monster11/image/upload/v1609092814/Test/2b64803211531493451116f2539db10b_v1gdoa.png">
+        </div>
+    </div>
+</div>

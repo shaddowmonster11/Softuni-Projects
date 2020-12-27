@@ -8,7 +8,7 @@ using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Moderator")]
     public class StudentsController : Controller
     {
         private readonly IStudentsService studentService;
