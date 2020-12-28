@@ -12,7 +12,7 @@ using System;
 using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("WorldUniversity", "C:\\Users\\shadd\\Desktop\\TortoiseRepository\\WorldUniversity\\WorldUniversity", "WorldUniversity.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("WorldUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\shadd\\Desktop\\TortoiseRepository\\WorldUniversity\\WorldUniversity", "WorldUniversity.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("WorldUniversityTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
