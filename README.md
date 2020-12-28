@@ -38,7 +38,7 @@ The web project contains:
 * 3 Roles: Admin, Moderator,User - You can log in with these test accounts admin@wumail.bg,12345678 , mod@wumail.bg,12345678
 * 7 controllers
 * 35+ views
-* 15+ service methods
+* 40+ service methods
 
 ## **Technologies Used**
 
