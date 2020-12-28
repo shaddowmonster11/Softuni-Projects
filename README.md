@@ -12,6 +12,7 @@
 
 ------------
 **Visit my website: (https://worlduniversity.azurewebsites.net)**
+**It supports most Browsers and It is woking and responsive on mobile devices**
 
 ------------
 ![World University](https://res.cloudinary.com/monster11/image/upload/v1609112388/Test/img1-1200x800_hilvcr_ullm8f.jpg)
