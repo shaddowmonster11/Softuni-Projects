@@ -434,7 +434,6 @@ namespace WorldUniversity.Areas.Identity.Controllers
             return View(model);
         }
         [HttpPost]
-
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
             var role = await roleManager.FindByIdAsync(roleId);
