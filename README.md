@@ -1,14 +1,14 @@
  # World University
 
-  **ASP .NET Core 3.1 Web Application Project** 
+  **ASP .NET Core 5.0 Web Application Project** 
 ------------
 
  **About my web project:**
 
 ------------
-- *Finding the suitable software for every University, School or Course Facility is especially important. Without a suitable solution, the amount of student who may have heard about your establishment might significantly decrease.My World University suitable for various education facility teams. It is the newest software program for small and big education facilities from every part of the world. You can enjoy it’s simple and modern design while working with it. The program is suitable for everyone and everyone can easily learn how to work with it.*
+- *Finding the suitable software for every University, School or Course Facility is especially important. Without a suitable solution, the amount of student who may have heard about your establishment might significantly decrease.My World University suitable for various education facility teams. It is the newest software program for small and big education facilities from every part of the world. You can enjoy itâ€™s simple and modern design while working with it. The program is suitable for everyone and everyone can easily learn how to work with it.*
 
-- *Would University is suitable for computers devices, and it offers amazing features – creating, updating and deleting:Students, Courses ,Instructors ,Departments , In Courses you can Enroll Students in different courses you create and students countains information about the courses they are enrolled in.You can create,delete,edit roles and users also you can modify the roles which are existing and so you can set up administrators to manage your facilities!*
+- *Would University is suitable for computers devices, and it offers amazing features â€“ creating, updating and deleting:Students, Courses ,Instructors ,Departments , In Courses you can Enroll Students in different courses you create and students countains information about the courses they are enrolled in.You can create,delete,edit roles and users also you can modify the roles which are existing and so you can set up administrators to manage your facilities!*
 
 ------------
 **Visit my website: (https://worlduniversity.azurewebsites.net)**
