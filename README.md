@@ -46,8 +46,8 @@ The web project contains:
 This website is designed and runs using the **main** technologies below:
 
    1) **C#**
-   2) **ASP.NET Core 3.1**
-   3) **Entity Framework Core 3.1**
+   2) **ASP.NET Core 5.0**
+   3) **Entity Framework Core 5.0**
    4) **MS SQL Server**
    5) **Bootstrap 4**
    6) **JavaScript**
