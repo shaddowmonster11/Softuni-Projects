@@ -10,7 +10,6 @@ namespace WorldUniversity.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        private IDbContextTransaction _currentTransaction;
         public ApplicationDbContext()
         {
 
