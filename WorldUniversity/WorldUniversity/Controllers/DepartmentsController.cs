@@ -161,6 +161,7 @@ namespace WorldUniversity.Controllers
             {
                 return RedirectToAction(nameof(Delete), new { concurrencyError = true, id = department.DepartmentId });
             }
+
         }
     }
 }
