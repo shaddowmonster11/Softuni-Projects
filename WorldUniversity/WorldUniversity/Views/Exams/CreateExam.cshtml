@@ -1,0 +1,43 @@
+﻿@model WorldUniversity.ViewModels.Exams.CreateExamInputModel
+@{
+    ViewData["Title"] = "CreateExam";
+}
+<div class="col-xl-6 col-lg-12 col-md-9">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="p-5">
+                <div class="text-center">
+                    <h2>Create Exam</h2>                
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Date" class="control-label"></label>
+                            <input value="" type="date" asp-for="Date" class="form-control" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="Create Exam" class="btn btn-success btn-block" />
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <a class="btn btn-primary btn-block" style="width:auto"
+                               asp-action="Index">
+                                Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

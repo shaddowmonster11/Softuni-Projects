@@ -14,5 +14,14 @@ namespace WorldUniversity.Controllers
         {
             return View();
         }
-    }
+        public IActionResult CreateQuestion()
+        {
+            return View();
+        }
+        public IActionResult CreateExam()
+        {
+            return View();
+        }
+    }  
+
 }

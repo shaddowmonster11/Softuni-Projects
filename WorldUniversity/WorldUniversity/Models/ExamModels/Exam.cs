@@ -14,8 +14,8 @@ namespace WorldUniversity.Models.ExamModels
         public int Id { get; set; }
         public string Title { get; set; }
         public string Date { get; set; }
-        public string Marks { get; set; }
-        public string IsArchived { get; set; }
+        public int Marks { get; set; }
+        public bool IsArchived { get; set; }
         public List<Question> Questions { get; set; }
 
     }
