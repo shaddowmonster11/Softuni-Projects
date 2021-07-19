@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WorldUniversity.Models.ExamModels;
 
 namespace WorldUniversity.Models
 {
@@ -17,5 +18,6 @@ namespace WorldUniversity.Models
         public ICollection<Enrollment> Enrollments { get; set; }
 
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
+        public Exam Exam { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
+using WorldUniversity.Models.ExamModels;
 
 namespace WorldUniversity.Data
 {
@@ -36,6 +37,7 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
             modelBuilder.Entity<ContactForm>().ToTable("ContractForms");
+            modelBuilder.Entity<Exam>().ToTable("Exams");
             modelBuilder.Entity<CourseAssignment>()
                   .HasKey(c => new { c.Id, c.InstructorId });
 

@@ -4,78 +4,84 @@
 @{ 
    var user = UserManager.Users.FirstOrDefault(x => x.Id == this.UserManager.GetUserId(this.User));
 }
-    <ul class="navbar-nav">
-        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-        {
-            <li class="nav-item dropdown">
-                <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Manage Univeristy
-                </a>
-                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
-                    <a class="nav-link text-white" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
-                    <a class="nav-link text-white" asp-area="" asp-controller="Instructors" asp-action="Index">Instructors</a>
-                    <a class="nav-link text-white" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
-                </div>
-            </li>
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <li>
+            <a class="nav-link text-white" asp-area="" asp-controller="Exams" asp-action="Index">Manage Exams</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Manage Univeristy
+            </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                <a class="nav-link text-white" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Instructors" asp-action="Index">Instructors</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
+            </div>
+        </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Manage Roles
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" asp-controller="Administration"
-                       asp-action="ListUsers">Users</a>
-                    <a class="dropdown-item" asp-controller="Administration"
-                       asp-action="ListRoles">Roles</a>
-                </div>
-            </li>
-            <li>
-                <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
-            </li>
-        }
-        else
-        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Moderator"))
-        {
-            <li class="nav-item dropdown">
-                <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Manage Univeristy
-                </a>
-                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
-                    <a class="nav-link text-white" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
-                    <a class="nav-link text-white" asp-area="" asp-controller="Instructors" asp-action="Index">Instructors</a>
-                    <a class="nav-link text-white" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
-                </div>
-            </li>
-            <li>
-                <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
-            </li>
-        }
-        else
-            @if (SignInManager.IsSignedIn(User))
-        {
-            <li>
-                <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
-            </li>
-        }
-        else
-        {
+        <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Manage Roles
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" asp-controller="Administration"
+                   asp-action="ListUsers">Users</a>
+                <a class="dropdown-item" asp-controller="Administration"
+                   asp-action="ListRoles">Roles</a>
+            </div>
+        </li>
+        <li>
+            <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
+        </li>
+    }
+    else
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Moderator"))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Manage Univeristy
+            </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                <a class="nav-link text-white" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Instructors" asp-action="Index">Instructors</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
+            </div>
+        </li>
+        <li>
+            <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
+        </li>
+    }
+    else
+        @if (SignInManager.IsSignedIn(User))
+    {
+        <li>
+            <a class="nav-link text-white" asp-area="" asp-controller="Exams" asp-action="Index">Exams</a>
+        </li>
+        <li>
+            <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
+        </li>
+    }
+    else
+    {
 
-            <li class="">
-                <a class="nav-link ml-auto text-white" asp-area="Identity" asp-page="/Account/Login">
-                    Login
-                </a>
-            </li>
-            <li>
-                <a class="nav-link ml-auto text-white" asp-area="Identity" asp-page="/Account/Register">
-                    Register
-                </a>
-            </li>
+        <li class="">
+            <a class="nav-link ml-auto text-white" asp-area="Identity" asp-page="/Account/Login">
+                Login
+            </a>
+        </li>
+        <li>
+            <a class="nav-link ml-auto text-white" asp-area="Identity" asp-page="/Account/Register">
+                Register
+            </a>
+        </li>
 
-        }
+    }
 
-    </ul>
+</ul>
