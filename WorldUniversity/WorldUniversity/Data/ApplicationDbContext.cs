@@ -26,6 +26,7 @@ namespace WorldUniversity.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
+        public DbSet<Exam> Exams { get; set; }
         public DbSet<ContactForm> ContactForm { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

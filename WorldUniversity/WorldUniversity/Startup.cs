@@ -14,6 +14,7 @@ using WorldUniversity.Data;
 using WorldUniversity.Repositories;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Cloudinary;
+using WorldUniversity.Services.Exams;
 using WorldUniversity.Services.Messaging;
 
 namespace WorldUniversity
@@ -110,6 +111,7 @@ namespace WorldUniversity
             services.AddTransient<IDepartmentsService, DepartmentsService>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IContactService, ContactService>();
+            services.AddTransient<IExamsService, ExamsService>();
         }
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
