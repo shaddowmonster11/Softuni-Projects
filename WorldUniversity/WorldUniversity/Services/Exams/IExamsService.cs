@@ -10,11 +10,12 @@ namespace WorldUniversity.Services.Exams
     {
         Task CreateExam(CreateExamInputModel input);
         ExamViewModel GetExamDetails(int id);
-        IQueryable<ExamViewModel> GetAllExams();
-        Task UpdateExam(string title, string date, int ExamId);//Must add View and more info about the questions
+        ICollection<ExamViewModel> GetAllExams();
+        Task UpdateExam(string title, string date, int ExamId);
         Task DeleteExam(int id);
         bool ExamExists(string title, string date);
-        
-         
+        ExamViewModel GetExamById(int Id);
+
+
     }
 }

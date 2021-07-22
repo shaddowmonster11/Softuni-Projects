@@ -21,6 +21,7 @@ namespace WorldUniversity.Services.Exams
         {
             var exam = new Exam
             {
+                Id=input.Id,
                 Title = input.Title,
                 Date = input.Date,
                 IsArchived = false,
@@ -28,16 +29,13 @@ namespace WorldUniversity.Services.Exams
             await _context.AddAsync(exam);
             await _context.SaveChangesAsync();
         }
-
+        
         public async Task DeleteExam(int id)
         {
-            var exam = _context.Exams.First(ex => ex.Id == id);
-            if(exam.Questions.Count<0)
+            var examToDelete = _context.Exams.FirstOrDefault(ex => ex.Id == id);
+            if(examToDelete.Questions.Count<0)
             {
-                var deleteExam = _context.Exams
-                    .AsNoTracking()
-                    .FirstOrDefault(ex => ex.Id == id);
-                _context.Exams.Remove(deleteExam);
+                _context.Exams.Remove(examToDelete);
                 await _context.SaveChangesAsync();
             }          
         }
@@ -47,34 +45,87 @@ namespace WorldUniversity.Services.Exams
             return _context.Exams.Any(e => e.Title == title && e.Date == date);
         }
 
-        public IQueryable<ExamViewModel> GetAllExams()
+        public ICollection<ExamViewModel> GetAllExams()
         {
-            /*var questions = _context.Exams.Select(x => new QuestionViewModel
-            {
-            });
             var exam = _context.Exams
             .Select(x => new ExamViewModel
             {
-               Title=x.Title,
+               Id = x.Id,
+               Title =x.Title,
                Date=x.Date,
                IsArchived=x.IsArchived,
-               Questions=x.Questions,
+               Questions= x.Questions.Select(x => new QuestionViewModel
+               {
+                   ExamId = x.ExamId,
+                   QuestionID = x.Id,
+                   AlternateAnsOne = x.AlternateAnsOne,
+                   AlternateAnsTwo = x.AlternateAnsTwo,
+                   AlternateAnsThree = x.AlternateAnsThree,
+                   CorrectAns = x.Answer,
+                   QuestionContent = x.QuestionContent,
+               }).ToList(),              
+            }).ToList();
+            return exam;
+        }
 
-            }
-            );
-*/
-            //          return exam;
-            throw new NotImplementedException();
+        public ExamViewModel GetExamById(int Id)
+        {
+            var exam=_context.Exams
+                .Where(ex => ex.Id == Id)
+                .Select(x => new ExamViewModel
+                {
+                    Id = x.Id,
+                    Date=x.Date,
+                    IsArchived=x.IsArchived,
+                    Questions= x.Questions.Select(x=>new QuestionViewModel {
+                        QuestionID=x.Id,
+                        AlternateAnsOne=x.AlternateAnsOne,
+                        AlternateAnsTwo=x.AlternateAnsTwo,
+                        AlternateAnsThree=x.AlternateAnsThree,
+                        CorrectAns=x.Answer,
+                        QuestionContent=x.QuestionContent,
+                    }).ToList(),
+                    Marks=x.Marks,//????
+                    Title=x.Title,
+                }).FirstOrDefault();
+            return exam;
+     
         }
 
         public ExamViewModel GetExamDetails(int id)
         {
-            throw new NotImplementedException();//needs questions service before implementing
+            var exam = _context.Exams
+                 .Where(ex => ex.Id == id)
+                 .Select(x => new ExamViewModel
+                 {
+                     Id = x.Id,
+                     Date = x.Date,
+                     IsArchived = x.IsArchived,
+                     Questions = x.Questions.Select(x => new QuestionViewModel
+                     {
+                         ExamId=x.ExamId,
+                         QuestionID = x.Id,
+                         AlternateAnsOne = x.AlternateAnsOne,
+                         AlternateAnsTwo = x.AlternateAnsTwo,
+                         AlternateAnsThree = x.AlternateAnsThree,
+                         CorrectAns = x.Answer,
+                         QuestionContent = x.QuestionContent,
+                     }).ToList(),
+                     Marks = x.Marks,
+                    Title = x.Title,
+                 }).FirstOrDefault();
+            return exam;
         }
 
-        public Task UpdateExam(string title, string date, int ExamId)
+        public async Task UpdateExam(string title, string date, int ExamId)
         {
-            throw new NotImplementedException();//waiting for the Question views and storages
+            var updateExam = _context.Exams
+              .FirstOrDefault(s => s.Id == ExamId);
+            updateExam.Id = ExamId;
+            updateExam.Title = title;
+            updateExam.Date = date;          
+            _context.Update(updateExam);
+            await _context.SaveChangesAsync();
         }
     }
 }

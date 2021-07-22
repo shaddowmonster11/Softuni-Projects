@@ -111,6 +111,7 @@ namespace WorldUniversity
             services.AddTransient<IDepartmentsService, DepartmentsService>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IContactService, ContactService>();
+            services.AddTransient<IQuestionsService, QuestionsService>();
             services.AddTransient<IExamsService, ExamsService>();
         }
         public void Configure(IApplicationBuilder app,

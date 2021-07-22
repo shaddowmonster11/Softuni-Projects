@@ -28,6 +28,7 @@ namespace WorldUniversity.Data
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<ContactForm> ContactForm { get; set; }
+        public DbSet<Question> Questions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>().ToTable("Courses");
@@ -37,6 +38,7 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<Instructor>().ToTable("Instructors");
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
+            modelBuilder.Entity<Question>().ToTable("Questions");
             modelBuilder.Entity<ContactForm>().ToTable("ContractForms");
             modelBuilder.Entity<Exam>().ToTable("Exams");
             modelBuilder.Entity<CourseAssignment>()

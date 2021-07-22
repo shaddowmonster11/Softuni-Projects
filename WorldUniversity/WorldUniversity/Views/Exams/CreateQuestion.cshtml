@@ -11,17 +11,17 @@
                     <div class="container-fluid">
                         <p>
                             <a class="btn btn-success" style="width:auto"
-                               asp-action="Create">
+                               asp-action="CreateQuestion">
                                 Create New Question
                             </a>
                         </p>
                     </div>
-                    <form asp-action="Create">
+                    <form asp-action="CreateQuestion">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-                            <label asp-for="Question" class="control-label"></label>
-                            <input asp-for="Question" class="form-control" />
-                            <span asp-validation-for="Question" class="text-danger"></span>
+                            <label asp-for="QuestionContent" class="control-label"></label>
+                            <input asp-for="QuestionContent" class="form-control" />
+                            <span asp-validation-for="QuestionContent" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="AlternateAnsOne" class="control-label"></label>

@@ -9,9 +9,10 @@ namespace WorldUniversity.ViewModels.Exams
     public class QuestionViewModel
     {
         public int QuestionID { get; set; }
+        public int ExamId { get; set; }
 
         [Required(ErrorMessage = "Question is required")]
-        public string Question { get; set; }
+        public string QuestionContent { get; set; }
 
         [Required(ErrorMessage = "Correct Answer is required")]
         public string CorrectAns { get; set; }
