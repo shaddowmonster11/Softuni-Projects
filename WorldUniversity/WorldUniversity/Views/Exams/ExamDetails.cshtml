@@ -1,0 +1,46 @@
+﻿@model WorldUniversity.ViewModels.Exams.ExamViewModel
+
+@{
+    ViewData["Title"] = "ExamDetails";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h2>@Model.Title Details</h2>
+            <hr />
+            <div class="dl-horizontal">
+                <div class="form-group">
+                    <label asp-for="Title" class="font-weight-bold"></label>
+                    <br />
+                    <span class="control-label">@Model.Title</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="font-weight-bold"></label>
+                    <br />
+                    <span class="control-label">@Model.Date</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Questions" class="font-weight-bold"></label>
+                    <br />
+                    <span class="control-label">@Model.Questions.Count</span>
+                </div>               
+                <div class="form-group">
+                    <div class="row">
+                        <a class="btn btn-success" style="width:auto"
+                           asp-action="Edit" asp-route-id="@Model.Id">
+                            Edit Exam
+                        </a>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <a class="btn btn-primary" style="width:auto"
+                           asp-action="Index">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

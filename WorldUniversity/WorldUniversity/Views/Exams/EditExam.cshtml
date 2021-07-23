@@ -1,0 +1,56 @@
+﻿@model WorldUniversity.ViewModels.Exams.ExamViewModel
+
+@{
+    ViewData["Title"] = "EditExam";
+}
+<div class="col-xl-6 col-lg-12 col-md-9">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="p-5">
+                <div class="text-center">
+                    <h2>Edit Exam</h2>
+                    <form asp-action="EditExam">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Date" class="control-label"></label>
+                            <input value="" type="datetime-local" asp-for="Date" class="form-control" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IsArchived" class="control-label"></label>
+                            <input asp-for="IsArchived" class="form-control" />
+                            <span asp-validation-for="IsArchived" class="text-danger"></span>
+                        </div>
+                        <div class="container-fluid">
+                            <p>
+                                <a class="btn btn-success" style="width:auto"
+                                   asp-action="CreateQuestion">
+                                    Create New Question
+                                </a>
+                            </p>
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="Save" class="btn btn-success btn-block" />
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <a class="btn btn-primary btn-block" style="width:auto"
+                               asp-action="Index">
+                                Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

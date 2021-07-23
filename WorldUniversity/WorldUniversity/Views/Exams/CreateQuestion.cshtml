@@ -7,15 +7,7 @@
         <div class="card-body p-0">
             <div class="p-5">
                 <div class="text-center">
-                    <h2>Create Exam</h2>
-                    <div class="container-fluid">
-                        <p>
-                            <a class="btn btn-success" style="width:auto"
-                               asp-action="CreateQuestion">
-                                Create New Question
-                            </a>
-                        </p>
-                    </div>
+                    <h2>Create Question</h2>
                     <form asp-action="CreateQuestion">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
@@ -37,6 +29,11 @@
                             <label asp-for="AlternateAnsThree" class="control-label"></label>
                             <input asp-for="AlternateAnsThree" class="form-control" />
                             <span asp-validation-for="AlternateAnsThree" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CorrectAns" class="control-label"></label>
+                            <input asp-for="CorrectAns" class="form-control" />
+                            <span asp-validation-for="CorrectAns" class="text-danger"></span>
                         </div>
                         <div class="form-group row">
                             <input type="submit" value="Create Question" class="btn btn-success btn-block" />

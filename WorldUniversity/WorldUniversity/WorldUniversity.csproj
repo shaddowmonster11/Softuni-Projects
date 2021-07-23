@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-WorldUniversity-5F546447-E35C-4369-B7FD-6F20E38093BE</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\Exams\ExamDetails.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>  
     <PackageReference Include="CloudinaryDotNet" Version="1.15.2" />

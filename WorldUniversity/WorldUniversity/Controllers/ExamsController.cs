@@ -23,11 +23,30 @@ namespace WorldUniversity.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var exams = examsService.GetAllExams();
+            return View(exams);
         }
         public IActionResult CreateQuestion()
         {
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateQuestion(CreateQuestionInputModel question)
+        {
+            if (questionsService.QuestionExist(question.QuestionContent))
+            {
+                ViewBag.ErrorTitle = "Dublicated Question";
+                ViewBag.ErrorMessage = $"Question with Title {question.QuestionContent} already exists";
+                return View("Error");
+
+            }
+            if (ModelState.IsValid)
+            {
+                await questionsService.CreateQuestion(question);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(question);
         }
         public IActionResult CreateExam()
         {
@@ -40,7 +59,7 @@ namespace WorldUniversity.Controllers
             if (examsService.ExamExists(exam.Title,exam.Date))
             {
                 ViewBag.ErrorTitle = "Dublicated Name";
-                ViewBag.ErrorMessage = $"Course with Title {exam.Title} already exists";
+                ViewBag.ErrorMessage = $"Exam with Title {exam.Title} already exists";
                 return View("Error");
 
             }
@@ -49,6 +68,11 @@ namespace WorldUniversity.Controllers
                 await examsService.CreateExam(exam);
                 return RedirectToAction(nameof(Index));
             }
+            return View(exam);
+        }
+        public IActionResult ExamDetails(int id)
+        {
+            var exam = examsService.GetExamDetails(id);
             return View(exam);
         }
     }  
