@@ -35,6 +35,7 @@
                             <input asp-for="CorrectAns" class="form-control" />
                             <span asp-validation-for="CorrectAns" class="text-danger"></span>
                         </div>
+                        <input readonly hidden asp-for="ExamId"/>
                         <div class="form-group row">
                             <input type="submit" value="Create Question" class="btn btn-success btn-block" />
                         </div>

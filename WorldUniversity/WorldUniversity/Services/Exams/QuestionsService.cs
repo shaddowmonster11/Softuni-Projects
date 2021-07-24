@@ -28,6 +28,7 @@ namespace WorldUniversity.Services.Exams
                 AlternateAnsTwo = input.AlternateAnsTwo,
                 AlternateAnsThree = input.AlternateAnsThree,
                 Answer = input.CorrectAns,
+                ExamId=input.ExamId,
 
             };
             await _context.AddAsync(question);

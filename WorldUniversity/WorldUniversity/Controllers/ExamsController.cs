@@ -26,9 +26,13 @@ namespace WorldUniversity.Controllers
             var exams = examsService.GetAllExams();
             return View(exams);
         }
-        public IActionResult CreateQuestion()
+        public IActionResult CreateQuestion(int examId)
         {
-            return View();
+            var question = new CreateQuestionInputModel
+            {
+                ExamId=examId,
+            };
+            return View(question);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -75,6 +79,11 @@ namespace WorldUniversity.Controllers
             var exam = examsService.GetExamDetails(id);
             return View(exam);
         }
+        public IActionResult EditExam()
+        {   
+            return View();
+        }
+      
     }  
 
 }

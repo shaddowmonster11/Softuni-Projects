@@ -8,6 +8,8 @@ namespace WorldUniversity.ViewModels.Exams
 {
     public class CreateQuestionInputModel
     {
+        public int ExamId { get; set; }
+
         [Required(ErrorMessage = "Question is required")]
         public string QuestionContent { get; set; }
 

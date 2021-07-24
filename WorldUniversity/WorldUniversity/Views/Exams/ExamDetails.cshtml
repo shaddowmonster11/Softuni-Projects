@@ -3,7 +3,14 @@
 @{
     ViewData["Title"] = "ExamDetails";
 }
-
+<div class="container-fluid">
+    <p>
+        <a class="btn btn-success" style="width:auto"
+           asp-action="CreateQuestion" asp-route-examId="@Model.Id">
+            Create New Question
+        </a>
+    </p>
+</div>
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-body">

@@ -124,6 +124,7 @@ namespace WorldUniversity.Services.Exams
             updateExam.Id = ExamId;
             updateExam.Title = title;
             updateExam.Date = date;          
+            
             _context.Update(updateExam);
             await _context.SaveChangesAsync();
         }
