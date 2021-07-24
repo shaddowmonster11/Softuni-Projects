@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Services.Exams;
 using WorldUniversity.ViewModels.Exams;
+using WorldUniversity.ViewModels.Questions;
 
 namespace WorldUniversity.Controllers
 {
@@ -25,33 +26,7 @@ namespace WorldUniversity.Controllers
         {
             var exams = examsService.GetAllExams();
             return View(exams);
-        }
-        public IActionResult CreateQuestion(int examId)
-        {
-            var question = new CreateQuestionInputModel
-            {
-                ExamId=examId,
-            };
-            return View(question);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateQuestion(CreateQuestionInputModel question)
-        {
-            if (questionsService.QuestionExist(question.QuestionContent))
-            {
-                ViewBag.ErrorTitle = "Dublicated Question";
-                ViewBag.ErrorMessage = $"Question with Title {question.QuestionContent} already exists";
-                return View("Error");
-
-            }
-            if (ModelState.IsValid)
-            {
-                await questionsService.CreateQuestion(question);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(question);
-        }
+        }       
         public IActionResult CreateExam()
         {
             return View();
@@ -83,7 +58,7 @@ namespace WorldUniversity.Controllers
         {   
             return View();
         }
-      
+       
     }  
 
 }

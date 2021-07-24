@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WorldUniversity.ViewModels.Exams;
 
-namespace WorldUniversity.Services.Exams
+namespace WorldUniversity.ViewModels.Questions
 {
     public interface IQuestionsService
     {
