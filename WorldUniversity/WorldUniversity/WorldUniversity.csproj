@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Pages\Shared\" />
-    <Folder Include="ViewModels\Exams\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

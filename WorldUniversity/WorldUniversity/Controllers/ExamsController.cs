@@ -54,11 +54,14 @@ namespace WorldUniversity.Controllers
             var exam = examsService.GetExamDetails(id);
             return View(exam);
         }
-        public IActionResult EditExam()
-        {   
-            return View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await examsService.DeleteExam(id);
+            return RedirectToAction(nameof(Index));
         }
-       
     }  
 
 }

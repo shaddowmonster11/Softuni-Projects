@@ -34,7 +34,7 @@ namespace WorldUniversity.Services.Exams
         public async Task DeleteExam(int id)
         {
             var examToDelete = _context.Exams.FirstOrDefault(ex => ex.Id == id);
-            if(examToDelete.Questions.Count<0)
+            if(examToDelete.Questions.Count==0)
             {
                 _context.Exams.Remove(examToDelete);
                 await _context.SaveChangesAsync();
