@@ -1,4 +1,4 @@
-﻿@model WorldUniversity.ViewModels.Exams.ExamViewModel
+﻿@model WorldUniversity.ViewModels.Exams.ExamDetailsViewModel
 
 @{
     ViewData["Title"] = "EditExam";
@@ -11,7 +11,7 @@
                     <h2>Edit Exam</h2>
                     <form asp-action="EditExam">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ExamId" />
                         <div class="form-group">
                             <label asp-for="Title" class="control-label"></label>
                             <input asp-for="Title" class="form-control" />
@@ -19,21 +19,8 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Date" class="control-label"></label>
-                            <input value="" type="datetime-local" asp-for="Date" class="form-control" />
-                            <span asp-validation-for="Date" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="IsArchived" class="control-label"></label>
-                            <input asp-for="IsArchived" class="form-control" />
-                            <span asp-validation-for="IsArchived" class="text-danger"></span>
-                        </div>
-                        <div class="container-fluid">
-                            <p>
-                                <a class="btn btn-success" style="width:auto"
-                                   asp-action="CreateQuestion">
-                                    Create New Question
-                                </a>
-                            </p>
+                            <input  type="datetime-local" asp-for="Date" class="form-control" />
+                            <span asp-validation-for="Date" class="text-danger"></span>                         
                         </div>
                         <div class="form-group row">
                             <input type="submit" value="Save" class="btn btn-success btn-block" />
@@ -41,8 +28,8 @@
                         <hr />
                         <div class="form-group row">
                             <a class="btn btn-primary btn-block" style="width:auto"
-                               asp-action="Index">
-                                Back to List
+                            asp-controller="Exams" asp-action="ExamDetails" asp-route-Id="@Model.ExamId">
+                                Back to List    
                             </a>
                         </div>
                     </form>

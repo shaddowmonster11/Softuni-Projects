@@ -95,7 +95,7 @@ namespace WorldUniversity.Services.Exams
 
         }
 
-        public ExamViewModel GetExamDetails(int id)
+        public ExamViewModel GetExamAllDetails(int id)
         {
             var exam = _context.Exams
                  .Where(ex => ex.Id == id)
@@ -119,17 +119,29 @@ namespace WorldUniversity.Services.Exams
                  }).FirstOrDefault();
             return exam;
         }
-
-        public async Task UpdateExam(string title, DateTime date, int ExamId)
+        public async Task UpdateExam(ExamDetailsViewModel exam)
         {
             var updateExam = _context.Exams
-              .FirstOrDefault(s => s.Id == ExamId);
-            updateExam.Id = ExamId;
-            updateExam.Title = title;
-            updateExam.Date = date;
+              .FirstOrDefault(s => s.Id == exam.ExamId);
+            updateExam.Id = exam.ExamId;
+            updateExam.Title = exam.Title;
+            updateExam.Date = exam.Date;
 
             _context.Update(updateExam);
             await _context.SaveChangesAsync();
+        }
+
+        public ExamDetailsViewModel GetExamDetails(int id)
+        {
+            var exam = _context.Exams
+                .Where(ex => ex.Id == id)
+                .Select(x => new ExamDetailsViewModel
+                {
+                    ExamId = x.Id,
+                    Date = x.Date,
+                    Title = x.Title,
+                }).FirstOrDefault();
+            return exam;
         }
     }
 }

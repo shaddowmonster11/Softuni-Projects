@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace WorldUniversity.Controllers
         }
         public IActionResult ExamDetails(int id)
         {
-            var exam = examsService.GetExamDetails(id);
+            var exam = examsService.GetExamAllDetails(id);
             return View(exam);
         }
 
@@ -62,6 +63,47 @@ namespace WorldUniversity.Controllers
             await examsService.ArchieveExam(id);
             return RedirectToAction(nameof(Index));
         }
-    }  
+        public IActionResult EditExam(int id)
+        {
+            var exam = examsService.GetExamDetails(id);
+            if (exam == null)
+            {
+                return NotFound();
+            }
+            return View(exam);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditExam(int id, ExamDetailsViewModel exam)
+        {
+            if (id != exam.ExamId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await examsService.UpdateExam(exam);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!examsService.ExamExists(exam.Title,exam.Date))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("ExamDetails", "Exams", new { id = exam.ExamId });
+            }
+            return View(exam);
+        }
+
+    }
 
 }

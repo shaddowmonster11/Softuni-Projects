@@ -9,9 +9,10 @@ namespace WorldUniversity.Services.Exams
     public interface IExamsService
     {
         Task CreateExam(CreateExamInputModel input);
-        ExamViewModel GetExamDetails(int id);
+        ExamViewModel GetExamAllDetails(int id);
         ICollection<ExamViewModel> GetAllExams();
-        Task UpdateExam(string title, DateTime date, int ExamId);
+        ExamDetailsViewModel GetExamDetails(int id);
+        Task UpdateExam(ExamDetailsViewModel exam);
         Task ArchieveExam(int id);
         bool ExamExists(string title, DateTime date);
         ExamViewModel GetExamById(int Id);

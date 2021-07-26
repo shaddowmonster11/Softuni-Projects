@@ -24,7 +24,7 @@
                             <th class="text-center align-middle">Exam Title</th>
                             <th class="text-center align-middle">Exam Date</th>
                             <th class="text-center align-middle">Edit</th>
-                            <th class="text-center align-middle">Delete</th>
+                            <th class="text-center align-middle">Archieve</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,9 +44,9 @@
                                     </th>
                                     <th class="text-center">                   
                                         <form asp-action="ArchiveExam" asp-route-id="@item.Id">
-                                            <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
-                                                Delete
-                                            </button>
+                                            <button type="submit" class="btn btn-danger">
+                                                Archive Exam
+                                            </button>                                            
                                         </form>
                                     </th>
                                 </tr>
