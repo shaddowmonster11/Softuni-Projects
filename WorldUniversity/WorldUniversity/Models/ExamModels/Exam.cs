@@ -13,7 +13,7 @@ namespace WorldUniversity.Models.ExamModels
         }
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public int Marks { get; set; }
         public bool IsArchived { get; set; }
         public ICollection<Question> Questions { get; set; }

@@ -12,6 +12,6 @@ namespace WorldUniversity.ViewModels.Exams
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }

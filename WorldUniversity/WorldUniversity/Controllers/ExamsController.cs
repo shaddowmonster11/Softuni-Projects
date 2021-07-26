@@ -57,9 +57,9 @@ namespace WorldUniversity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> ArchiveExam(int id)
         {
-            await examsService.DeleteExam(id);
+            await examsService.ArchieveExam(id);
             return RedirectToAction(nameof(Index));
         }
     }  

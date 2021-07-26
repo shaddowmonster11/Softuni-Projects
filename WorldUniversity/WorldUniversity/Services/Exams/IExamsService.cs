@@ -11,9 +11,9 @@ namespace WorldUniversity.Services.Exams
         Task CreateExam(CreateExamInputModel input);
         ExamViewModel GetExamDetails(int id);
         ICollection<ExamViewModel> GetAllExams();
-        Task UpdateExam(string title, string date, int ExamId);
-        Task DeleteExam(int id);
-        bool ExamExists(string title, string date);
+        Task UpdateExam(string title, DateTime date, int ExamId);
+        Task ArchieveExam(int id);
+        bool ExamExists(string title, DateTime date);
         ExamViewModel GetExamById(int Id);
 
 

@@ -12,5 +12,6 @@ namespace WorldUniversity.ViewModels.Questions
         ICollection<QuestionViewModel> GetAllQuestions();
         Task DeleteQuestion(int id);
         bool QuestionExist(string questionContent);
+        QuestionViewModel GetQuestionById(int questionId);
     }
 }

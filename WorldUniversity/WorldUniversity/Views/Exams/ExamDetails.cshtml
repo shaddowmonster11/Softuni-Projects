@@ -33,7 +33,7 @@
                     <span class="control-label">@Model.Questions.Count</span>
                 </div>
                 <div class="form-group">
-                    <div class="row">
+                    <div class="row">                   
                         <a class="btn btn-success" style="width:auto"
                            asp-action="Edit" asp-route-id="@Model.Id">
                             Edit Exam
@@ -52,7 +52,7 @@
     </div>
 
     <div >
-        <!-- DataTales Example -->
+        <!--Exam Question List Table -->
         <div class="card shadow mb-4">
             <div class="card-body">
                 <div class="table-responsive">
@@ -66,7 +66,7 @@
                                 <th class="text-center align-middle">A</th>
                                 <th class="text-center align-middle">B</th>
                                 <th class="text-center align-middle">C</th>
-                                <th class="text-center align-middle">D (Correct Question)</th>
+                                <th class="text-center align-middle">D (Correct Answer)</th>
                                 <th class="text-center align-middle">Delete</th>
                             </tr>
                         </thead>
@@ -80,12 +80,12 @@
                                         <th class="text-center align-middle">@question.AlternateAnsTwo</th>
                                         <th class="text-center align-middle">@question.AlternateAnsThree</th>
                                         <th class="text-center align-middle">@question.CorrectAns</th>
-                                        <th class="text-center">
-                                            <a class="btn text-center btn-danger" style="width:auto"
-                                              asp-controller="Questions" asp-action="DeleteQuestion" asp-route-id="@question.QuestionID">
-                                                Delete
-                                            </a>
-
+                                        <th class="text-center">                                      
+                                            <form asp-controller="Questions" asp-action="DeleteQuestion" asp-route-id="@question.QuestionID">
+                                                <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </th>
                                     </tr>
                                 }

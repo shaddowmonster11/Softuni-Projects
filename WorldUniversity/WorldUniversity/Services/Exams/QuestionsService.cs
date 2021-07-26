@@ -39,12 +39,10 @@ namespace WorldUniversity.Services.Exams
         public async Task DeleteQuestion(int id)
         {
                 var deleteQuestion = _context.Questions
-                    .AsNoTracking()
                     .FirstOrDefault(ex => ex.Id == id);
                 _context.Questions.Remove(deleteQuestion);
                 await _context.SaveChangesAsync();     
         }
-
         public ICollection<QuestionViewModel> GetAllQuestions()
         {
             var questions = _context.Questions
@@ -59,6 +57,23 @@ namespace WorldUniversity.Services.Exams
                      ExamId = x.ExamId,
                  }).ToList();
             return questions;
+        }
+
+        public QuestionViewModel GetQuestionById(int questionId)
+        {
+            var question = _context.Questions
+                .Where(x=>x.Id==questionId)
+                 .Select(x => new QuestionViewModel
+                 {
+                     QuestionID = x.Id,
+                     QuestionContent = x.QuestionContent,
+                     AlternateAnsOne = x.AlternateAnsOne,
+                     AlternateAnsTwo = x.AlternateAnsTwo,
+                     AlternateAnsThree = x.AlternateAnsThree,
+                     CorrectAns = x.Answer,
+                     ExamId = x.ExamId,
+                 }).FirstOrDefault();
+            return question;
         }
 
         public bool QuestionExist(string questionContent)
