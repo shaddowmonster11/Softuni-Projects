@@ -16,7 +16,7 @@
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div class="row" id="content">
-                <nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+                <nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow">
                     <a class="navbar-brand text-white" asp-controller="Home" asp-action="Index">Home</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -40,8 +40,7 @@
                         </form>
                     </div>
                 </nav>
-                <div class="container">
-                    <a class="navbar-brand text-white" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="container">                   
                     <main role="main" class="pb-3">
                         @RenderBody()
                     </main>
