@@ -29,6 +29,17 @@
                             </div>
                             <form class="user" id="account" method="post">
                                 <div class="form-group">
+                                    <input asp-for="Input.FirstName" class="form-control form-control-user" placeholder="First Name">
+                                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                </div> <div class="form-group">
+                                    <input asp-for="Input.LastName" class="form-control form-control-user" placeholder="Last Name">
+                                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Input.EnrollmentDate" class="form-control form-control-user" placeholder="mm//dd/yyyy">
+                                    <span asp-validation-for="Input.EnrollmentDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
                                     <input asp-for="Input.UserName" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="UsernameHelp" placeholder="Username">
                                     <span asp-validation-for="Input.UserName" class="text-danger"></span>
                                 </div>

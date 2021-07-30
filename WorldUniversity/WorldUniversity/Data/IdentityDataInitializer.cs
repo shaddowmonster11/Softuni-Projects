@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using WorldUniversity.Models;
 
 namespace WorldUniversity.Data
 {
     public static class IdentityDataInitializer
     {
-        public static void SeedData(UserManager<IdentityUser> userManager,
+        public static void SeedData(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             SeedRoles(roleManager);
             SeedUsers(userManager);
         }
 
-        public static void SeedUsers(UserManager<IdentityUser> userManager)
+        public static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
             if (userManager.FindByNameAsync("user@wumail.bg").Result == null)
             {
-                var user = new IdentityUser();
+                var user = new ApplicationUser();
                 user.UserName = "user@wumail.bg";
                 user.Email = "user@wumail.bg";
                 user.EmailConfirmed = true;
@@ -29,7 +30,7 @@ namespace WorldUniversity.Data
 
             if (userManager.FindByNameAsync("admin@wumail.bg").Result == null)
             {
-                var user = new IdentityUser();
+                var user = new ApplicationUser();
                 user.UserName = "admin@wumail.bg";
                 user.Email = "admin@wumail.bg";
                 user.EmailConfirmed = true;
@@ -43,7 +44,7 @@ namespace WorldUniversity.Data
 
             if (userManager.FindByNameAsync("mod@wumail.bg").Result == null)
             {
-                var user = new IdentityUser();
+                var user = new ApplicationUser();
                 user.UserName = "mod@wumail.bg";
                 user.Email = "mod@wumail.bg";
                 user.EmailConfirmed = true;

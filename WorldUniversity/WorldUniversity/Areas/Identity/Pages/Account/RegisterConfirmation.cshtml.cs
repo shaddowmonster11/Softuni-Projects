@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
+using WorldUniversity.Models;
 using WorldUniversity.Services.Messaging;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account
@@ -10,10 +11,10 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMailHelper mailHelper;
 
-        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IMailHelper mailHelper)
+        public RegisterConfirmationModel(UserManager<ApplicationUser> userManager, IMailHelper mailHelper)
         {
             _userManager = userManager;
             this.mailHelper = mailHelper;

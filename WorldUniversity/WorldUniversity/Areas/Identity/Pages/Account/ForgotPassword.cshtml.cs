@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using WorldUniversity.Models;
 using WorldUniversity.Services.Messaging;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account
@@ -14,10 +15,10 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMailHelper mailHelper;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IMailHelper mailHelper)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IMailHelper mailHelper)
         {
             _userManager = userManager;
             this.mailHelper = mailHelper;

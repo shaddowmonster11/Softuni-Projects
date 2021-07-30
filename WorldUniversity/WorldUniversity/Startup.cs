@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using WorldUniversity.Data;
+using WorldUniversity.Models;
 using WorldUniversity.Repositories;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Cloudinary;
@@ -77,7 +78,7 @@ namespace WorldUniversity
                 options.AddPolicy("DeleteUserPolicy",
                      policy => policy.RequireClaim("Delete User"));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>
+            services.AddIdentity<ApplicationUser, IdentityRole>
                 (
                 options => options.SignIn.RequireConfirmedAccount = true
                 )
@@ -117,7 +118,7 @@ namespace WorldUniversity
         }
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
-            UserManager<IdentityUser> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())

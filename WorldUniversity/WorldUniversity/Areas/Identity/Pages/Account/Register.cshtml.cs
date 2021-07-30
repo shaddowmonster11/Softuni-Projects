@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using WorldUniversity.Models;
 using WorldUniversity.Services.Messaging;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account
@@ -18,14 +21,14 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IMailHelper mailHelper;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IMailHelper mailHelper)
         {
@@ -44,6 +47,21 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required]
+            [MinLength(3, ErrorMessage = "The field requires more than 3 characters!")]
+            [MaxLength(30, ErrorMessage = "The field must not be more than 30 characters!")]
+            [DisplayName("First Name")]
+            public string FirstName { get; set; }
+            [Required]
+            [MinLength(3, ErrorMessage = "The field requires more than 3 characters!")]
+            [MaxLength(30, ErrorMessage = "The field must not be more than 30 characters!")]
+            [DisplayName("Last Name")]
+            public string LastName { get; set; }
+            [Required]
+            [DataType(DataType.Date)]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            [Display(Name = "Enrollment Date")]
+            public DateTime EnrollmentDate { get; set; }
             [Required]
             [MinLength(3, ErrorMessage = "The field requires more than 3 characters!")]
             [MaxLength(30, ErrorMessage = "The field must not be more than 30 characters!")]
@@ -78,7 +96,14 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.UserName, Email = Input.Email };
+                var user = new ApplicationUser 
+                {
+                    FirstName=Input.FirstName,
+                    LastName=Input.LastName,
+                    EnrollmentDate = Input.EnrollmentDate,
+                    UserName = Input.UserName,
+                    Email = Input.Email,
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -91,6 +116,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
+
                     await this.mailHelper.SendFromIdentityAsync(
                      this.Input.Email,
                      "Confirm your email",
