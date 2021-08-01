@@ -7,13 +7,10 @@ namespace WorldUniversity.ViewModels.Students
 {
     public class StudentViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Enrollment Date")]
-        public DateTime EnrollmentDate { get; set; }
+        public string Email { get; set; }
         public string FullName
         {
             get
@@ -22,7 +19,6 @@ namespace WorldUniversity.ViewModels.Students
             }
         }
         public ICollection<Enrollment> Enrollments { get; set; }
-        public string ShortEnrollemntFormat => EnrollmentDate.ToString("dd-MM-yyyy");
     }
 }
 

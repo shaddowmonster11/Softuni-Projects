@@ -21,7 +21,6 @@ namespace WorldUniversity.Data
         }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<Student> Students { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
@@ -33,7 +32,6 @@ namespace WorldUniversity.Data
         {
             modelBuilder.Entity<Course>().ToTable("Courses");
             modelBuilder.Entity<Enrollment>().ToTable("Enrollments");
-            modelBuilder.Entity<Student>().ToTable("Students");
             modelBuilder.Entity<Department>().ToTable("Departments");
             modelBuilder.Entity<Instructor>().ToTable("Instructors");
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");

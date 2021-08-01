@@ -15,41 +15,26 @@ namespace WorldUniversity.Services
         public StudentsService(ApplicationDbContext context)
         {
             _context = context;
-        }
+        }       
 
-        public async Task Create(CreateStudentInputViewModel input)
+        public async Task DeleteStudent(string id)
         {
-            var student = new Student
-            {
-                Id = input.Id,
-                FirstName = input.FirstName,
-                LastName = input.LastName,
-                EnrollmentDate = input.EnrollmentDate,
-            };
-
-            await _context.AddAsync(student);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteStudent(int id)
-        {
-            var deletedStudent = _context.Students
-             .AsNoTracking()
+            var deletedStudent = _context.Users
              .FirstOrDefault(m => m.Id == id);
-            if (_context.Enrollments.Any(x => x.StudentId == id))
+          /*  if (_context.Enrollments.Any(x => x.StudentId == id))
             {
                 var enrollmentToRemove = _context.Enrollments.Where(x => x.StudentId == id).ToList();
                 foreach (var subject in enrollmentToRemove)
                 {
                     _context.Enrollments.Remove(subject);
                 }
-            }
-            _context.Students.Remove(deletedStudent);
+            }*/
+             _context.Users.Remove(deletedStudent);
             await _context.SaveChangesAsync();
         }
         public IQueryable<StudentViewModel> GetStudentAllData()
         {
-            var student = _context.Students
+            var student = _context.Users
             .Include(s => s.Enrollments)
             .ThenInclude(e => e.Course)
             .Select(x => new StudentViewModel
@@ -57,7 +42,7 @@ namespace WorldUniversity.Services
                 Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                EnrollmentDate = x.EnrollmentDate,
+                Email = x.Email,
                 Enrollments = x.Enrollments,
             }
             );
@@ -65,9 +50,9 @@ namespace WorldUniversity.Services
             return student;
         }
 
-        public StudentViewModel GetStudentDetails(int id)
+        public StudentViewModel GetStudentDetails(string id)
         {
-            var student = _context.Students
+            var student = _context.Users
                 .Where(x => x.Id == id)
                .Include(s => s.Enrollments)
                .ThenInclude(e => e.Course)
@@ -76,26 +61,16 @@ namespace WorldUniversity.Services
                    Id = x.Id,
                    FirstName = x.FirstName,
                    LastName = x.LastName,
-                   EnrollmentDate = x.EnrollmentDate,
+                   Email = x.Email,
                    Enrollments = x.Enrollments,
                }
                )
                .FirstOrDefault();
             return student;
-        }
-
-        public async Task UpdateStudent(string firstName, string lastName, DateTime enrollmentDate, int id)
-        {
-            var updatedStudent = _context.Students
-              .FirstOrDefault(s => s.Id == id);
-            updatedStudent.FirstName = firstName;
-            updatedStudent.LastName = lastName;
-            updatedStudent.EnrollmentDate = enrollmentDate;
-            await _context.SaveChangesAsync();
-        }
+        }     
         public bool StudentExists(string firstName, string lastName)
         {
-            return _context.Students.Any(e => e.FirstName == firstName && e.LastName == lastName);
+            return _context.Users.Any(e => e.FirstName == firstName && e.LastName == lastName);
         }
     }
 }

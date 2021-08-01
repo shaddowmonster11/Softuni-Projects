@@ -6,7 +6,7 @@ namespace WorldUniversity.Services
 {
     public interface ICoursesService
     {
-        Task EnrollStudent(int studentId
+        Task EnrollStudent(string studentId
             , int courseId
             , string studentCourseGrade);
         IEnumerable<AssignedCourseData> GetAll();

@@ -7,11 +7,9 @@ namespace WorldUniversity.Services
 {
     public interface IStudentsService
     {
-        Task Create(CreateStudentInputViewModel input);
-        StudentViewModel GetStudentDetails(int id);
+        StudentViewModel GetStudentDetails(string id);
         IQueryable<StudentViewModel> GetStudentAllData();
-        Task UpdateStudent(string firstName, string lastName, DateTime enrollmentDate, int id);
-        Task DeleteStudent(int id);
+        Task DeleteStudent(string id);
         bool StudentExists(string firstName, string lastName);
     }
 }

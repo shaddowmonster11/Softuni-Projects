@@ -49,10 +49,10 @@ namespace WorldUniversity.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task EnrollStudent(int studentId
+        public async Task EnrollStudent(string studentId
             , int courseId, string studentCourseGrade)
         {
-            var student = await _context.Students
+            var student = await _context.Users
                 .FirstOrDefaultAsync(s => s.Id == studentId);
             var course = _context.Courses.Single(c => c.Id == courseId);
             var grade = (Grade)Enum.Parse(typeof(Grade), studentCourseGrade);

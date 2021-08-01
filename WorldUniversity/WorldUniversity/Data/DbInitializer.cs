@@ -10,12 +10,12 @@ namespace WorldUniversity.Data
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
-            if (context.Students.Any())
+            if (context.Users.Any())
             {
                 return;
             }
 
-            var students = new Student[]
+       /*     var students = new Student[]
             {
                 new Student { FirstName = "Ivan",   LastName = "Ivanov",
                     EnrollmentDate = DateTime.Parse("2019-01-01") },
@@ -37,7 +37,7 @@ namespace WorldUniversity.Data
             {
                 context.Students.Add(s);
             }
-            context.SaveChanges();
+            context.SaveChanges();*/
 
             var instructors = new Instructor[]
             {
@@ -147,7 +147,7 @@ namespace WorldUniversity.Data
                 context.CourseAssignments.Add(ci);
             }
             context.SaveChanges();
-
+            var students = context.Users.ToList();
             var enrollments = new Enrollment[]
             {
                 new Enrollment {

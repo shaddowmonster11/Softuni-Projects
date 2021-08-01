@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
+using WorldUniversity.Services;
 using WorldUniversity.Services.Messaging;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account
@@ -22,6 +23,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IStudentsService studentsService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IMailHelper mailHelper;
@@ -29,11 +31,13 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            IStudentsService studentsService,
             ILogger<RegisterModel> logger,
             IMailHelper mailHelper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.studentsService = studentsService;
             _logger = logger;
             this.mailHelper = mailHelper;
         }
@@ -58,11 +62,6 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
             [DisplayName("Last Name")]
             public string LastName { get; set; }
             [Required]
-            [DataType(DataType.Date)]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            [Display(Name = "Enrollment Date")]
-            public DateTime EnrollmentDate { get; set; }
-            [Required]
             [MinLength(3, ErrorMessage = "The field requires more than 3 characters!")]
             [MaxLength(30, ErrorMessage = "The field must not be more than 30 characters!")]
             [Display(Name = "Username")]
@@ -82,6 +81,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            public bool IsDeleted { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -96,13 +96,14 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                
                 var user = new ApplicationUser 
                 {
                     FirstName=Input.FirstName,
-                    LastName=Input.LastName,
-                    EnrollmentDate = Input.EnrollmentDate,
+                    LastName=Input.LastName,                   
                     UserName = Input.UserName,
                     Email = Input.Email,
+                    IsDeleted=false,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

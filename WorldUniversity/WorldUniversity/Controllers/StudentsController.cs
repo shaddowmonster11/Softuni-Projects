@@ -26,7 +26,7 @@ namespace WorldUniversity.Controllers
                 .CreateAsync(studentViewModel.AsNoTracking(), pageNumber ?? 1));
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
             var studentViewModel = this.studentService.GetStudentDetails(id);
             if (studentViewModel == null)
@@ -37,58 +37,7 @@ namespace WorldUniversity.Controllers
             return View(studentViewModel);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateStudentInputViewModel input)
-        {
-            try
-            {
-                if (studentService.StudentExists(input.FirstName, input.LastName))
-                {
-                    ViewBag.ErrorTitle = "Dublicated Name";
-                    ViewBag.ErrorMessage = $"Course with Title {input.FirstName} {input.LastName} already exists";
-                    return View("Error");
-
-                }
-                if (ModelState.IsValid)
-                {
-                    await this.studentService.Create(input);
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-            catch (DbUpdateException)
-            {
-                ModelState.AddModelError("", "Unable to save changes. " +
-                    "Try again and if the problem persists restart your PC.");
-            }
-            return View(input);
-        }
-
-        public IActionResult Edit(int id)
-        {
-            var student = studentService.GetStudentDetails(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            return View(student);
-        }
-
-        [HttpPost, ActionName("Edit")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(StudentViewModel studentViewModel)
-        {
-            await this.studentService.UpdateStudent(studentViewModel.FirstName
-                , studentViewModel.LastName, studentViewModel.EnrollmentDate, studentViewModel.Id);
-            return RedirectToAction("Details", new { id = studentViewModel.Id });
-        }
-
-        public IActionResult Delete(int id, bool? saveChangesError = false)
+        public IActionResult Delete(string id, bool? saveChangesError = false)
         {
             var student = this.studentService.GetStudentDetails(id);
 
@@ -103,7 +52,7 @@ namespace WorldUniversity.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var student = this.studentService.GetStudentDetails(id);
 

@@ -17,6 +17,8 @@ namespace WorldUniversity.Data
             if (userManager.FindByNameAsync("user@wumail.bg").Result == null)
             {
                 var user = new ApplicationUser();
+                user.FirstName = "Ivan";
+                user.LastName = "Ivanov";
                 user.UserName = "user@wumail.bg";
                 user.Email = "user@wumail.bg";
                 user.EmailConfirmed = true;
@@ -31,6 +33,8 @@ namespace WorldUniversity.Data
             if (userManager.FindByNameAsync("admin@wumail.bg").Result == null)
             {
                 var user = new ApplicationUser();
+                user.FirstName = "Ivan";
+                user.LastName = "Ivanov";
                 user.UserName = "admin@wumail.bg";
                 user.Email = "admin@wumail.bg";
                 user.EmailConfirmed = true;
@@ -45,6 +49,8 @@ namespace WorldUniversity.Data
             if (userManager.FindByNameAsync("mod@wumail.bg").Result == null)
             {
                 var user = new ApplicationUser();
+                user.FirstName = "Hasan";
+                user.LastName = "Hasan123";
                 user.UserName = "mod@wumail.bg";
                 user.Email = "mod@wumail.bg";
                 user.EmailConfirmed = true;

@@ -2,14 +2,6 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div class="container-fluid">
-    <p>
-        <a class="btn btn-success" style="width:auto"
-           asp-action="Create">
-            Create New Student
-        </a>
-    </p>
-</div>
 <div class="container-fluid" id="print">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -18,14 +10,13 @@
                 <table class="table table-bordered table-hover font-italic " id="example" width="100%">
                     <thead>
                         <tr>
-                            <th colspan="6" class="text-center">Student Body</th>
+                            <th colspan="5" class="text-center">Student Body</th>
                         </tr>
                         <tr class="bg-primary text-gray-400">
                             <th class="text-center align-middle">First Name</th>
                             <th class="text-center align-middle">Last Name</th>
-                            <th class="text-center align-middle">Date of Enrollment</th>
+                            <th class="text-center align-middle">Email</th>
                             <th class="text-center align-middle">Student Details</th>
-                            <th class="text-center align-middle">Edit Student</th>
                             <th class="text-center align-middle">Delete Student</th>
                         </tr>
                     </thead>
@@ -36,17 +27,11 @@
                                 <tr>
                                     <th class="text-center align-middle">@item.FirstName</th>
                                     <th class="text-center align-middle">@item.LastName</th>
-                                    <th class="text-center align-middle">@item.ShortEnrollemntFormat</th>
+                                    <th class="text-center align-middle">@item.Email</th>
                                     <th class="text-center">
                                         <a class="btn btn-primary" style="width:auto"
                                            asp-action="Details" asp-route-id="@item.Id">
                                             Details
-                                        </a>
-                                    </th>
-                                    <th class="text-center">
-                                        <a class="btn btn-primary" style="width:auto"
-                                           asp-action="Edit" asp-route-id="@item.Id">
-                                            Edit
                                         </a>
                                     </th>
                                     <th class="text-center">
@@ -61,10 +46,10 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="6" class="text-right"></th>
+                            <th colspan="5" class="text-right"></th>
                         </tr>
                         <tr>
-                            <th colspan="5" class="text-right">Total Number Of Students</th>
+                            <th colspan="4" class="text-right">Total Number Of Students</th>
                             <th colspan="1" class="text-center">@Model.Count()</th>
                         </tr>
                     </tfoot>

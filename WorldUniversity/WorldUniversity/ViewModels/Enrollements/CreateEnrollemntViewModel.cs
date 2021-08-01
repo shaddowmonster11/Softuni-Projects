@@ -12,7 +12,7 @@ namespace WorldUniversity.ViewModels.Enrollements
         [Display(Name = "Student Grade")]
         public string StudentGrade { get; set; }
         [Display(Name = "Student")]
-        public int StudentId { get; set; }
+        public string StudentId { get; set; }
         public IEnumerable<StudentViewModel> Students { get; set; }
         [Display(Name = "Course")]
         public int CourseId { get; set; }

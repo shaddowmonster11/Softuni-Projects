@@ -20,13 +20,13 @@ namespace WorldUniversity.Models
 
         public string LastName { get; set; }
 
-        public DateTime EnrollmentDate { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public ICollection<IdentityUserLogin<string>> Logins { get; set; }
+        public bool IsDeleted { get; set; }
 
     }
 }
