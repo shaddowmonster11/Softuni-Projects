@@ -2,7 +2,7 @@
 
 namespace WorldUniversity.Migrations
 {
-    public partial class InitialCreate8 : Migration
+    public partial class InitialCreate3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

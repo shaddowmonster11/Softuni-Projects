@@ -19,17 +19,14 @@ namespace WorldUniversity.Services
 
         public async Task DeleteStudent(string id)
         {
-            var deletedStudent = _context.Users
+            var student = _context.Users
              .FirstOrDefault(m => m.Id == id);
-          /*  if (_context.Enrollments.Any(x => x.StudentId == id))
-            {
-                var enrollmentToRemove = _context.Enrollments.Where(x => x.StudentId == id).ToList();
-                foreach (var subject in enrollmentToRemove)
-                {
-                    _context.Enrollments.Remove(subject);
-                }
-            }*/
-             _context.Users.Remove(deletedStudent);
+            student.IsDeleted = true;
+            student.UserName = null;
+            student.NormalizedUserName = null;
+             _context.Update(student);
+            var studentEnrollemnt = _context.Enrollments.FirstOrDefault(s => s.StudentId == id);
+            _context.Enrollments.Remove(studentEnrollemnt);
             await _context.SaveChangesAsync();
         }
         public IQueryable<StudentViewModel> GetStudentAllData()

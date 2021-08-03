@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorldUniversity.Models.Entities;
 
 namespace WorldUniversity.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IDeletableEntity
     {
         public ApplicationUser()
         {
@@ -16,6 +17,7 @@ namespace WorldUniversity.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Enrollments=new HashSet<Enrollment>();
         }
+        public bool IsDeleted { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -26,7 +28,5 @@ namespace WorldUniversity.Models
         public ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public ICollection<IdentityUserLogin<string>> Logins { get; set; }
-        public bool IsDeleted { get; set; }
-
     }
 }

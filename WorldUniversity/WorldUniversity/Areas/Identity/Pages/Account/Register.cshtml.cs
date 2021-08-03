@@ -81,7 +81,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            public bool IsDeleted { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -103,7 +103,6 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
                     LastName=Input.LastName,                   
                     UserName = Input.UserName,
                     Email = Input.Email,
-                    IsDeleted=false,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

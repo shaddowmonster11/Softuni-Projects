@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -81,6 +82,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(getUser.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    HttpContext.Session.SetString("username", getUser.UserName);    
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

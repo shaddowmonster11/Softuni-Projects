@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,15 +36,15 @@ namespace WorldUniversity
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.Name = ".WorldUniversity.Session";
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
             services.Configure<SecurityStampValidatorOptions>(options =>
             {
-                options.ValidationInterval = TimeSpan.FromMinutes(30);
+                options.ValidationInterval = TimeSpan.FromMinutes(1);
             });
-            services.AddSession();
             services.Configure<CookieTempDataProviderOptions>(options =>
             {
                 options.Cookie.IsEssential = true;
@@ -53,9 +54,10 @@ namespace WorldUniversity
                    this.Configuration["Cloudinary:ApiSecret"]));
             services.Configure<CookiePolicyOptions>(options =>
             {
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddSession();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -66,6 +68,8 @@ namespace WorldUniversity
                                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
             //Optionaly you can use claims
             services.AddAuthorization(options =>
             {
@@ -99,6 +103,16 @@ namespace WorldUniversity
                 opts.SignIn.RequireConfirmedAccount = true;
                 opts.SignIn.RequireConfirmedEmail = true;
             });
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
             services.AddControllersWithViews(
            options =>
            {
@@ -131,6 +145,7 @@ namespace WorldUniversity
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 app.UseHsts();
             }
+
             IdentityDataInitializer.SeedData(userManager, roleManager);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
