@@ -7,8 +7,7 @@ namespace WorldUniversity.Services
     public interface ICoursesService
     {
         Task EnrollStudent(string studentId
-            , int courseId
-            , string studentCourseGrade);
+            , int courseId);
         IEnumerable<AssignedCourseData> GetAll();
         Task Create(CourseInputModel input);
         GetCoursesDetailsViewModel GetCoursesDetails(int id);
@@ -16,5 +15,6 @@ namespace WorldUniversity.Services
         ICollection<CourseViewModel> GetAllCourses();
         Task UpdateCourse(int Id, string title, int credits, int departmentId);
         bool CourseExists(string name);
+
     }
 }

@@ -1,52 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 using WorldUniversity.Data;
 using WorldUniversity.ViewModels;
+using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.Services
 {
     public class HomeService : IHomeService
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICoursesService coursesService;
 
-        public HomeService(ApplicationDbContext context)
+        public HomeService(ApplicationDbContext context,ICoursesService coursesService)
         {
             _context = context;
+            this.coursesService = coursesService;
         }
-        public IEnumerable<EnrollmentDateGroup> GetGeneralInformation()
+        public EnrollmentDateGroup GetGeneralInformation()
         {
-            var groups = new List<EnrollmentDateGroup>();
-            var conn = _context.Database.GetDbConnection();
-            try
+
+            var courses = _context.Courses
+            .Select(x => new GetCoursesDetailsViewModel
             {
-                conn.OpenAsync();
-                using (var command = conn.CreateCommand())
-                {
-                    string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "
-                        + "FROM Students "
-                        + "GROUP BY EnrollmentDate";
-                    command.CommandText = query;
-                    DbDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            var row = new EnrollmentDateGroup
-                            {
-                                EnrollmentDate = reader.GetDateTime(0),
-                                StudentCount = reader.GetInt32(1),
-                            };
-                            groups.Add(row);
-                        }
-                    }
-                    reader.Dispose();
-                }
-            }
-            finally
+                Title = x.Title,
+                EnrollemntCount = x.Enrollments.Count(),
+            })
+            .ToList();
+            var groups = new EnrollmentDateGroup
             {
-                conn.Close();
-            }
+                Courses = courses,
+                 
+            };
             return groups;
         }
     }

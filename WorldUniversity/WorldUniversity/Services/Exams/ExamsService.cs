@@ -43,7 +43,7 @@ namespace WorldUniversity.Services.Exams
 
         public bool ExamExists(string title, DateTime date)
         {
-            return _context.Exams.Any(e => e.Title == title && e.Date == date);
+            return _context.Exams.Any(e => e.Title == title || e.Date == date);
         }
 
         public ICollection<ExamViewModel> GetAllExams()

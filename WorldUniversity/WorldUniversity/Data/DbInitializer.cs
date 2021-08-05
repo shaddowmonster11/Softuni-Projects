@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using WorldUniversity.Models;
-using WorldUniversity.Models.Enums;
 
 namespace WorldUniversity.Data
 {
@@ -152,37 +151,37 @@ namespace WorldUniversity.Data
             {
                 new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Ivanov").Id,
-                    Grade = Grade.A,
+                    Grade = "A",
                     Course=courses.Single(c => c.Title == "Basic Algoritms" ),
                     Student= students.Single(s => s.LastName == "Ivanov"),
                 },
                 new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Mutafov").Id,
-                    Grade = Grade.A,
+                    Grade =  "A",
                     Course=courses.Single(c => c.Title == "Basic Algoritms" ),
                     Student= students.Single(s => s.LastName == "Mutafov"),
                 },
                 new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Stracimirov").Id,
-                    Grade = Grade.A,
+                    Grade = "A",
                     Course=courses.Single(c => c.Title == "Basic Algoritms" ),
                     Student= students.Single(s => s.LastName == "Stracimirov"),
                 },
                  new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Stoqnova").Id,
-                    Grade = Grade.A,
+                    Grade =  "A",
                     Course=courses.Single(c => c.Title == "Html" ),
                     Student= students.Single(s => s.LastName == "Stoqnova"),
                 },
                 new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Hristov").Id,
-                    Grade = Grade.A,
+                    Grade =  "A",
                     Course=courses.Single(c => c.Title == "Html" ),
                     Student= students.Single(s => s.LastName == "Hristov"),
                 },
                 new Enrollment {
                     StudentId = students.Single(s => s.LastName == "Petrov").Id,
-                    Grade = Grade.A,
+                    Grade =  "A",
                     Course=courses.Single(c => c.Title == "VSM" ),
                     Student= students.Single(s => s.LastName == "Petrov"),
                 },

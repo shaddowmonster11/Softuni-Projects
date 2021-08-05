@@ -61,7 +61,7 @@
                                         }
                                     </th>
                                     <th class="text-center">
-                                        <a class="btn btn-primary" style="width:auto"
+                                        <a class="btn btn-primary" style="width:auto;"
                                            asp-action="Index" asp-route-id="@item.ID">
                                             Select
                                         </a>
@@ -72,6 +72,7 @@
                                             Details
                                         </a>
                                     </th>
+
                                     <th class="text-center">
                                         <a class="btn btn-primary" style="width:auto"
                                            asp-action="Edit" asp-route-id="@item.ID">
@@ -210,6 +211,7 @@
         </div>
     </div>
 }
+
 @section Scripts
 {
     <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>

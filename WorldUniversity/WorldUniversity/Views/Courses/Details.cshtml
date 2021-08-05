@@ -26,10 +26,15 @@
                     <span class="control-label">@Model.Department.Name</span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="EnrollemntCount" class="font-weight-bold"></label>
+                    <br />
+                    <span class="control-label">@Model.EnrollemntCount</span>
+                </div>
+                <div class="form-group">
                     <div class="row">
                         <a class="btn btn-success" style="width:auto"
                            asp-action="Edit" asp-route-id="@Model.Id">
-                            Edit Student
+                            Edit Course
                         </a>
                     </div>
                     <br />

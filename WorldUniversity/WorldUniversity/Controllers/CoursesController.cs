@@ -48,8 +48,7 @@ namespace WorldUniversity.Controllers
             if (ModelState.IsValid)
             {
                 await coursesService.EnrollStudent(enrollment.StudentId
-                 , enrollment.CourseId
-                 , enrollment.StudentGrade);
+                 , enrollment.CourseId);
                 return RedirectToAction(nameof(Index));
             }
             return View();

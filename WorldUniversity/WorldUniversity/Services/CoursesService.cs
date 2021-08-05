@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
-using WorldUniversity.Models.Enums;
 using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Departments;
 
@@ -18,14 +17,9 @@ namespace WorldUniversity.Services
         {
             _context = context;
         }
-
-        public bool CourseExists(string name)
-        {
-            return _context.Courses.Any(e => e.Title == name);
-        }
-
         public async Task Create(CourseInputModel input)
         {
+
             var courses = new Course
             {
                 DepartmentId = input.DepartmentId,
@@ -50,29 +44,30 @@ namespace WorldUniversity.Services
         }
 
         public async Task EnrollStudent(string studentId
-            , int courseId, string studentCourseGrade)
+            , int courseId)
         {
             var student = await _context.Users
                 .FirstOrDefaultAsync(s => s.Id == studentId);
             var course = _context.Courses.Single(c => c.Id == courseId);
-            var grade = (Grade)Enum.Parse(typeof(Grade), studentCourseGrade);
             var enrollments = new Enrollment
             {
                 StudentId = student.Id,
                 Course = course,
                 Student = student,
-                Grade = grade,
+                Grade = "Waiting For Exam",
             };
             var enrollmentInDataBase = _context.Enrollments.Where(
                 s =>
                         s.StudentId == enrollments.StudentId &&
                         s.Course.Id == enrollments.Course.Id)
             .SingleOrDefault();
-
+            
             if (enrollmentInDataBase == null)
             {
                 await _context.Enrollments.AddAsync(enrollments);
             }
+            student.Enrollments.Add(enrollments);
+            _context.Users.Update(student);
             await _context.SaveChangesAsync();
         }
 
@@ -133,10 +128,16 @@ namespace WorldUniversity.Services
                 DepartmentId = x.DepartmentId,
                 Department = x.Department,
                 Departments = departments,
+                EnrollemntCount = x.Enrollments.Count(),
             })
             .FirstOrDefault(m => m.Id == id);
             return course;
         }
+        public bool CourseExists(string name)
+        {
+            return _context.Courses.Any(e => e.Title == name);
+        }
+
         public async Task UpdateCourse(int Id, string title, int credits, int departmentId)
         {
             var updatedCourse = _context.Courses

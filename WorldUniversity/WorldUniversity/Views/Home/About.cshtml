@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WorldUniversity.ViewModels.EnrollmentDateGroup>
+﻿@model WorldUniversity.ViewModels.EnrollmentDateGroup
 @{
     ViewData["Title"] = "Statistics";
 }
@@ -28,17 +28,17 @@
                             <th colspan="2" class="text-center">Student Body Statistics</th>
                         </tr>
                         <tr class="bg-primary text-gray-400">
-                            <th class="text-center align-middle">Date Of Student Enrollement in World University</th>
-                            <th class="text-center align-middle">Number Of Students Enrolled On That Date </th>
+                            <th class="text-center align-middle">Courses</th>
+                            <th class="text-center align-middle">Number Of Students Enrolled</th>
                         </tr>
                     </thead>
                     <tbody>
                         @{
-                            foreach (var item in Model)
-                            {                               
+                            foreach (var item in Model.Courses)
+                            {
                                 <tr>
-                                    <th class="text-center align-middle">@item.ShortEnrolledDate</th>
-                                    <th class="text-center align-middle">@item.StudentCount</th>
+                                    <th class="text-center align-middle">@item.Title</th>
+                                    <th class="text-center align-middle">@item.EnrollemntCount
                                 </tr>
                             }
                         }

@@ -6,11 +6,8 @@ using WorldUniversity.ViewModels.Students;
 namespace WorldUniversity.ViewModels.Enrollements
 {
     public class CreateEnrollemntViewModel
-    {
+    {   
         public string CourseTitle { get; set; }
-        [Required]
-        [Display(Name = "Student Grade")]
-        public string StudentGrade { get; set; }
         [Display(Name = "Student")]
         public string StudentId { get; set; }
         public IEnumerable<StudentViewModel> Students { get; set; }
