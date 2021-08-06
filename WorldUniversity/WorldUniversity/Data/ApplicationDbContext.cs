@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using WorldUniversity.Models;
 using WorldUniversity.Models.Entities;
 using WorldUniversity.Models.ExamModels;
@@ -28,6 +26,7 @@ namespace WorldUniversity.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
+        public DbSet<ExamAssignment> ExamAssignments { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<ContactForm> ContactForm { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -39,11 +38,14 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<Instructor>().ToTable("Instructors");
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
+            modelBuilder.Entity<ExamAssignment>().ToTable("ExamAssignments");
             modelBuilder.Entity<Question>().ToTable("Questions");
             modelBuilder.Entity<ContactForm>().ToTable("ContractForms");
             modelBuilder.Entity<Exam>().ToTable("Exams");
             modelBuilder.Entity<CourseAssignment>()
-                  .HasKey(c => new { c.Id, c.InstructorId });
+                  .HasKey(c => new { c.Id, c.InstructorId});
+            modelBuilder.Entity<ExamAssignment>()
+                  .HasKey(c => new { c.CourseId, c.ExamId });
 
             base.OnModelCreating(modelBuilder);
             EntityIndexesConfiguration.Configure(modelBuilder);

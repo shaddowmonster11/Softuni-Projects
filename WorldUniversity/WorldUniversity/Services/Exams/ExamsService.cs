@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
+using WorldUniversity.Models;
 using WorldUniversity.Models.ExamModels;
+using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Exams;
 using WorldUniversity.ViewModels.Questions;
 
@@ -12,10 +14,13 @@ namespace WorldUniversity.Services.Exams
     public class ExamsService : IExamsService
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICoursesService coursesService;
 
-        public ExamsService(ApplicationDbContext context)
+        public ExamsService(ApplicationDbContext context
+            ,ICoursesService coursesService)
         {
             _context = context;
+            this.coursesService = coursesService;
         }
 
         public async Task ArchieveExam(int id)
@@ -29,15 +34,26 @@ namespace WorldUniversity.Services.Exams
         }
 
         public async Task CreateExam(CreateExamInputModel input)
-        {
+        {       
             var exam = new Exam
             {
-                Id = input.Id,
+                CourseId=input.CourseId,
                 Title = input.Title,
                 Date = input.Date,
                 IsArchived = false,
             };
+             
             await _context.AddAsync(exam);
+            var course = _context.Courses.Where(x => x.Id == input.CourseId).FirstOrDefault();
+            var examAssignment = new ExamAssignment
+            {
+                Course = course,
+                CourseId = input.CourseId,
+                Exam = exam,
+                ExamId = exam.Id,
+               
+            };
+            _context.ExamAssignments.Add(examAssignment);          
             await _context.SaveChangesAsync();
         }
 

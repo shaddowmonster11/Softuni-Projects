@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using WorldUniversity.Models;
 using WorldUniversity.ViewModels.Departments;
+using WorldUniversity.ViewModels.Exams;
 
 namespace WorldUniversity.ViewModels.Courses
 {

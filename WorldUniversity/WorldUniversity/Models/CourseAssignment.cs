@@ -1,4 +1,6 @@
-﻿namespace WorldUniversity.Models
+﻿using WorldUniversity.Models.ExamModels;
+
+namespace WorldUniversity.Models
 {
     public class CourseAssignment
     {
@@ -6,5 +8,6 @@
         public int Id { get; set; }
         public Instructor Instructor { get; set; }
         public Course Course { get; set; }
+        
     }
 }

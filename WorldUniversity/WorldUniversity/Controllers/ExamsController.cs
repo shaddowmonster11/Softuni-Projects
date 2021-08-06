@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorldUniversity.Services;
 using WorldUniversity.Services.Exams;
 using WorldUniversity.ViewModels.Exams;
 using WorldUniversity.ViewModels.Questions;
@@ -16,12 +17,15 @@ namespace WorldUniversity.Controllers
     {
         private readonly IExamsService examsService;
         private readonly IQuestionsService questionsService;
+        private readonly ICoursesService coursesService;
 
         public ExamsController(IExamsService examsService
-            ,IQuestionsService questionsService)
+            ,IQuestionsService questionsService
+            ,ICoursesService coursesService)
         {
             this.examsService = examsService;
             this.questionsService = questionsService;
+            this.coursesService = coursesService;
         }
         public IActionResult Index()
         {
@@ -30,7 +34,12 @@ namespace WorldUniversity.Controllers
         }       
         public IActionResult CreateExam()
         {
-            return View();
+            var courses = coursesService.GetAllCourses();
+            var course = new CreateExamInputModel
+            {
+                Courses = courses,
+            };
+            return View(course);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

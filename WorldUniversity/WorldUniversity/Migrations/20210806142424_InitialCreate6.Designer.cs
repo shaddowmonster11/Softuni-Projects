@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorldUniversity.Data;
 
 namespace WorldUniversity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210806142424_InitialCreate6")]
+    partial class InitialCreate6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -359,21 +361,6 @@ namespace WorldUniversity.Migrations
                     b.ToTable("Enrollments");
                 });
 
-            modelBuilder.Entity("WorldUniversity.Models.ExamAssignment", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId", "ExamId");
-
-                    b.HasIndex("ExamId");
-
-                    b.ToTable("ExamAssignments");
-                });
-
             modelBuilder.Entity("WorldUniversity.Models.ExamModels.Exam", b =>
                 {
                     b.Property<int>("Id")
@@ -590,25 +577,6 @@ namespace WorldUniversity.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("WorldUniversity.Models.ExamAssignment", b =>
-                {
-                    b.HasOne("WorldUniversity.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WorldUniversity.Models.ExamModels.Exam", "Exam")
-                        .WithMany()
-                        .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Exam");
                 });
 
             modelBuilder.Entity("WorldUniversity.Models.ExamModels.Exam", b =>

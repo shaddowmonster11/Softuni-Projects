@@ -1,6 +1,7 @@
 ﻿@model WorldUniversity.ViewModels.Exams.CreateExamInputModel
 @{
     ViewData["Title"] = "CreateExam";
+    var courseId = Model.Courses.Select(x => new SelectListItem(x.Title, x.Id.ToString()));
 }
 <div class="col-xl-6 col-lg-12 col-md-9">
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -14,6 +15,13 @@
                             <label asp-for="Title" class="control-label"></label>
                             <input asp-for="Title" class="form-control" />
                             <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CourseId" class="control-label"></label>
+                            <select asp-for="CourseId" class="form-control" asp-items="courseId">
+                                <option value="">-- Select Course --</option>
+                            </select>
+                            <span asp-validation-for="CourseId" class="text-danger" />
                         </div>
                         <div class="form-group">
                             <label asp-for="Date" class="control-label"></label>

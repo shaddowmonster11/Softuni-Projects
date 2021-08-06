@@ -15,6 +15,7 @@ namespace WorldUniversity.ViewModels.Exams
             Questions = new List<QuestionViewModel>();
         }
         public int Id { get; set; }
+        public int CourseId { get; set; }
         public int Marks { get; set; }
         public string Title { get; set; }
         [DisplayName("Date and Time")]

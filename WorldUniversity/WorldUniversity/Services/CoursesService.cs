@@ -18,8 +18,7 @@ namespace WorldUniversity.Services
             _context = context;
         }
         public async Task Create(CourseInputModel input)
-        {
-
+        {          
             var courses = new Course
             {
                 DepartmentId = input.DepartmentId,

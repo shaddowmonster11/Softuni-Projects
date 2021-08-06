@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WorldUniversity.Models;
+using WorldUniversity.ViewModels.Exams;
 
 namespace WorldUniversity.ViewModels.Courses
 {
@@ -20,5 +21,6 @@ namespace WorldUniversity.ViewModels.Courses
         public ICollection<Enrollment> Enrollments { get; set; }
 
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
+        public ExamViewModel Exam { get; set; }
     }
 }
