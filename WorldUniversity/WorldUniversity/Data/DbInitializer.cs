@@ -122,19 +122,19 @@ namespace WorldUniversity.Data
             {
                 new CourseAssignment
                 {
-                    Id = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
+                    CourseId = courses.Single(c => c.Title == "Basic Algoritms" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Petrov").ID,
                    Course=courses.Single(c => c.Title == "Basic Algoritms" ),
                 },
                  new CourseAssignment
                 {
-                    Id = courses.Single(c => c.Title == "VSM" ).Id,
+                    CourseId = courses.Single(c => c.Title == "VSM" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Hristov").ID,
                    Course=courses.Single(c => c.Title == "VSM" ),
                 },
                   new CourseAssignment
                 {
-                    Id = courses.Single(c => c.Title == "Html" ).Id,
+                    CourseId = courses.Single(c => c.Title == "Html" ).Id,
                     InstructorId = instructors.Single(i => i.LastName == "Yordanov").ID,
                    Course=courses.Single(c => c.Title == "Html" ),
                 },

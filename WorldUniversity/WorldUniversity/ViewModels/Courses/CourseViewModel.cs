@@ -21,6 +21,6 @@ namespace WorldUniversity.ViewModels.Courses
         public ICollection<Enrollment> Enrollments { get; set; }
 
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
-        public ExamViewModel Exam { get; set; }
+        public ICollection<ExamAssignment> ExamAssignments { get; set; }
     }
 }

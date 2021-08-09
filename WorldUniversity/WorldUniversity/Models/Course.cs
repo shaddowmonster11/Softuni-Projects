@@ -16,8 +16,7 @@ namespace WorldUniversity.Models
         public Department Department { get; set; }
 
         public ICollection<Enrollment> Enrollments { get; set; }
-
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
-        public Exam Exam { get; set; }
+        public ICollection<ExamAssignment> ExamAssignments { get; set; }
     }
 }

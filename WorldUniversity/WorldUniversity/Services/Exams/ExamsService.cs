@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,19 +45,41 @@ namespace WorldUniversity.Services.Exams
             };
              
             await _context.AddAsync(exam);
-            var course = _context.Courses.Where(x => x.Id == input.CourseId).FirstOrDefault();
+            await _context.SaveChangesAsync();
+            var course = _context.Courses
+                .Include(x => x.ExamAssignments)
+                .Where(x => x.Id == input.CourseId)
+                .FirstOrDefault();
             var examAssignment = new ExamAssignment
             {
                 Course = course,
-                CourseId = input.CourseId,
+                CourseId = course.Id,
                 Exam = exam,
                 ExamId = exam.Id,
                
             };
-            _context.ExamAssignments.Add(examAssignment);          
+
+            course.ExamAssignments.Add(examAssignment);
+      //      _context.ExamAssignments.Add(examAssignment);          
             await _context.SaveChangesAsync();
         }
-
+        public List<AssignedExamData> PopulateAssignedExamData(int courseId ,
+        ICollection<ExamViewModel> allExams)
+        {
+            var course = coursesService.GetAllCourses().FirstOrDefault(x => x.Id == courseId);
+            var courseExams = new HashSet<int>(course.ExamAssignments.Select(c => c.CourseId));
+            var viewModel = new List<AssignedExamData>();
+            foreach (var exam in allExams)
+            {
+                viewModel.Add(new AssignedExamData
+                {
+                    Id = exam.Id,
+                    Title = exam.Title,
+                    Assigned = courseExams.Contains(exam.Id)
+                });
+            }
+            return viewModel;
+        }
         public bool ExamExists(string title, DateTime date)
         {
             return _context.Exams.Any(e => e.Title == title || e.Date == date);
@@ -158,6 +181,19 @@ namespace WorldUniversity.Services.Exams
                     Title = x.Title,
                 }).FirstOrDefault();
             return exam;
+        }
+
+        public bool ExamIsArchieved(string title)
+        {
+            var isExamArchieved = _context.Exams.Where(ex => ex.Title == title).FirstOrDefault().IsArchived;
+            if(isExamArchieved)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

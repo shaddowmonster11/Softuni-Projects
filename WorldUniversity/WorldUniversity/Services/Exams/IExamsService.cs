@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Exams;
 
 namespace WorldUniversity.Services.Exams
@@ -15,8 +16,10 @@ namespace WorldUniversity.Services.Exams
         Task UpdateExam(ExamDetailsViewModel exam);
         Task ArchieveExam(int id);
         bool ExamExists(string title, DateTime date);
+        bool ExamIsArchieved(string title);
         ExamViewModel GetExamById(int Id);
-
+        List<AssignedExamData> PopulateAssignedExamData(int courseId,
+        ICollection<ExamViewModel> allExams);
 
     }
 }

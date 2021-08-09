@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorldUniversity.Data;
 
 namespace WorldUniversity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210809150224_InitialCreate14")]
+    partial class InitialCreate14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,6 +395,9 @@ namespace WorldUniversity.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CourseId")
+                        .IsUnique();
+
                     b.ToTable("Exams");
                 });
 
@@ -588,7 +593,7 @@ namespace WorldUniversity.Migrations
             modelBuilder.Entity("WorldUniversity.Models.ExamAssignment", b =>
                 {
                     b.HasOne("WorldUniversity.Models.Course", "Course")
-                        .WithMany("ExamAssignments")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -602,6 +607,15 @@ namespace WorldUniversity.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Exam");
+                });
+
+            modelBuilder.Entity("WorldUniversity.Models.ExamModels.Exam", b =>
+                {
+                    b.HasOne("WorldUniversity.Models.Course", null)
+                        .WithOne("Exam")
+                        .HasForeignKey("WorldUniversity.Models.ExamModels.Exam", "CourseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WorldUniversity.Models.ExamModels.Question", b =>
@@ -641,7 +655,7 @@ namespace WorldUniversity.Migrations
 
                     b.Navigation("Enrollments");
 
-                    b.Navigation("ExamAssignments");
+                    b.Navigation("Exam");
                 });
 
             modelBuilder.Entity("WorldUniversity.Models.Department", b =>

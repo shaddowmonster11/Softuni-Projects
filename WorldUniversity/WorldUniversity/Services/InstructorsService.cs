@@ -68,7 +68,7 @@ namespace WorldUniversity.Services
                         HireDate = x.HireDate,
                         CourseAssignments = x.CourseAssignments.Select(ca => new AssignedCourseData
                         {
-                            Id = ca.Id,
+                            Id = ca.CourseId,
                             Title = ca.Course.Title,
                         }),
                         OfficeAssignment = x.OfficeAssignment,
@@ -110,7 +110,7 @@ namespace WorldUniversity.Services
                         HireDate = x.HireDate,
                         CourseAssignments = x.CourseAssignments.Select(ca => new AssignedCourseData
                         {
-                            Id = ca.Id,
+                            Id = ca.CourseId,
                             Title = ca.Course.Title,
                         }),
                         OfficeAssignment = x.OfficeAssignment,
@@ -164,7 +164,7 @@ namespace WorldUniversity.Services
                     var courseAssigment = new CourseAssignment
                     {
                         Course = course,
-                        Id = course.Id,
+                        CourseId = course.Id,
                         Instructor = updatedInstructor,
                         InstructorId = updatedInstructor.ID,
                     };

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WorldUniversity.Models;
 using WorldUniversity.ViewModels.Departments;
@@ -18,6 +19,9 @@ namespace WorldUniversity.ViewModels.Courses
         public IEnumerable<DepartmentViewModel> Departments { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
+        [BindProperty]
+        public IEnumerable<AssignedExamData> ExamAssigments { get; set; }
+
         [Display(Name = "Number of Students")]
         public int EnrollemntCount { get; set; }
     }

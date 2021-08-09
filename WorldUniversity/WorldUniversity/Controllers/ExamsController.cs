@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Exams;
@@ -13,15 +9,15 @@ using WorldUniversity.ViewModels.Questions;
 namespace WorldUniversity.Controllers
 {
 
-    public class ExamsController:Controller
+    public class ExamsController : Controller
     {
         private readonly IExamsService examsService;
         private readonly IQuestionsService questionsService;
         private readonly ICoursesService coursesService;
 
         public ExamsController(IExamsService examsService
-            ,IQuestionsService questionsService
-            ,ICoursesService coursesService)
+            , IQuestionsService questionsService
+            , ICoursesService coursesService)
         {
             this.examsService = examsService;
             this.questionsService = questionsService;
@@ -31,7 +27,7 @@ namespace WorldUniversity.Controllers
         {
             var exams = examsService.GetAllExams();
             return View(exams);
-        }       
+        }
         public IActionResult CreateExam()
         {
             var courses = coursesService.GetAllCourses();
@@ -45,7 +41,7 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateExam(CreateExamInputModel exam)
         {
-            if (examsService.ExamExists(exam.Title,exam.Date))
+            if (examsService.ExamExists(exam.Title, exam.Date) && !examsService.ExamIsArchieved(exam.Title))
             {
                 ViewBag.ErrorTitle = "Dublicated Name";
                 ViewBag.ErrorMessage = $"Exam with Title {exam.Title} already exists";
@@ -57,7 +53,9 @@ namespace WorldUniversity.Controllers
                 await examsService.CreateExam(exam);
                 return RedirectToAction(nameof(Index));
             }
-            return View(exam);
+            var allExams = examsService.GetAllExams();
+            var viewModel = examsService.PopulateAssignedExamData(exam.CourseId, allExams);
+            return View(exam);  
         }
         public IActionResult ExamDetails(int id)
         {
@@ -99,7 +97,7 @@ namespace WorldUniversity.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!examsService.ExamExists(exam.Title,exam.Date))
+                    if (!examsService.ExamExists(exam.Title, exam.Date))
                     {
                         return NotFound();
                     }
