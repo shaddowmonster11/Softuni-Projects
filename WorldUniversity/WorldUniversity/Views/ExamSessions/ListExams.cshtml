@@ -1,0 +1,61 @@
+﻿@model ICollection<WorldUniversity.ViewModels.Exams.ExamViewModel>
+@{
+    Layout = "~/Views/Shared/_ExamLayout.cshtml";
+    ViewBag.Title = "ListExams";
+}
+<div class="container-fluid" id="print">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-5 mt-5">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover font-italic " id="example" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="6" class="text-center">Courses</th>
+                        </tr>
+                        <tr class="bg-primary text-gray-400">
+                            <th class="text-center align-middle">Exam Title</th>
+                            <th class="text-center align-middle">Exam Date</th>
+                            <th class="text-center align-middle">Score</th>
+                            <th class="text-center align-middle">Archieve</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th class="text-center align-middle">
+                                        <a asp-action="ExamDetails" asp-route-id="@item.Id">@item.Title</a>
+                                    </th>
+                                    <th class="text-center align-middle">@item.Date</th>
+                                    <th class="text-center align-middle">@item.Marks</th>
+                                    <th class="text-center">
+                                        <form asp-action="TakeExam" asp-route-id="@item.Id">
+                                            <button type="submit" class="btn btn-danger">
+                                                Take Exam
+                                            </button>
+                                        </form>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-right"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="3" class="text-right">Total Number Of Exams</th>
+                            <th colspan="1" class="text-center">@Model.Count()</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
+}
