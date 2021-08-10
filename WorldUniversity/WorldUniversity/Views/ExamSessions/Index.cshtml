@@ -1,4 +1,66 @@
-﻿@{
+﻿@model IEnumerable<WorldUniversity.ViewModels.Courses.AssignUserToCourseViewModel>
+@{
     Layout = "~/Views/Shared/_ExamLayout.cshtml";
     ViewBag.Title = "Index";
+}
+<div class="container-fluid" id="print">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover font-italic " id="example" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="6" class="text-center">Courses</th>
+                        </tr>
+                        <tr class="bg-primary text-gray-400">
+                            <th class="text-center align-middle">Title</th>
+                            <th class="text-center align-middle">Credits</th>
+                            <th class="text-center align-middle">Are you Assigned?</th>
+                            <th class="text-center align-middle">Assign To Course</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th class="text-center align-middle">@item.Title</th>
+                                    <th class="text-center align-middle">@item.Credits</th>
+                                    @if (item.IsAssignedToUser == false)
+                                    {
+                                        <th class="text-center text-primary align-middle">Not Assigned</th>
+                                    }
+                                    else
+                                    {
+                                        <th class="text-center text-danger align-middle">Assigned</th>
+                                    }
+                                    <th class="text-center">
+                                        <a class="btn btn-success" style="width:auto"
+                                           asp-action="Index" asp-route-Id="@item.Id">
+                                            Assign
+                                        </a>
+                                    </th>                              
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-right"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="3" class="text-right">Total Number Of Courses</th>
+                            <th colspan="1" class="text-center">@Model.Count()</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
 }

@@ -5,7 +5,8 @@ using WorldUniversity.ViewModels.Departments;
 namespace WorldUniversity.ViewModels.Courses
 {
     public class CourseInputModel
-    {   [Required]
+    {
+        [Required]
         [StringLength(50, MinimumLength = 1)]
         public string Title { get; set; }
         [Required]

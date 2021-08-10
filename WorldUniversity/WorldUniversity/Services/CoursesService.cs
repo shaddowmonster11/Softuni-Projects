@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +17,7 @@ namespace WorldUniversity.Services
             _context = context;
         }
         public async Task Create(CourseInputModel input)
-        {          
+        {
             var courses = new Course
             {
                 DepartmentId = input.DepartmentId,
@@ -60,7 +59,7 @@ namespace WorldUniversity.Services
                         s.StudentId == enrollments.StudentId &&
                         s.Course.Id == enrollments.Course.Id)
             .SingleOrDefault();
-            
+
             if (enrollmentInDataBase == null)
             {
                 await _context.Enrollments.AddAsync(enrollments);
@@ -98,7 +97,22 @@ namespace WorldUniversity.Services
                  .ToList();
             return courses;
         }
-
+        public ICollection<AssignUserToCourseViewModel> GetAllUnAssignedCoursesToUser()
+        {
+            var courses = _context.Courses
+                 .Include(c => c.Department)
+                 .Select(c => new AssignUserToCourseViewModel
+                 {
+                     Title = c.Title,
+                     Id = c.Id,
+                     Credits = c.Credits,
+                     IsAssignedToUser = false,
+                 }) 
+                 .AsNoTracking()
+                 .ToList();
+            return courses;
+        }
+        
         public GetCoursesDetailsViewModel GetCoursesDetails(int id)
         {
             var departments = _context.Departments

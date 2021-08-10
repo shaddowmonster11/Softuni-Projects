@@ -19,8 +19,6 @@ namespace WorldUniversity.ViewModels.Exams
         public int Marks { get; set; }
         public string Title { get; set; }
         [DisplayName("Date and Time")]
-       // [DataType(DataType.Date)]
-       // [DisplayFormat(DataFormatString = "{MM/dd/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
         public bool IsArchived { get; set; }
         public ICollection<QuestionViewModel> Questions { get; set; }

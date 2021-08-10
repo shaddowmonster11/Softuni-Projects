@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Exams;
 
 namespace WorldUniversity.Services.Exams

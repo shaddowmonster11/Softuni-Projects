@@ -15,6 +15,7 @@ namespace WorldUniversity.Services
         ICollection<CourseViewModel> GetAllCourses();
         Task UpdateCourse(int Id, string title, int credits, int departmentId);
         bool CourseExists(string name);
+        ICollection<AssignUserToCourseViewModel> GetAllUnAssignedCoursesToUser();
 
     }
 }

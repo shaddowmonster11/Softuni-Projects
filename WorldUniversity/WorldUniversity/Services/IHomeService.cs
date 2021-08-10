@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using WorldUniversity.ViewModels;
-using WorldUniversity.ViewModels.Courses;
+﻿using WorldUniversity.ViewModels;
 
 namespace WorldUniversity.Services
 {

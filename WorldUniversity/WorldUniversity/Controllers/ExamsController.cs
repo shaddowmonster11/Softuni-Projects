@@ -55,7 +55,7 @@ namespace WorldUniversity.Controllers
             }
             var allExams = examsService.GetAllExams();
             var viewModel = examsService.PopulateAssignedExamData(exam.CourseId, allExams);
-            return View(exam);  
+            return View(exam);
         }
         public IActionResult ExamDetails(int id)
         {

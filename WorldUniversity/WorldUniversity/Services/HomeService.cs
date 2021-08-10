@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
+﻿using System.Linq;
 using WorldUniversity.Data;
 using WorldUniversity.ViewModels;
 using WorldUniversity.ViewModels.Courses;
@@ -11,12 +8,11 @@ namespace WorldUniversity.Services
     public class HomeService : IHomeService
     {
         private readonly ApplicationDbContext _context;
-        private readonly ICoursesService coursesService;
 
-        public HomeService(ApplicationDbContext context,ICoursesService coursesService)
+
+        public HomeService(ApplicationDbContext context)
         {
             _context = context;
-            this.coursesService = coursesService;
         }
         public EnrollmentDateGroup GetGeneralInformation()
         {
@@ -31,7 +27,7 @@ namespace WorldUniversity.Services
             var groups = new EnrollmentDateGroup
             {
                 Courses = courses,
-                 
+
             };
             return groups;
         }

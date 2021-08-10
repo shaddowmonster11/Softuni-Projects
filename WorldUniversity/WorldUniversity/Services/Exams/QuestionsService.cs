@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models.ExamModels;
-using WorldUniversity.ViewModels.Exams;
 using WorldUniversity.ViewModels.Questions;
 
 namespace WorldUniversity.Services.Exams
@@ -29,8 +26,7 @@ namespace WorldUniversity.Services.Exams
                 AlternateAnsTwo = input.AlternateAnsTwo,
                 AlternateAnsThree = input.AlternateAnsThree,
                 Answer = input.CorrectAns,
-                ExamId=input.ExamId,
-
+                ExamId = input.ExamId,
             };
             await _context.AddAsync(question);
             await _context.SaveChangesAsync();
@@ -38,17 +34,17 @@ namespace WorldUniversity.Services.Exams
 
         public async Task DeleteQuestion(int id)
         {
-                var deleteQuestion = _context.Questions
-                    .FirstOrDefault(ex => ex.Id == id);
-                _context.Questions.Remove(deleteQuestion);
-                await _context.SaveChangesAsync();     
+            var deleteQuestion = _context.Questions
+                .FirstOrDefault(ex => ex.Id == id);
+            _context.Questions.Remove(deleteQuestion);
+            await _context.SaveChangesAsync();
         }
         public ICollection<QuestionViewModel> GetAllQuestions()
         {
             var questions = _context.Questions
-                 .Select(x=>new QuestionViewModel 
+                 .Select(x => new QuestionViewModel
                  {
-                     QuestionID=x.Id,
+                     QuestionID = x.Id,
                      QuestionContent = x.QuestionContent,
                      AlternateAnsOne = x.AlternateAnsOne,
                      AlternateAnsTwo = x.AlternateAnsTwo,
@@ -62,7 +58,7 @@ namespace WorldUniversity.Services.Exams
         public QuestionViewModel GetQuestionById(int questionId)
         {
             var question = _context.Questions
-                .Where(x=>x.Id==questionId)
+                .Where(x => x.Id == questionId)
                  .Select(x => new QuestionViewModel
                  {
                      QuestionID = x.Id,

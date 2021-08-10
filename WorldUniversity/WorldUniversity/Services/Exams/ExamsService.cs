@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
 using WorldUniversity.Models.ExamModels;
-using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Exams;
 using WorldUniversity.ViewModels.Questions;
 
@@ -18,7 +17,7 @@ namespace WorldUniversity.Services.Exams
         private readonly ICoursesService coursesService;
 
         public ExamsService(ApplicationDbContext context
-            ,ICoursesService coursesService)
+            , ICoursesService coursesService)
         {
             _context = context;
             this.coursesService = coursesService;
@@ -35,15 +34,15 @@ namespace WorldUniversity.Services.Exams
         }
 
         public async Task CreateExam(CreateExamInputModel input)
-        {       
+        {
             var exam = new Exam
             {
-                CourseId=input.CourseId,
+                CourseId = input.CourseId,
                 Title = input.Title,
                 Date = input.Date,
                 IsArchived = false,
             };
-             
+
             await _context.AddAsync(exam);
             await _context.SaveChangesAsync();
             var course = _context.Courses
@@ -56,14 +55,13 @@ namespace WorldUniversity.Services.Exams
                 CourseId = course.Id,
                 Exam = exam,
                 ExamId = exam.Id,
-               
+
             };
 
             course.ExamAssignments.Add(examAssignment);
-      //      _context.ExamAssignments.Add(examAssignment);          
             await _context.SaveChangesAsync();
         }
-        public List<AssignedExamData> PopulateAssignedExamData(int courseId ,
+        public List<AssignedExamData> PopulateAssignedExamData(int courseId,
         ICollection<ExamViewModel> allExams)
         {
             var course = coursesService.GetAllCourses().FirstOrDefault(x => x.Id == courseId);
@@ -88,7 +86,7 @@ namespace WorldUniversity.Services.Exams
         public ICollection<ExamViewModel> GetAllExams()
         {
             var exam = _context.Exams
-                .Where(x=>x.IsArchived==false)
+                .Where(x => x.IsArchived == false)
                 .Select(x => new ExamViewModel
                 {
                     Id = x.Id,
@@ -106,7 +104,7 @@ namespace WorldUniversity.Services.Exams
                         QuestionContent = x.QuestionContent,
                     }).ToList(),
                 }).ToList();
-                return exam;
+            return exam;
         }
 
         public ExamViewModel GetExamById(int Id)
@@ -186,7 +184,7 @@ namespace WorldUniversity.Services.Exams
         public bool ExamIsArchieved(string title)
         {
             var isExamArchieved = _context.Exams.Where(ex => ex.Title == title).FirstOrDefault().IsArchived;
-            if(isExamArchieved)
+            if (isExamArchieved)
             {
                 return true;
             }
