@@ -45,8 +45,7 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<CourseAssignment>()
                   .HasKey(c => new { c.CourseId, c.InstructorId});
             modelBuilder.Entity<ExamAssignment>()
-                  .HasKey(c => new { c.CourseId, c.ExamId });
-
+                  .HasKey(c => new { c.CourseId, c.ExamId });        
             base.OnModelCreating(modelBuilder);
             EntityIndexesConfiguration.Configure(modelBuilder);
             var entityTypes = modelBuilder.Model.GetEntityTypes().ToList();

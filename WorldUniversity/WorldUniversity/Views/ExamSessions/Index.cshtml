@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WorldUniversity.ViewModels.Courses.AssignUserToCourseViewModel>
+﻿@model ICollection<WorldUniversity.ViewModels.Courses.AssignUserToCourseViewModel>
 @{
     Layout = "~/Views/Shared/_ExamLayout.cshtml";
     ViewBag.Title = "Index";
@@ -37,11 +37,10 @@
                                         <th class="text-center text-danger align-middle">Assigned</th>
                                     }
                                     <th class="text-center">
-                                        <a class="btn btn-success" style="width:auto"
-                                           asp-action="Index" asp-route-Id="@item.Id">
-                                            Assign
-                                        </a>
-                                    </th>                              
+                                        <form asp-action="Index" asp-route-courseId="@item.Id" method="post">
+                                            <input type="submit" value="Assign" class="btn btn-success btn-block" />
+                                        </form>
+                                    </th>
                                 </tr>
                             }
                         }

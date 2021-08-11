@@ -3,36 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorldUniversity.Data;
 
 namespace WorldUniversity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210811160113_InitialCreate20")]
+    partial class InitialCreate20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ApplicationUserCourse", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CoursesId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
-
-                    b.ToTable("ApplicationUserCourse");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -287,6 +274,9 @@ namespace WorldUniversity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
@@ -297,6 +287,8 @@ namespace WorldUniversity.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("DepartmentId");
 
@@ -477,21 +469,6 @@ namespace WorldUniversity.Migrations
                     b.ToTable("OfficeAssignments");
                 });
 
-            modelBuilder.Entity("ApplicationUserCourse", b =>
-                {
-                    b.HasOne("WorldUniversity.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WorldUniversity.Models.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -560,6 +537,11 @@ namespace WorldUniversity.Migrations
 
             modelBuilder.Entity("WorldUniversity.Models.Course", b =>
                 {
+                    b.HasOne("WorldUniversity.Models.ApplicationUser", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("WorldUniversity.Models.Department", "Department")
                         .WithMany("Courses")
                         .HasForeignKey("DepartmentId")
@@ -657,6 +639,8 @@ namespace WorldUniversity.Migrations
             modelBuilder.Entity("WorldUniversity.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
+
+                    b.Navigation("Courses");
 
                     b.Navigation("Enrollments");
 

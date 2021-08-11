@@ -7,7 +7,7 @@ namespace WorldUniversity.Services.Exams
 {
     public interface IExamAssignmentsService
     {
-        Task AssignExam(string userId);
+        Task AssignExam(string userId, int courseId);
         ICollection<ExamAssignmentViewModel> GetAllExamAssignments();
         bool ExamAssignmentExist(int examId, int courseId);
         ExamAssignmentViewModel GetExamAssignmentByExamId(int examId);

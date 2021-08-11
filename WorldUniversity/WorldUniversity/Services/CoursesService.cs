@@ -63,8 +63,9 @@ namespace WorldUniversity.Services
             if (enrollmentInDataBase == null)
             {
                 await _context.Enrollments.AddAsync(enrollments);
+                student.Enrollments.Add(enrollments);
             }
-            student.Enrollments.Add(enrollments);
+
             _context.Users.Update(student);
             await _context.SaveChangesAsync();
         }
@@ -100,6 +101,7 @@ namespace WorldUniversity.Services
         public ICollection<AssignUserToCourseViewModel> GetAllUnAssignedCoursesToUser()
         {
             var courses = _context.Courses
+                 .Include(c => c.Enrollments)
                  .Include(c => c.Department)
                  .Select(c => new AssignUserToCourseViewModel
                  {
@@ -107,12 +109,12 @@ namespace WorldUniversity.Services
                      Id = c.Id,
                      Credits = c.Credits,
                      IsAssignedToUser = false,
-                 }) 
-                 .AsNoTracking()
+                     Enrollments = c.Enrollments,                    
+                 })
                  .ToList();
             return courses;
         }
-        
+
         public GetCoursesDetailsViewModel GetCoursesDetails(int id)
         {
             var departments = _context.Departments

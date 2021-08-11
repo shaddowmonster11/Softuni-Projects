@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Exams;
+using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Questions;
 
 namespace WorldUniversity.Controllers
@@ -30,8 +32,30 @@ namespace WorldUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(int courseId)
         {
-          //  var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return RedirectToAction(nameof(Index));
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (ModelState.IsValid)
+            {
+                await coursesService.EnrollStudent(userId, courseId);
+               /* var selectedCourse = coursesService.GetAllUnAssignedCoursesToUser()
+                     .Where(x => x.Id == courseId)
+                     .Select(x => x.Enrollments
+                     .Where(c => c.StudentId == userId && c.Id == courseId)
+                     .FirstOrDefault())
+                     .FirstOrDefault();
+                coursesService.GetAllUnAssignedCoursesToUser()
+                    .Where(x => x.Id == courseId)
+                    .Select(x => new AssignUserToCourseViewModel
+                    {
+                        Id = x.Id,
+                        Credits = x.Credits,
+                        Title = x.Title,
+                        IsAssignedToUser = x.Enrollments.Contains(selectedCourse),
+                        Enrollments = x.Enrollments,
+                        ExamAssignments = x.ExamAssignments,
+                    });*/
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
         }
         public IActionResult ListExams()
         {

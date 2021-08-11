@@ -18,7 +18,7 @@ namespace WorldUniversity.ViewModels.Courses
 
         public Department Department { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
-
+        public ICollection<ApplicationUser> Students { get; set; }
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
         public ICollection<ExamAssignment> ExamAssignments { get; set; }
     }

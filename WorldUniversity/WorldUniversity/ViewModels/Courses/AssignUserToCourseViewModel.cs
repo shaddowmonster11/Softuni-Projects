@@ -14,9 +14,6 @@ namespace WorldUniversity.ViewModels.Courses
         public int Credits { get; set; }
         public bool IsAssignedToUser { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
-
-        public ICollection<CourseAssignment> CourseAssignments { get; set; }
         public ICollection<ExamAssignment> ExamAssignments { get; set; }
-        public ICollection<CourseViewModel> courses { get; set; }
     }
 }

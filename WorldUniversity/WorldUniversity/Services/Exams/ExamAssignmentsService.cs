@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
+using WorldUniversity.ViewModels.Courses;
 using WorldUniversity.ViewModels.Exams;
 
 namespace WorldUniversity.Services.Exams
@@ -19,10 +20,11 @@ namespace WorldUniversity.Services.Exams
             _context = context;
             this.coursesService = coursesService;
         }
-        public Task AssignExam(string userId)
+        public Task AssignExam(string userId,int courseId)
         {
             var user = _context.Users.FirstOrDefault(x => x.Id == userId);
-            
+ 
+
             //  user.ExamAssignments.Add()
             throw new NotImplementedException();
         }

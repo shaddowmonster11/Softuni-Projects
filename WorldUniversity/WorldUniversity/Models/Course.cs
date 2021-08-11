@@ -18,5 +18,6 @@ namespace WorldUniversity.Models
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
         public ICollection<ExamAssignment> ExamAssignments { get; set; }
+        public ICollection<ApplicationUser> Students { get; set; }
     }
 }
