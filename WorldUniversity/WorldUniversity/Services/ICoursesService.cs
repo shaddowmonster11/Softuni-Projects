@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WorldUniversity.Models;
 using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.Services
 {
     public interface ICoursesService
-    {
-        Task EnrollStudent(string studentId
-            , int courseId);
+    {       
         IEnumerable<AssignedCourseData> GetAll();
         Task Create(CourseInputModel input);
         GetCoursesDetailsViewModel GetCoursesDetails(int id);
@@ -15,7 +14,6 @@ namespace WorldUniversity.Services
         ICollection<CourseViewModel> GetAllCourses();
         Task UpdateCourse(int Id, string title, int credits, int departmentId);
         bool CourseExists(string name);
-        ICollection<AssignUserToCourseViewModel> GetAllUnAssignedCoursesToUser();
 
     }
 }

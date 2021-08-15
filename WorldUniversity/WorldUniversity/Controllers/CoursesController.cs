@@ -15,13 +15,17 @@ namespace WorldUniversity.Controllers
         private readonly ICoursesService coursesService;
         private readonly IDepartmentsService departmentsService;
         private readonly IStudentsService studentsService;
+        private readonly IEnrollmentsService enrollmentsService;
 
         public CoursesController(ICoursesService coursesService
-            , IDepartmentsService departmentsService, IStudentsService studentsService)
+            , IDepartmentsService departmentsService
+            , IStudentsService studentsService
+            , IEnrollmentsService enrollmentsService)
         {
             this.coursesService = coursesService;
             this.departmentsService = departmentsService;
             this.studentsService = studentsService;
+            this.enrollmentsService = enrollmentsService;
         }
         public IActionResult Index()
         {
@@ -47,7 +51,7 @@ namespace WorldUniversity.Controllers
         {
             if (ModelState.IsValid)
             {
-                await coursesService.EnrollStudent(enrollment.StudentId
+                await enrollmentsService.EnrollStudent(enrollment.StudentId
                  , enrollment.CourseId);
                 return RedirectToAction(nameof(Index));
             }

@@ -9,6 +9,7 @@ namespace WorldUniversity.ViewModels.Courses
     {
         public int Id { get; set; }
         [Display(Name = "Title")]
+        public string StudentId { get; set; }
         public string Title { get; set; }
         [Display(Name = "Credits")]
         public int Credits { get; set; }

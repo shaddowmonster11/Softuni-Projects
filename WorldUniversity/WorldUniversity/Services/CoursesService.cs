@@ -31,7 +31,9 @@ namespace WorldUniversity.Services
         {
             var course = await _context.Courses.FindAsync(id);
             _context.Courses.Remove(course);
-            var courseAssigment = _context.CourseAssignments.Where(x => x.Course == course).SingleOrDefault();
+            var courseAssigment = _context.CourseAssignments
+                .Where(x => x.Course == course)
+                .SingleOrDefault();
 
             if (courseAssigment != null)
             {
@@ -39,36 +41,7 @@ namespace WorldUniversity.Services
             }
 
             await _context.SaveChangesAsync();
-        }
-
-        public async Task EnrollStudent(string studentId
-            , int courseId)
-        {
-            var student = await _context.Users
-                .FirstOrDefaultAsync(s => s.Id == studentId);
-            var course = _context.Courses.Single(c => c.Id == courseId);
-            var enrollments = new Enrollment
-            {
-                StudentId = student.Id,
-                Course = course,
-                Student = student,
-                Grade = "Waiting For Exam",
-            };
-            var enrollmentInDataBase = _context.Enrollments.Where(
-                s =>
-                        s.StudentId == enrollments.StudentId &&
-                        s.Course.Id == enrollments.Course.Id)
-            .SingleOrDefault();
-
-            if (enrollmentInDataBase == null)
-            {
-                await _context.Enrollments.AddAsync(enrollments);
-                student.Enrollments.Add(enrollments);
-            }
-
-            _context.Users.Update(student);
-            await _context.SaveChangesAsync();
-        }
+        }      
 
         public IEnumerable<AssignedCourseData> GetAll()
         {
@@ -84,6 +57,7 @@ namespace WorldUniversity.Services
 
         public ICollection<CourseViewModel> GetAllCourses()
         {
+
             var courses = _context.Courses
                  .Include(c => c.Department)
                  .Select(c => new CourseViewModel
@@ -95,22 +69,6 @@ namespace WorldUniversity.Services
                      DepartmentId = c.DepartmentId,
                  })
                  .AsNoTracking()
-                 .ToList();
-            return courses;
-        }
-        public ICollection<AssignUserToCourseViewModel> GetAllUnAssignedCoursesToUser()
-        {
-            var courses = _context.Courses
-                 .Include(c => c.Enrollments)
-                 .Include(c => c.Department)
-                 .Select(c => new AssignUserToCourseViewModel
-                 {
-                     Title = c.Title,
-                     Id = c.Id,
-                     Credits = c.Credits,
-                     IsAssignedToUser = false,
-                     Enrollments = c.Enrollments,                    
-                 })
                  .ToList();
             return courses;
         }

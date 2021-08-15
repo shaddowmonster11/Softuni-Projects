@@ -3,6 +3,10 @@
     Layout = "~/Views/Shared/_ExamLayout.cshtml";
     ViewBag.Title = "Index";
 }
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
 <div class="container-fluid" id="print">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -31,17 +35,24 @@
                                     @if (item.IsAssignedToUser == false)
                                     {
                                         <th class="text-center text-primary align-middle">Not Assigned</th>
+                                        <th class="text-center">
+                                            @await Html.PartialAsync("~/Views/Shared/_RenderNotification.Modal.cshtml", item.Id)
+                                        </th>
                                     }
                                     else
                                     {
                                         <th class="text-center text-danger align-middle">Assigned</th>
+                                        <th class="text-center">
+                                            <form class="container" asp-action="Index" asp-route-courseId="@item.Id" method="post">
+                                                <input type="button" value="Join" data-container="body" data-trigger="focus" data-toggle="popover" data-placement="top" data-content="You are already Assigned to this Course." class="btn btn-success btn-block"/>
+                                            </form>
+                                    
+                                        </th>
+
                                     }
-                                    <th class="text-center">
-                                        <form asp-action="Index" asp-route-courseId="@item.Id" method="post">
-                                            <input type="submit" value="Assign" class="btn btn-success btn-block" />
-                                        </form>
-                                    </th>
+
                                 </tr>
+
                             }
                         }
                     </tbody>
@@ -58,8 +69,14 @@
             </div>
         </div>
     </div>
-</div>
-@section Scripts
+</div> 
+
+
+    @section Scripts
 {
-    <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
-}
+        <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
+        <script src="~/js/custom/MessagePopper.js" asp-append-version="true"></script>
+        <script src="~/js/custom/RenderNotifications.js" asp-append-version="true"></script>
+        <script href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+        <script href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" asp-append-version="true"></script>
+    }

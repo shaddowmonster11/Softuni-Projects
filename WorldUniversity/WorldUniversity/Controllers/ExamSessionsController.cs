@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
@@ -13,46 +12,30 @@ namespace WorldUniversity.Controllers
     {
         private readonly IExamsService examsService;
         private readonly IQuestionsService questionsService;
-        private readonly ICoursesService coursesService;
+        private readonly IEnrollmentsService enrollmentsService;
 
         public ExamSessionsController(IExamsService examsService
             , IQuestionsService questionsService
-            , ICoursesService coursesService)
+            , IEnrollmentsService enrollmentsService)
         {
             this.examsService = examsService;
             this.questionsService = questionsService;
-            this.coursesService = coursesService;
+            this.enrollmentsService = enrollmentsService;
         }
         public IActionResult Index()
         {
-            var courses = coursesService.GetAllUnAssignedCoursesToUser();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var courses = enrollmentsService.GetAllUserCourses(userId);   
             return View(courses);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(int courseId)
+        public async Task<IActionResult> Index(AssignUserToCourseViewModel course,int courseId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && course.IsAssignedToUser==false)
             {
-                await coursesService.EnrollStudent(userId, courseId);
-               /* var selectedCourse = coursesService.GetAllUnAssignedCoursesToUser()
-                     .Where(x => x.Id == courseId)
-                     .Select(x => x.Enrollments
-                     .Where(c => c.StudentId == userId && c.Id == courseId)
-                     .FirstOrDefault())
-                     .FirstOrDefault();
-                coursesService.GetAllUnAssignedCoursesToUser()
-                    .Where(x => x.Id == courseId)
-                    .Select(x => new AssignUserToCourseViewModel
-                    {
-                        Id = x.Id,
-                        Credits = x.Credits,
-                        Title = x.Title,
-                        IsAssignedToUser = x.Enrollments.Contains(selectedCourse),
-                        Enrollments = x.Enrollments,
-                        ExamAssignments = x.ExamAssignments,
-                    });*/
+                await enrollmentsService.EnrollStudent(userId, courseId);            
                 return RedirectToAction(nameof(Index));
             }
             return View();
