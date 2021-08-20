@@ -71,6 +71,7 @@ namespace WorldUniversity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Marks = table.Column<int>(type: "int", nullable: false),
@@ -296,22 +297,22 @@ namespace WorldUniversity.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Credits = table.Column<int>(type: "int", nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
-                    ExamId = table.Column<int>(type: "int", nullable: true)
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Courses_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Courses_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "DepartmentId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Courses_Exams_ExamId",
-                        column: x => x.ExamId,
-                        principalTable: "Exams",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -320,12 +321,11 @@ namespace WorldUniversity.Migrations
                 columns: table => new
                 {
                     InstructorId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: true)
+                    CourseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseAssignments", x => new { x.Id, x.InstructorId });
+                    table.PrimaryKey("PK_CourseAssignments", x => new { x.CourseId, x.InstructorId });
                     table.ForeignKey(
                         name: "FK_CourseAssignments_Courses_CourseId",
                         column: x => x.CourseId,
@@ -347,7 +347,7 @@ namespace WorldUniversity.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Grade = table.Column<int>(type: "int", nullable: true),
+                    Grade = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CourseId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -366,6 +366,61 @@ namespace WorldUniversity.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ExamAssignments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    ExamId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExamAssignments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExamAssignments_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ExamAssignments_Exams_ExamId",
+                        column: x => x.ExamId,
+                        principalTable: "Exams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationUserExamAssignment",
+                columns: table => new
+                {
+                    ExamAssignmentsId = table.Column<int>(type: "int", nullable: false),
+                    StudentsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUserExamAssignment", x => new { x.ExamAssignmentsId, x.StudentsId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserExamAssignment_AspNetUsers_StudentsId",
+                        column: x => x.StudentsId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserExamAssignment_ExamAssignments_ExamAssignmentsId",
+                        column: x => x.ExamAssignmentsId,
+                        principalTable: "ExamAssignments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserExamAssignment_StudentsId",
+                table: "ApplicationUserExamAssignment",
+                column: "StudentsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -427,24 +482,19 @@ namespace WorldUniversity.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseAssignments_CourseId",
-                table: "CourseAssignments",
-                column: "CourseId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CourseAssignments_InstructorId",
                 table: "CourseAssignments",
                 column: "InstructorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Courses_ApplicationUserId",
+                table: "Courses",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Courses_DepartmentId",
                 table: "Courses",
                 column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Courses_ExamId",
-                table: "Courses",
-                column: "ExamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_InstructorId",
@@ -462,6 +512,16 @@ namespace WorldUniversity.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ExamAssignments_CourseId",
+                table: "ExamAssignments",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExamAssignments_ExamId",
+                table: "ExamAssignments",
+                column: "ExamId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Questions_ExamId",
                 table: "Questions",
                 column: "ExamId");
@@ -469,6 +529,9 @@ namespace WorldUniversity.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApplicationUserExamAssignment");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -500,19 +563,22 @@ namespace WorldUniversity.Migrations
                 name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "ExamAssignments");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Courses");
 
             migrationBuilder.DropTable(
-                name: "Departments");
+                name: "Exams");
 
             migrationBuilder.DropTable(
-                name: "Exams");
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Departments");
 
             migrationBuilder.DropTable(
                 name: "Instructors");

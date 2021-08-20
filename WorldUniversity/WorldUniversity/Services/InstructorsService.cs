@@ -37,7 +37,10 @@ namespace WorldUniversity.Services
         {
             var office = await _context.OfficeAssignments
                 .FirstOrDefaultAsync(o => o.InstructorId == id);
-            _context.OfficeAssignments.Remove(office);
+            if(office!=null)
+            {
+                _context.OfficeAssignments.Remove(office);
+            }
             var courseAssigment = _context.CourseAssignments
                  .Where(o => o.InstructorId == id).ToList();
             foreach (var item in courseAssigment)

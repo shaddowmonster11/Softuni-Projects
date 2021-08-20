@@ -10,8 +10,8 @@ using WorldUniversity.Data;
 namespace WorldUniversity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210805142143_InitialCreate5")]
-    partial class InitialCreate5
+    [Migration("20210820164112_InitialCreate2")]
+    partial class InitialCreate2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace WorldUniversity.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ApplicationUserExamAssignment", b =>
+                {
+                    b.Property<int>("ExamAssignmentsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ExamAssignmentsId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("ApplicationUserExamAssignment");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -280,9 +295,6 @@ namespace WorldUniversity.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ExamId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -290,25 +302,18 @@ namespace WorldUniversity.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("ExamId");
-
                     b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("WorldUniversity.Models.CourseAssignment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<int>("InstructorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id", "InstructorId");
-
-                    b.HasIndex("CourseId");
+                    b.HasKey("CourseId", "InstructorId");
 
                     b.HasIndex("InstructorId");
 
@@ -366,12 +371,37 @@ namespace WorldUniversity.Migrations
                     b.ToTable("Enrollments");
                 });
 
+            modelBuilder.Entity("WorldUniversity.Models.ExamAssignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("ExamId");
+
+                    b.ToTable("ExamAssignments");
+                });
+
             modelBuilder.Entity("WorldUniversity.Models.ExamModels.Exam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -456,6 +486,21 @@ namespace WorldUniversity.Migrations
                     b.ToTable("OfficeAssignments");
                 });
 
+            modelBuilder.Entity("ApplicationUserExamAssignment", b =>
+                {
+                    b.HasOne("WorldUniversity.Models.ExamAssignment", null)
+                        .WithMany()
+                        .HasForeignKey("ExamAssignmentsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WorldUniversity.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -530,14 +575,7 @@ namespace WorldUniversity.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WorldUniversity.Models.ExamModels.Exam", "Exam")
-                        .WithMany()
-                        .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("Department");
-
-                    b.Navigation("Exam");
                 });
 
             modelBuilder.Entity("WorldUniversity.Models.CourseAssignment", b =>
@@ -545,7 +583,8 @@ namespace WorldUniversity.Migrations
                     b.HasOne("WorldUniversity.Models.Course", "Course")
                         .WithMany("CourseAssignments")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("WorldUniversity.Models.Instructor", "Instructor")
                         .WithMany("CourseAssignments")
@@ -585,6 +624,25 @@ namespace WorldUniversity.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("WorldUniversity.Models.ExamAssignment", b =>
+                {
+                    b.HasOne("WorldUniversity.Models.Course", "Course")
+                        .WithMany("ExamAssignments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WorldUniversity.Models.ExamModels.Exam", "Exam")
+                        .WithMany()
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Exam");
+                });
+
             modelBuilder.Entity("WorldUniversity.Models.ExamModels.Question", b =>
                 {
                     b.HasOne("WorldUniversity.Models.ExamModels.Exam", null)
@@ -621,6 +679,8 @@ namespace WorldUniversity.Migrations
                     b.Navigation("CourseAssignments");
 
                     b.Navigation("Enrollments");
+
+                    b.Navigation("ExamAssignments");
                 });
 
             modelBuilder.Entity("WorldUniversity.Models.Department", b =>

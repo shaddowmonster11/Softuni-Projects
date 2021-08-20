@@ -15,17 +15,14 @@ namespace WorldUniversity.Services.Exams
     {
         private readonly ApplicationDbContext _context;
         private readonly ICoursesService coursesService;
-        private readonly IEnrollmentsService enrollmentsService;
         private readonly IExamAssignmentsService examAssignmentsService;
 
         public ExamsService(ApplicationDbContext context
             , ICoursesService coursesService
-            , IEnrollmentsService enrollmentsService
             , IExamAssignmentsService examAssignmentsService)
         {
             _context = context;
             this.coursesService = coursesService;
-            this.enrollmentsService = enrollmentsService;
             this.examAssignmentsService = examAssignmentsService;
         }
 

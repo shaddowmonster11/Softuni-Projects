@@ -40,7 +40,14 @@
                                     <th class="text-center align-middle">@item.Name</th>
                                     <th class="text-center align-middle">@item.Budget.ToString("0.00")</th>
                                     <th class="text-center align-middle">@item.ShortStartDateFormat</th>
-                                    <th class="text-center align-middle">@item.Administrator.FirstName @item.Administrator.LastName</th>
+                                    @if (item.Administrator!= null)
+                                    {
+                                        <th class="text-center align-middle">@item.Administrator.FirstName @item.Administrator.LastName</th>
+                                    }
+                                    else 
+                                    {
+                                    <th class="text-center align-middle"></th> 
+                                    }
                                     <th class="text-center">
                                         <a class="btn btn-primary" style="width:auto"
                                            asp-action="Details" asp-route-id="@item.DepartmentId">

@@ -11,13 +11,13 @@
                 <table class="table table-bordered table-hover font-italic " id="example" width="100%">
                     <thead>
                         <tr>
-                            <th colspan="6" class="text-center">Courses</th>
+                            <th colspan="6" class="text-center">My Exams</th>
                         </tr>
                         <tr class="bg-primary text-gray-400">
                             <th class="text-center align-middle">Exam Title</th>
                             <th class="text-center align-middle">Exam Date</th>
                             <th class="text-center align-middle">Score</th>
-                            <th class="text-center align-middle">Archieve</th>
+                            <th class="text-center align-middle">Take Exam</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,7 +33,7 @@
                                     <th class="text-center">
                                         <form asp-action="TakeExam" asp-route-id="@item.Id">
                                             <button type="submit" class="btn btn-danger">
-                                                Take Exam
+                                                Take
                                             </button>
                                         </form>
                                     </th>
@@ -57,5 +57,6 @@
 </div>
 @section Scripts
 {
+    <script src="~/js/custom/examDateTimer.js" asp-append-version="true"></script>
     <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
 }

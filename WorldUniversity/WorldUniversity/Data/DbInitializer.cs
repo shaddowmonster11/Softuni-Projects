@@ -14,30 +14,6 @@ namespace WorldUniversity.Data
                 return;
             }
 
-       /*     var students = new Student[]
-            {
-                new Student { FirstName = "Ivan",   LastName = "Ivanov",
-                    EnrollmentDate = DateTime.Parse("2019-01-01") },
-                new Student { FirstName = "Stoqn", LastName = "Mutafov",
-                    EnrollmentDate = DateTime.Parse("2019-01-01") },
-                new Student { FirstName = "Kaloqn",   LastName = "Stracimirov",
-                    EnrollmentDate = DateTime.Parse("2013-01-01") },
-                new Student { FirstName = "Ivan",    LastName = "Randulov",
-                    EnrollmentDate = DateTime.Parse("2006-01-01") },
-                new Student { FirstName = "Minka",    LastName = "Stoqnova",
-                    EnrollmentDate = DateTime.Parse("2011-01-01") },
-                new Student { FirstName = "Pesho",    LastName = "Petrov",
-                    EnrollmentDate = DateTime.Parse("2013-01-01") },
-                new Student { FirstName = "Hristomir",    LastName = "Hristov",
-                    EnrollmentDate = DateTime.Parse("2004-01-01") }
-            };
-
-            foreach (Student s in students)
-            {
-                context.Students.Add(s);
-            }
-            context.SaveChanges();*/
-
             var instructors = new Instructor[]
             {
                 new Instructor { FirstName = "Stoqn",     LastName = "Hristov",

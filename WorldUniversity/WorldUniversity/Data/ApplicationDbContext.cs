@@ -43,14 +43,11 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<ContactForm>().ToTable("ContractForms");
             modelBuilder.Entity<Exam>().ToTable("Exams");
             modelBuilder.Entity<CourseAssignment>()
-                  .HasKey(c => new { c.CourseId, c.InstructorId});
-            /*            modelBuilder.Entity<ExamAssignment>()
-                              .HasKey(c => new { c.CourseId, c.ExamId });*/
+                  .HasKey(c => new { c.CourseId, c.InstructorId });
             modelBuilder
                   .Entity<ExamAssignment>()
                  .HasMany(p => p.Students)
-                 .WithMany(p => p.ExamAssignments)
-                 .UsingEntity(j => j.ToTable("StudentExamAssigments"));
+                 .WithMany(p => p.ExamAssignments);
 
             base.OnModelCreating(modelBuilder);
             EntityIndexesConfiguration.Configure(modelBuilder);

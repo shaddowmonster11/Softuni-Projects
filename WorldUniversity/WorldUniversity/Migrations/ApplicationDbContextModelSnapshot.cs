@@ -31,7 +31,7 @@ namespace WorldUniversity.Migrations
 
                     b.HasIndex("StudentsId");
 
-                    b.ToTable("StudentExamAssigments");
+                    b.ToTable("ApplicationUserExamAssignment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -287,9 +287,6 @@ namespace WorldUniversity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
@@ -300,8 +297,6 @@ namespace WorldUniversity.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("DepartmentId");
 
@@ -572,11 +567,6 @@ namespace WorldUniversity.Migrations
 
             modelBuilder.Entity("WorldUniversity.Models.Course", b =>
                 {
-                    b.HasOne("WorldUniversity.Models.ApplicationUser", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("WorldUniversity.Models.Department", "Department")
                         .WithMany("Courses")
                         .HasForeignKey("DepartmentId")
@@ -674,8 +664,6 @@ namespace WorldUniversity.Migrations
             modelBuilder.Entity("WorldUniversity.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
-
-                    b.Navigation("Courses");
 
                     b.Navigation("Enrollments");
 

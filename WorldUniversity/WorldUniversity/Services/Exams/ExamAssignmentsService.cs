@@ -11,13 +11,11 @@ namespace WorldUniversity.Services.Exams
     public class ExamAssignmentsService : IExamAssignmentsService
     {
         private readonly ApplicationDbContext _context;
-        private readonly ICoursesService coursesService;
 
         public ExamAssignmentsService(ApplicationDbContext context
             , ICoursesService coursesService)
         {
             _context = context;
-            this.coursesService = coursesService;
         }
 
         public async Task AddExamAssigmentToStudent(string userId, int courseId)
@@ -33,39 +31,6 @@ namespace WorldUniversity.Services.Exams
             await _context.SaveChangesAsync();
         }
 
-        /*public async Task Create(int examId, int courseId)
-        {
-            var course = _context.Courses
-                        .Include(x => x.ExamAssignments)
-                        .Where(x => x.Id == courseId)
-                        .FirstOrDefault();
-            var exam = _context.Exams.
-                Where(x => x.Id == examId)
-                .FirstOrDefault();
-            var examAssignment = new ExamAssignment
-            {
-                Course = course,
-                CourseId = course.Id,
-                Exam = exam,
-                ExamId = exam.Id,
-            };
-            var students = _context.Users
-                .Include(x => x.ExamAssignments)
-                .Include(x => x.Enrollments)
-                .ToList();
-            bool studentsWithEnrollement = students.Any(x => x.Enrollments.Any(i => i.Course!=null));
-            if (false)
-            {
-                students = students.Where(x => x.Enrollments.Any(i => i.Course.Id == courseId)).ToList();
-                foreach (var item in students)
-                {
-                    item.ExamAssignments.Add(examAssignment);
-                }
-            }
-            course.ExamAssignments.Add(examAssignment);
-            await _context.AddAsync(examAssignment);
-            await _context.SaveChangesAsync();
-        }*/
         public async Task Create(int examId, int courseId)
         {
             var course = _context.Courses
