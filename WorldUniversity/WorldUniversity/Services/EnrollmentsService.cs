@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
 using WorldUniversity.Models;
+using WorldUniversity.Services.Exams;
 using WorldUniversity.ViewModels.Courses;
 
 namespace WorldUniversity.Services
@@ -12,14 +12,19 @@ namespace WorldUniversity.Services
     public class EnrollmentsService : IEnrollmentsService
     {
         private readonly ApplicationDbContext _context;
-        public EnrollmentsService(ApplicationDbContext context)
+        private readonly IExamAssignmentsService examAssignmentsService;
+
+        public EnrollmentsService(ApplicationDbContext context
+            ,IExamAssignmentsService examAssignmentsService)
         {
             _context = context;
+            this.examAssignmentsService = examAssignmentsService;
         }
         public async Task EnrollStudent(string studentId
           , int courseId)
         {
-            var student =  _context.Users
+            var student = _context.Users
+                .Include(x => x.ExamAssignments)
                 .FirstOrDefault(s => s.Id == studentId);
             var course = _context.Courses.Single(c => c.Id == courseId);
             var enrollments = new Enrollment
@@ -29,6 +34,7 @@ namespace WorldUniversity.Services
                 Student = student,
                 Grade = "Waiting For Exam",
             };
+            var examAssignments = examAssignmentsService.GetAllExamAssignmentsByCourseId(courseId);
 
             var enrollmentInDataBase = _context.Enrollments.Where(
                 s =>
@@ -40,7 +46,11 @@ namespace WorldUniversity.Services
             {
                 await _context.Enrollments.AddAsync(enrollments);
                 student.Enrollments.Add(enrollments);
-                _context.Users.Update(student);
+                foreach (var exam in examAssignments)
+                {
+                   student.ExamAssignments.Add(exam);                   
+                }
+                _context.Update(student);
             }
             await _context.SaveChangesAsync();
         }
@@ -59,7 +69,7 @@ namespace WorldUniversity.Services
                      IsAssignedToUser = false,
                      Enrollments = c.Enrollments,
                  })
-                 .ToList();
+               .ToList();
 
             return courses;
         }

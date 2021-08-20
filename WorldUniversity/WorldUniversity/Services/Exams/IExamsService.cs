@@ -10,6 +10,7 @@ namespace WorldUniversity.Services.Exams
         Task CreateExam(CreateExamInputModel input);
         ExamViewModel GetExamAllDetails(int id);
         ICollection<ExamViewModel> GetAllExams();
+        ICollection<ExamViewModel> GetAllUserExams(string userId);
         ExamDetailsViewModel GetExamDetails(int id);
         Task UpdateExam(ExamDetailsViewModel exam);
         Task ArchieveExam(int id);

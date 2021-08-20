@@ -16,13 +16,16 @@ namespace WorldUniversity.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Enrollments=new HashSet<Enrollment>();
+            this.ExamAssignments = new HashSet<ExamAssignment>();
+            this.Courses = new HashSet<Course>();
         }
         public bool IsDeleted { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
         public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Course> Courses { get; set; }
+        public ICollection<ExamAssignment> ExamAssignments { get; set; }
         public ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public ICollection<IdentityUserClaim<string>> Claims { get; set; }

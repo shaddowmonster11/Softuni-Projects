@@ -44,8 +44,14 @@ namespace WorldUniversity.Data
             modelBuilder.Entity<Exam>().ToTable("Exams");
             modelBuilder.Entity<CourseAssignment>()
                   .HasKey(c => new { c.CourseId, c.InstructorId});
-            modelBuilder.Entity<ExamAssignment>()
-                  .HasKey(c => new { c.CourseId, c.ExamId });        
+            /*            modelBuilder.Entity<ExamAssignment>()
+                              .HasKey(c => new { c.CourseId, c.ExamId });*/
+            modelBuilder
+                  .Entity<ExamAssignment>()
+                 .HasMany(p => p.Students)
+                 .WithMany(p => p.ExamAssignments)
+                 .UsingEntity(j => j.ToTable("StudentExamAssigments"));
+
             base.OnModelCreating(modelBuilder);
             EntityIndexesConfiguration.Configure(modelBuilder);
             var entityTypes = modelBuilder.Model.GetEntityTypes().ToList();

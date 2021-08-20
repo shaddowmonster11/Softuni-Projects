@@ -5,6 +5,11 @@ namespace WorldUniversity.Models
 {
     public class Course
     {
+        public Course()
+        {
+            this.ExamAssignments = new HashSet<ExamAssignment>();
+            this.Enrollments = new HashSet<Enrollment>();
+        }
         public int Id { get; set; }
 
         public string Title { get; set; }
@@ -18,6 +23,6 @@ namespace WorldUniversity.Models
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
         public ICollection<ExamAssignment> ExamAssignments { get; set; }
-        public ICollection<ApplicationUser> Students { get; set; }
+        
     }
 }

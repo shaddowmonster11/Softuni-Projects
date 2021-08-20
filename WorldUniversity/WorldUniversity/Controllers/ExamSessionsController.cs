@@ -30,10 +30,10 @@ namespace WorldUniversity.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(AssignUserToCourseViewModel course,int courseId)
+        public async Task<IActionResult> Index(int courseId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (ModelState.IsValid && course.IsAssignedToUser==false)
+            if (ModelState.IsValid)
             {
                 await enrollmentsService.EnrollStudent(userId, courseId);            
                 return RedirectToAction(nameof(Index));
@@ -42,7 +42,8 @@ namespace WorldUniversity.Controllers
         }
         public IActionResult ListExams()
         {
-            var exams = examsService.GetAllExams();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var exams = examsService.GetAllUserExams(userId);
             return View(exams);
         }
         public IActionResult TakeExam()

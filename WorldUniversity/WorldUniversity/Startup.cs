@@ -130,6 +130,7 @@ namespace WorldUniversity
             services.AddTransient<IQuestionsService, QuestionsService>();
             services.AddTransient<IExamsService, ExamsService>();
             services.AddTransient<IEnrollmentsService, EnrollmentsService>();
+            services.AddTransient<IExamAssignmentsService, ExamAssignmentsService>();
         }
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
