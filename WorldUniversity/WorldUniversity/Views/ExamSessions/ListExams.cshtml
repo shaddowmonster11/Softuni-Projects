@@ -28,6 +28,7 @@
                                     <th class="text-center align-middle">
                                         <a asp-action="ExamDetails" asp-route-id="@item.Id">@item.Title</a>
                                     </th>
+
                                     <th class="text-center align-middle">@item.Date</th>
                                     <th class="text-center align-middle">@item.Marks</th>
                                     <th class="text-center">
@@ -57,6 +58,6 @@
 </div>
 @section Scripts
 {
-    <script src="~/js/custom/examDateTimer.js" asp-append-version="true"></script>
     <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
+
 }
