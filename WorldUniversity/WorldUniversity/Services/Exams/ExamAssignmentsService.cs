@@ -56,7 +56,7 @@ namespace WorldUniversity.Services.Exams
                 var enrollemnts = student.Enrollments.ToList();
                 foreach (var enrollment in enrollemnts)
                 {
-                    if(enrollment.Course!=null)
+                    if (enrollment.Course != null)
                     {
                         student.ExamAssignments.Add(examAssignment);
                     }

@@ -23,23 +23,26 @@
 The main entities are:
 
 * Courses
+* Exam
+* Question
 * Instructors
 * CourseAssignments
+* ExamAssigments
 * Departments
 * Enrollments
 * OfficeAssigments
-* Students
+* ApplicationUser(Student)
 * ContractForms
 
-See the Schema here: **[DatabaseSchema](https://res.cloudinary.com/monster11/image/upload/v1609112915/Test/8e97628237d9717e7ec23df82a2bb173_vuqkaf.png)**
+See the Schema here: **[DatabaseSchema](https://res.cloudinary.com/monster11/image/upload/v1629813047/Test/Untitled_u0flud.png)**
 
 ## **Backend**
 The web project contains:
 * 2 different areas: Identity, Administration
 * 3 Roles: Admin, Moderator,User - You can log in with these test accounts admin@wumail.bg,12345678 , mod@wumail.bg,12345678
-* 7 controllers
-* 35+ views
-* 40+ service methods
+* 9 controllers
+* 40+ views
+* 55+ service methods
 
 ## **Technologies Used**
 

@@ -50,27 +50,6 @@ namespace WorldUniversity.Controllers
         {
             return View();
         }
-        /* [HttpPost, ActionName("TakeExam")]
-         [ValidateAntiForgeryToken]
-         public IActionResult TakeConfirmation(int id)
-         {
-             var student = 0;
-
-             if (student == null)
-             {
-                 return RedirectToAction(nameof(Index));
-             }
-
-             try
-             {
-                // await this.studentService.DeleteStudent(id);
-                 return RedirectToAction(nameof(Index));
-
-             }
-             catch (DbUpdateException)
-             {
-                 return RedirectToAction(nameof(TakeExam), new { id = id, saveChangesError = true });
-             }
-         }*/
+  
     }
 }

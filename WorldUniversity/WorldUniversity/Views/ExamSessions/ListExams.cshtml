@@ -11,13 +11,12 @@
                 <table class="table table-bordered table-hover font-italic " id="example" width="100%">
                     <thead>
                         <tr>
-                            <th colspan="6" class="text-center">My Exams</th>
+                            <th colspan="5" class="text-center">My Exams</th>
                         </tr>
                         <tr class="bg-primary text-gray-400">
                             <th class="text-center align-middle">Exam Title</th>
                             <th class="text-center align-middle">Exam Date</th>
                             <th class="text-center align-middle">Score</th>
-                            <th class="text-center align-middle">Take Exam</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,23 +30,17 @@
 
                                     <th class="text-center align-middle">@item.Date</th>
                                     <th class="text-center align-middle">@item.Marks</th>
-                                    <th class="text-center">
-                                        <form asp-action="TakeExam" asp-route-id="@item.Id">
-                                            <button type="submit" class="btn btn-danger">
-                                                Take
-                                            </button>
-                                        </form>
-                                    </th>
+                                    
                                 </tr>
                             }
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="4" class="text-right"></th>
+                            <th colspan="3" class="text-right"></th>
                         </tr>
                         <tr>
-                            <th colspan="3" class="text-right">Total Number Of Exams</th>
+                            <th colspan="2" class="text-right">Total Number Of Exams</th>
                             <th colspan="1" class="text-center">@Model.Count()</th>
                         </tr>
                     </tfoot>

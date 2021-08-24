@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
-using WorldUniversity.Models;
 using WorldUniversity.Models.ExamModels;
 using WorldUniversity.ViewModels.Exams;
 using WorldUniversity.ViewModels.Questions;
@@ -48,7 +47,7 @@ namespace WorldUniversity.Services.Exams
 
             await _context.AddAsync(exam);
             await _context.SaveChangesAsync();
-            await examAssignmentsService.Create(exam.Id,exam.CourseId); 
+            await examAssignmentsService.Create(exam.Id, exam.CourseId);
         }
         public List<AssignedExamData> PopulateAssignedExamData(int courseId,
         ICollection<ExamViewModel> allExams)
@@ -188,10 +187,10 @@ namespace WorldUniversity.Services.Exams
         }
 
         public ICollection<ExamViewModel> GetAllUserExams(string userId)
-        {          
+        {
             var user = _context.Users
                 .Include(x => x.ExamAssignments)
-                .Include(x=>x.Enrollments)
+                .Include(x => x.Enrollments)
                 .Where(x => x.Id == userId)
                 .FirstOrDefault();
             var courses = new List<ExamViewModel>();
