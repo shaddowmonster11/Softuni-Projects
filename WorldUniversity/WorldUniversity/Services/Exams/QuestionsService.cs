@@ -12,7 +12,8 @@ namespace WorldUniversity.Services.Exams
         private readonly ApplicationDbContext _context;
         private readonly IExamsService examsService;
 
-        public QuestionsService(ApplicationDbContext context, IExamsService examsService)
+        public QuestionsService(ApplicationDbContext context
+            , IExamsService examsService)
         {
             _context = context;
             this.examsService = examsService;
@@ -27,6 +28,7 @@ namespace WorldUniversity.Services.Exams
                 AlternateAnsThree = input.AlternateAnsThree,
                 Answer = input.CorrectAns,
                 ExamId = input.ExamId,
+                IsArchived = false,
             };
             await _context.AddAsync(question);
             await _context.SaveChangesAsync();
@@ -35,7 +37,7 @@ namespace WorldUniversity.Services.Exams
         public async Task DeleteQuestion(int id)
         {
             var deleteQuestion = _context.Questions
-                .FirstOrDefault(ex => ex.Id == id);
+                .FirstOrDefault(ex => ex.Id == id && ex.IsArchived == false);
             _context.Questions.Remove(deleteQuestion);
             await _context.SaveChangesAsync();
         }
@@ -74,7 +76,7 @@ namespace WorldUniversity.Services.Exams
 
         public bool QuestionExist(string questionContent)
         {
-            return _context.Questions.Any(e => e.QuestionContent == questionContent);
+            return _context.Questions.Any(e => e.QuestionContent == questionContent && e.IsArchived == false);
         }
     }
 }

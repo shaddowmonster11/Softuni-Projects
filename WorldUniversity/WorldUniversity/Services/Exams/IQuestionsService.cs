@@ -8,7 +8,7 @@ namespace WorldUniversity.ViewModels.Questions
         Task CreateQuestion(CreateQuestionInputModel input);
         ICollection<QuestionViewModel> GetAllQuestions();
         Task DeleteQuestion(int id);
-        bool QuestionExist(string questionContent);
         QuestionViewModel GetQuestionById(int questionId);
+        bool QuestionExist(string questionContent);
     }
 }

@@ -14,6 +14,7 @@ namespace WorldUniversity.Models.ExamModels
         public string AlternateAnsTwo { get; set; }
         public string AlternateAnsThree { get; set; }
         public string Answer { get; set; }
+        public bool IsArchived { get; set; }
 
     }
 }

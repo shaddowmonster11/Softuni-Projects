@@ -1,0 +1,54 @@
+﻿@model ICollection<WorldUniversity.ViewModels.Questions.QuestionViewModel>
+
+    <!--Exam Question List Table -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover font-italic " id="example" width="100%">
+                    <thead>
+                        <tr>
+                            <th colspan="6" class="text-center">Questions</th>
+                        </tr>
+                        <tr class="bg-primary text-gray-400">
+                            <th class="text-center align-middle">Question Content</th>
+                            <th class="text-center align-middle">A</th>
+                            <th class="text-center align-middle">B</th>
+                            <th class="text-center align-middle">C</th>
+                            <th class="text-center align-middle">D (Correct Answer)</th>
+                            <th class="text-center align-middle">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var question in Model)
+                            {
+                                <tr>
+                                    <th class="text-center align-middle">@question.QuestionContent</th>
+                                    <th class="text-center align-middle">@question.AlternateAnsOne</th>
+                                    <th class="text-center align-middle">@question.AlternateAnsTwo</th>
+                                    <th class="text-center align-middle">@question.AlternateAnsThree</th>
+                                    <th class="text-center align-middle">@question.CorrectAns</th>
+                                    <th class="text-center">
+                                        <form asp-controller="Questions" asp-action="DeleteQuestion" asp-route-id="@question.QuestionID">
+                                            <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="6" class="text-right"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="5" class="text-right">Total Number Of Questions</th>
+                            <th colspan="1" class="text-center">@Model.Count()</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>

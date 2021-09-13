@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using WorldUniversity.ViewModels.Questions;
 
 namespace WorldUniversity.ViewModels.Exams
@@ -18,9 +15,10 @@ namespace WorldUniversity.ViewModels.Exams
         public int CourseId { get; set; }
         public int Marks { get; set; }
         public string Title { get; set; }
-        [DisplayName("Date and Time")]
+        [Display(Name = "Exam Date")]
         public DateTime Date { get; set; }
         public bool IsArchived { get; set; }
+        [Display(Name = "Number Of Questions")]
         public ICollection<QuestionViewModel> Questions { get; set; }
     }
 }

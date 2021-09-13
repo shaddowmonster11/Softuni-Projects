@@ -1,4 +1,10 @@
-﻿.myselect {
+﻿.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
+.myselect {
     text-align-last: center;
     text-align: center;
     -ms-text-align-last: center;

@@ -59,7 +59,7 @@ namespace WorldUniversity.Controllers
         }
         public IActionResult ExamDetails(int id)
         {
-            var exam = examsService.GetExamAllDetails(id);
+            var exam = examsService.GetExamAllDetails(id);         
             return View(exam);
         }
 

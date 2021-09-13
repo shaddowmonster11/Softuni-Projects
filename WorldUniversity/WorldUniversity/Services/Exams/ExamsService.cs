@@ -29,8 +29,15 @@ namespace WorldUniversity.Services.Exams
         {
             var updateExam = _context.Exams
               .FirstOrDefault(s => s.Id == id);
+            var examQuestions = _context.Questions
+                .Where(x => x.IsArchived == false && x.ExamId == id)
+                .ToList();
             updateExam.IsArchived = true;
-
+            foreach (var question in examQuestions)
+            {
+                question.IsArchived = true;
+                _context.Update(question);
+            }
             _context.Update(updateExam);
             await _context.SaveChangesAsync();
         }
