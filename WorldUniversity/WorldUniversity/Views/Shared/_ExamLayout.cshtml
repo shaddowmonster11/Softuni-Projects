@@ -5,9 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WorldUniversity</title>
-    <link href="~/css/vertital-nav.css" rel="stylesheet">
     <link href="~/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
     @RenderSection("Style", required: false)
@@ -15,45 +13,84 @@
 <body class="bg-dark">
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
-            <div class="row" id="content">
-                <nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow">
-                    <div>
-                        <a class="navbar-brand text-white" asp-controller="Home" asp-action="Index">Home</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div id="content">
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+                    <div class="container">
+                        <a class="navbar-brand text-white" asp-controller="Home" asp-action="Index">WorldUniversity</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-
-                        <div class="collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow">
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="ExamSessions" asp-action="Index">Courses</a>
+                                    <partial name="_LoginPartial" />
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav flex-fill">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Home" asp-action="About">About</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="ExamSessions" asp-action="ListExams">My Exams</a>
+                                    <a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Privacy</a>
                                 </li>
-                            </ul>   
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white" asp-controller="Home" asp-action="Contact">Contact</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </nav>
-                <div class="container">                   
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+                <div class="row">
+                    <div class="col-xl-1">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" id="Index" asp-controller="ExamSessions" asp-action="Index">Index</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="ListExams" asp-controller="ExamSessions" asp-action="ListExams">ListExam</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-8">
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+                    </div>
                 </div>
+
             </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto row">
+
+                        <div class="col-xl-4 col-md-4">
+                            <a asp-controller="Home" asp-action="Contact"><i class="fas fa-pencil-alt"></i> Contact Us</a>
+                        </div>
+
+                        <div class="col-xl-4 col-md-4">
+                            <span class="text-white">Copyright &copy; <a href="/">WorldUniveristy</a> 2020 - @DateTime.UtcNow.Year</span>
+                        </div>
+
+                        <div class="col-xl-4 col-md-4">
+                            <a asp-controller="Home" asp-action="Privacy"><i class="fas fa-pencil-alt"></i>Privacy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
+
     </div>
 </body>
 </html>
 
-<script src="~/lib/jquery/dist/jquery.slim.min.js" asp-append-version="true"></script>
+@if (ViewData["Active"] != null)
+{
+    <script type="text/javascript">document.getElementById("@ViewData["Active"]").classList.add("active")</script>
+}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
 <script src="~/lib/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="~/js/demo/datatables-demo.js"></script>
-<script  src="~/js/collapse.js"> </script>
 @RenderSection("Scripts", required: false)

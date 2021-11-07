@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Exams;
 using WorldUniversity.ViewModels.Courses;
+using WorldUniversity.ViewModels.Exams;
 using WorldUniversity.ViewModels.Questions;
 
 namespace WorldUniversity.Controllers
@@ -25,7 +28,8 @@ namespace WorldUniversity.Controllers
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var courses = enrollmentsService.GetAllUserCourses(userId);   
+            var courses = enrollmentsService.GetAllUserCourses(userId);
+           // return View("Test");
             return View(courses);
         }
         [HttpPost]
@@ -44,7 +48,15 @@ namespace WorldUniversity.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var exams = examsService.GetAllUserExams(userId);
+           // return PartialView("Test");
             return View(exams);
+
+        }
+        public IActionResult Test1()
+        {
+
+            return View();
+
         }
         public IActionResult TakeExam()
         {

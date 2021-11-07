@@ -1,11 +1,12 @@
 ﻿@model ICollection<WorldUniversity.ViewModels.Exams.ExamViewModel>
 @{
     Layout = "~/Views/Shared/_ExamLayout.cshtml";
-    ViewBag.Title = "ListExams";
+    ViewData["Title"] = "ListExams";
+    ViewData["Active"] = "ListExams";
 }
 <div class="container-fluid" id="print">
     <!-- DataTales Example -->
-    <div class="card shadow mb-5 mt-5">
+    <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover font-italic " id="example" width="100%">
@@ -30,7 +31,7 @@
 
                                     <th class="text-center align-middle">@item.Date</th>
                                     <th class="text-center align-middle">@item.Marks</th>
-                                    
+
                                 </tr>
                             }
                         }
@@ -49,8 +50,8 @@
         </div>
     </div>
 </div>
+
 @section Scripts
 {
     <script src="~/js/custom/PrintDataTable.js" asp-append-version="true"></script>
-
 }
