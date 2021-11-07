@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@{ 
-   var user = UserManager.Users.FirstOrDefault(x => x.Id == this.UserManager.GetUserId(this.User));
+@{
+    var user = UserManager.Users.FirstOrDefault(x => x.Id == this.UserManager.GetUserId(this.User));
 }
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
@@ -28,22 +28,31 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Manage Roles
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" asp-controller="Administration"
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                <a class="nav-link text-white" asp-controller="Administration"
                    asp-action="ListUsers">Users</a>
-                <a class="dropdown-item" asp-controller="Administration"
+                <a class="nav-link text-white" asp-controller="Administration"
                    asp-action="ListRoles">Roles</a>
             </div>
         </li>
-        <li>
-            <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+            </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Profile</a>
+                <a class="nav-link text-white" href="#" data-toggle="modal" data-target="#logoutModal">
+                    Logout
+                </a>
+            </div>
         </li>
     }
     else
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Moderator"))
     {
         <li class="nav-item dropdown">
-            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+            <a class="nav-link text-white dropdown-toggle" id="navbarDropdownMenuLink"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Manage Univeristy
             </a>
@@ -54,9 +63,19 @@
                 <a class="nav-link text-white" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
             </div>
         </li>
-        <li>
-            <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+            </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Profile</a>
+                <a class="nav-link text-white" href="#" data-toggle="modal" data-target="#logoutModal">
+                    Logout
+                </a>
+            </div>
         </li>
+
     }
     else
         @if (SignInManager.IsSignedIn(User))
@@ -64,14 +83,23 @@
         <li>
             <a class="nav-link text-white" asp-controller="ExamSessions" asp-action="Index">Courses</a>
         </li>
-        <li>
-            <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Account</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+            </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                <a id="manage" class="nav-link text-white" title="Manage" href="/Identity/Account/Manage">Profile</a>
+                <a class="nav-link text-white" href="#" data-toggle="modal" data-target="#logoutModal">
+                    Logout
+                </a>
+            </div>
         </li>
     }
     else
     {
 
-        <li class="">
+        <li>
             <a class="nav-link ml-auto text-white" asp-area="Identity" asp-page="/Account/Login">
                 Login
             </a>
@@ -84,4 +112,24 @@
 
     }
 
-    </ul>
+</ul>
+
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new {area = string.Empty}))">
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
