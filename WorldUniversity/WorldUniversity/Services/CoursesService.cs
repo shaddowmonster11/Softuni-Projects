@@ -23,6 +23,7 @@ namespace WorldUniversity.Services
                 DepartmentId = input.DepartmentId,
                 Title = input.Title,
                 Credits = input.Credits,
+                IsDeleted = false,
             };
             _context.Add(courses);
             await _context.SaveChangesAsync();
@@ -30,16 +31,20 @@ namespace WorldUniversity.Services
         public async Task DeleteCourse(int id)
         {
             var course = await _context.Courses.FindAsync(id);
-            _context.Courses.Remove(course);
-            var courseAssigment = _context.CourseAssignments
+            course.IsDeleted = true;
+             _context.Update(course);
+            var courseAssigments = _context.CourseAssignments
                 .Where(x => x.Course == course)
-                .SingleOrDefault();
-
-            if (courseAssigment != null)
+                .ToList();
+        
+            if (courseAssigments != null)
             {
-                _context.CourseAssignments.Remove(courseAssigment);
+                foreach (var courseAssigment in courseAssigments)
+                {
+                    courseAssigment.IsDeleted = true;
+                    _context.Update(courseAssigment);
+                }
             }
-
             await _context.SaveChangesAsync();
         }      
 
