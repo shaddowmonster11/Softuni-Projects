@@ -32,7 +32,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
         {
             var user = await userManager.FindByIdAsync(userId);
 
-            if (user == null)
+            if (user == null || user.IsDeleted==true)
             {
                 ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
                 return NotFound(); ;
@@ -69,7 +69,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
         {
             var user = await userManager.FindByIdAsync(model.UserId);
 
-            if (user == null)
+            if (user == null||user.IsDeleted==true)
             {
                 ViewBag.ErrorMessage = $"User with Id = {model.UserId} cannot be found";
                 return NotFound();
@@ -101,7 +101,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
         {
             ViewBag.userId = userId;
             var user = await userManager.FindByIdAsync(userId);
-            if (user == null)
+            if (user == null||user.IsDeleted==true)
             {
                 ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
                 return NotFound();
@@ -136,7 +136,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
         {
             var user = await userManager.FindByIdAsync(userId);
 
-            if (user == null)
+            if (user == null ||user.IsDeleted==true)
             {
                 ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
                 return NotFound();
@@ -165,7 +165,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
         [HttpGet]
         public IActionResult ListUsers()
         {
-            var users = userManager.Users;
+            var users = userManager.Users.Where(x=>x.IsDeleted==false).ToList();
             return View(users);
         }
         [HttpGet]
@@ -173,7 +173,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
         {
             var user = await userManager.FindByIdAsync(id);
 
-            if (user == null)
+            if (user == null || user.IsDeleted == true)
             {
                 ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
                 return NotFound();
@@ -199,7 +199,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
         {
             var user = await userManager.FindByIdAsync(model.Id);
 
-            if (user == null)
+            if (user == null || user.IsDeleted == true)
             {
                 ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
                 return NotFound();
@@ -229,7 +229,7 @@ namespace WorldUniversity.Areas.Identity.Controllers
         {
             var user = await userManager.FindByIdAsync(id);
 
-            if (user == null)
+            if (user == null || user.IsDeleted == true)
             {
                 ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
                 return NotFound();
