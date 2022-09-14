@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Data;
-using WorldUniversity.Models;
 using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Services
@@ -15,7 +13,7 @@ namespace WorldUniversity.Services
         public StudentsService(ApplicationDbContext context)
         {
             _context = context;
-        }       
+        }
 
         public async Task DeleteStudent(string id)
         {
@@ -24,9 +22,17 @@ namespace WorldUniversity.Services
             student.IsDeleted = true;
             student.UserName = null;
             student.NormalizedUserName = null;
-             _context.Update(student);
-            var studentEnrollemnt = _context.Enrollments.FirstOrDefault(s => s.StudentId == id);
-            _context.Enrollments.Remove(studentEnrollemnt);
+            _context.Update(student);
+            var studentEnrollemnts = _context.Enrollments.Where(s => s.StudentId == id).ToList();
+            if (studentEnrollemnts.Count != 0)
+            {
+                foreach (var enrollement in studentEnrollemnts)
+                {
+                    enrollement.IsDeleted = true;
+                    _context.Update(enrollement);
+                }
+            }
+
             await _context.SaveChangesAsync();
         }
         public IQueryable<StudentViewModel> GetStudentAllData()
@@ -64,7 +70,7 @@ namespace WorldUniversity.Services
                )
                .FirstOrDefault();
             return student;
-        }     
+        }
         public bool StudentExists(string firstName, string lastName)
         {
             return _context.Users.Any(e => e.FirstName == firstName && e.LastName == lastName);
