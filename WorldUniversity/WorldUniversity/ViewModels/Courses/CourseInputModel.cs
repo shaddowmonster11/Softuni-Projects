@@ -14,7 +14,7 @@ namespace WorldUniversity.ViewModels.Courses
         public int Credits { get; set; }
         [Required]
         [Display(Name = "Department")]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         public IEnumerable<DepartmentViewModel> Departments { get; set; }
     }
 }

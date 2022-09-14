@@ -116,7 +116,7 @@ namespace WorldUniversity.Services
             return _context.Courses.Any(e => e.Title == name);
         }
 
-        public async Task UpdateCourse(int Id, string title, int credits, int departmentId)
+        public async Task UpdateCourse(int Id, string title, int credits, int? departmentId)
         {
             var updatedCourse = _context.Courses
                .FirstOrDefault(s => s.Id == Id);

@@ -33,12 +33,25 @@ namespace WorldUniversity.Services
         public async Task DeleteDepartment(int id)
         {
             var deletedDepatment = _context.Departments
-             .AsNoTracking()
              .FirstOrDefault(m => m.DepartmentId == id);
-
-            if (await _context.Departments.AnyAsync(m => m.DepartmentId == deletedDepatment.DepartmentId))
+            var courses = _context.Courses
+                .Where(c => c.DepartmentId == deletedDepatment.DepartmentId)
+                .ToList();
+            if (deletedDepatment != null)
             {
-                _context.Departments.Remove(deletedDepatment);
+                deletedDepatment.IsDeleted = true;
+                _context.Update(deletedDepatment);
+                if (courses.Count() != 0)
+                {
+                    foreach (var course in courses)
+                    {
+                        course.DepartmentId = null;
+                        course.Department = null;
+                        _context.Update(course);
+                    }
+
+                }
+
                 await _context.SaveChangesAsync();
             }
         }

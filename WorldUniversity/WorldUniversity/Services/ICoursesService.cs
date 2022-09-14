@@ -12,7 +12,7 @@ namespace WorldUniversity.Services
         GetCoursesDetailsViewModel GetCoursesDetails(int id);
         Task DeleteCourse(int id);
         ICollection<CourseViewModel> GetAllCourses();
-        Task UpdateCourse(int Id, string title, int credits, int departmentId);
+        Task UpdateCourse(int Id, string title, int credits, int? departmentId);
         bool CourseExists(string name);
 
     }
