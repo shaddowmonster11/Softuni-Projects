@@ -1,6 +1,6 @@
  # World University
 
-  **ASP .NET Core 5.0 Web Application Project1** 
+  **ASP .NET Core 5.0 Web Application Project** 
 ------------
 
  **About my web project:**
