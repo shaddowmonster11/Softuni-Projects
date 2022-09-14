@@ -19,6 +19,7 @@ namespace WorldUniversity.Models
             this.ExamAssignments = new HashSet<ExamAssignment>();
         }
         public bool IsDeleted { get; set; }
+        public DateTime? DeletedOn { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

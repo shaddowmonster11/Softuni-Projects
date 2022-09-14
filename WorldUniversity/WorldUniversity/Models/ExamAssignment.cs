@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using WorldUniversity.Models.Entities;
 using WorldUniversity.Models.ExamModels;
 
 namespace WorldUniversity.Models
 {
-    public class ExamAssignment
+    public class ExamAssignment: IDeletableEntity
     {
         public int Id { get; set; }
         public int CourseId { get; set; }
@@ -15,5 +13,7 @@ namespace WorldUniversity.Models
         public Course Course { get; set; }
         public Exam Exam { get; set; }
         public ICollection<ApplicationUser> Students { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedOn { get; set; }
     }
 }

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using WorldUniversity.Models.Entities;
 using WorldUniversity.Models.ExamModels;
 
 namespace WorldUniversity.Models
 {
-    public class Course
+    public class Course: IDeletableEntity
     {
         public Course()
         {
@@ -23,6 +25,8 @@ namespace WorldUniversity.Models
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<CourseAssignment> CourseAssignments { get; set; }
         public ICollection<ExamAssignment> ExamAssignments { get; set; }
-        
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

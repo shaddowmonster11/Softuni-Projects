@@ -1,13 +1,16 @@
-﻿using WorldUniversity.Models.ExamModels;
+﻿using System;
+using WorldUniversity.Models.Entities;
+using WorldUniversity.Models.ExamModels;
 
 namespace WorldUniversity.Models
 {
-    public class CourseAssignment
+    public class CourseAssignment:IDeletableEntity
     {
         public int InstructorId { get; set; }
         public int CourseId { get; set; }
         public Instructor Instructor { get; set; }
         public Course Course { get; set; }
-        
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedOn { get; set; }
     }
 }
