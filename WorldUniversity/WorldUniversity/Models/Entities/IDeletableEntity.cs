@@ -8,5 +8,6 @@ namespace WorldUniversity.Models.Entities
     public interface IDeletableEntity
     {
         bool IsDeleted { get; set; }
+        DateTime? DeletedOn => DateTime.Now.ToLocalTime();
     }
 }
