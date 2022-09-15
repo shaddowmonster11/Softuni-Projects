@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WorldUniversity.Models;
+using WorldUniversity.Services;
 using WorldUniversity.ViewModels.Administration;
 
 namespace WorldUniversity.Areas.Identity.Controllers
@@ -18,14 +19,17 @@ namespace WorldUniversity.Areas.Identity.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<AdministrationController> logger;
+        private readonly IStudentsService studentsService;
 
         public AdministrationController(RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager,
-            ILogger<AdministrationController> logger)
+            ILogger<AdministrationController> logger,
+            IStudentsService studentsService)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
             this.logger = logger;
+            this.studentsService = studentsService;
         }
         [HttpGet]
         public async Task<IActionResult> ManageUserClaims(string userId)
@@ -227,42 +231,8 @@ namespace WorldUniversity.Areas.Identity.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
-
-            if (user == null || user.IsDeleted == true)
-            {
-                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
-                return NotFound();
-            }
-            else
-            {
-                var roles = await userManager.GetRolesAsync(user);
-                if (roles.Count > 0)
-                {
-                    foreach (var role in roles)
-                    {
-                        await userManager.RemoveFromRoleAsync(user, role);
-                    }
-                }
-                var userLogin = await userManager.GetLoginsAsync(user);
-                foreach (var item in userLogin)
-                {
-                    await userManager.RemoveLoginAsync(user, item.LoginProvider, item.ProviderKey);
-                }
-                var result = await userManager.DeleteAsync(user);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("ListUsers");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-
-                return View("ListUsers");
-            }
+            await this.studentsService.DeleteStudent(id);
+            return RedirectToAction("ListUsers");      
         }
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
