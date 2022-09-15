@@ -24,6 +24,13 @@ namespace WorldUniversity.Services
             student.NormalizedUserName = null;
             _context.Update(student);
             var studentEnrollemnts = _context.Enrollments.Where(s => s.StudentId == id).ToList();
+            var roles = student.Roles.ToList();
+            foreach (var role in roles)
+            {
+                roles.Remove(role);
+                _context.Update(role);
+            }
+        
             if (studentEnrollemnts.Count != 0)
             {
                 foreach (var enrollement in studentEnrollemnts)
@@ -31,8 +38,9 @@ namespace WorldUniversity.Services
                     enrollement.IsDeleted = true;
                     _context.Update(enrollement);
                 }
+                
             }
-
+          
             await _context.SaveChangesAsync();
         }
         public IQueryable<StudentViewModel> GetStudentAllData()
