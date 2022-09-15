@@ -21,9 +21,19 @@
                     <span class="control-label">@Model.Credits</span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Department" class="font-weight-bold"></label>
-                    <br />
-                    <span class="control-label">@Model.Department.Name</span>
+                    @if (Model.Department != null)
+                    {
+                        <label asp-for="Department" class="font-weight-bold"></label>
+                        <br />
+                        <span class="control-label">@Model.Department.Name</span>
+                    }
+                    else
+                    {
+                        <label asp-for="Department" class="font-weight-bold"></label>
+                        <br />
+                        <span class="control-label">No Department Added</span>
+                    }
+
                 </div>
                 <div class="form-group">
                     <label asp-for="EnrollemntCount" class="font-weight-bold"></label>
