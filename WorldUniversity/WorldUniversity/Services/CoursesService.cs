@@ -32,11 +32,11 @@ namespace WorldUniversity.Services
         {
             var course = await _context.Courses.FindAsync(id);
             course.IsDeleted = true;
-             _context.Update(course);
+            _context.Update(course);
             var courseAssigments = _context.CourseAssignments
                 .Where(x => x.Course == course)
                 .ToList();
-        
+
             if (courseAssigments != null)
             {
                 foreach (var courseAssigment in courseAssigments)
@@ -46,7 +46,7 @@ namespace WorldUniversity.Services
                 }
             }
             await _context.SaveChangesAsync();
-        }      
+        }
 
         public IEnumerable<AssignedCourseData> GetAll()
         {
