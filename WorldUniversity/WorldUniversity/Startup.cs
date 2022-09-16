@@ -58,9 +58,8 @@ namespace WorldUniversity
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddSession();
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(
+                  options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
