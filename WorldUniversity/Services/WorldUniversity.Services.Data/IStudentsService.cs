@@ -10,5 +10,6 @@ namespace WorldUniversity.Services
         IQueryable<StudentViewModel> GetStudentAllData();
         Task DeleteStudent(string id);
         bool IsEmailInUse(string email);
+        bool IsUsernameInUse(string username);
     }
 }

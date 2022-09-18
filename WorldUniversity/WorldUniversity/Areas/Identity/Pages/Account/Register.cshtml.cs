@@ -51,29 +51,29 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "The field is required!")]
             [MinLength(3, ErrorMessage = "The field requires more than 3 characters!")]
             [MaxLength(30, ErrorMessage = "The field must not be more than 30 characters!")]
             [DisplayName("First Name")]
             public string FirstName { get; set; }
-            [Required]
+            [Required(ErrorMessage = "The field is required!")]
             [MinLength(3, ErrorMessage = "The field requires more than 3 characters!")]
             [MaxLength(30, ErrorMessage = "The field must not be more than 30 characters!")]
             [DisplayName("Last Name")]
             public string LastName { get; set; }
-            [Required]
+            [Required(ErrorMessage = "The field is required!")]
             [MinLength(3, ErrorMessage = "The field requires more than 3 characters!")]
             [MaxLength(30, ErrorMessage = "The field must not be more than 30 characters!")]
             [Display(Name = "Username")]
             public string UserName { get; set; }
-            [Required]
+            [Required(ErrorMessage = "The field is required!")]
             [EmailAddress]          
             [Display(Name = "Email")]
             [Remote(action: "VerifyEmail", controller: "Users")]
 
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "The field is required!")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -96,6 +96,17 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            var isEmailAvaliable = studentsService.IsEmailInUse(Input.Email);
+            if (isEmailAvaliable)
+            {
+                ModelState.AddModelError(string.Empty, $"User with email {Input.Email} already exist!");
+            }
+            var isUsernameAvaliable = studentsService.IsUsernameInUse(Input.UserName);
+            if (isUsernameAvaliable)
+            {
+                ModelState.AddModelError(string.Empty, $"User with username {Input.UserName} already exist!");
+            }
             if (ModelState.IsValid)
             {             
                 var user = new ApplicationUser 
@@ -105,6 +116,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
                     UserName = Input.UserName,
                     Email = Input.Email,
                 };
+               
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

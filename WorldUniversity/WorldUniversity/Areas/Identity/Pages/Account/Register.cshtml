@@ -14,59 +14,53 @@
 
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
-                        @if (TempData.ContainsKey("Message"))
-                        {
-                            var statusMessageClass = TempData["Message"].ToString().StartsWith("Error") ? "danger" : "success";
-                            <div class="alert alert-@statusMessageClass alert-dismissible fade show" role="alert">
-                                @TempData["Message"].ToString()
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                        }
+                   
                         <!-- Nested Row within Card Body -->
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h3 text-gray-900 mb-4 font-italic">Student Registration!</h1>
-                            </div>
-                            <form class="user" id="account" method="post">
-                                <div asp-validation-summary="All"></div>
-                                <div class="form-group row">
-                                    <div class="form-group col-6">
-                                        <input asp-for="Input.FirstName" class="form-control form-control-user" placeholder="First Name">
-                                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                                    </div> <div class="form-group  col-6">
-                                        <input asp-for="Input.LastName" class="form-control form-control-user" placeholder="Last Name">
-                                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="form-group  col">
-                                        <input asp-for="Input.UserName" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="UsernameHelp" placeholder="Username">
-                                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group  col-12">
-                                        <input asp-for="Input.Email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="EmailHelp" placeholder="Email Address">
-                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group  col">
-                                        <input asp-for="Input.Password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group  col">
-                                        <input asp-for="Input.ConfirmPassword" class="form-control form-control-user" id="exampleInputPassword" placeholder="Confirm Password">
-                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Register
-                                </button>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" asp-page="./Login">Already have an account? Login!</a>
-                            </div>
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h3 text-gray-900 mb-4 font-italic">Student Registration!</h1>
                         </div>
+                        <div  asp-validation-summary="All" class="text-danger"></div>
+                        <form class="user" id="account" method="post">
+                            <div class="form-group row">
+                                <div class="form-group col-6">
+                                    <input asp-for="Input.FirstName" class="form-control form-control-user" placeholder="First Name">
+                                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group  col-6">
+                                    <input asp-for="Input.LastName" class="form-control form-control-user" placeholder="Last Name">
+                                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="form-group col">
+                                    <input asp-for="Input.UserName" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="UsernameHelp" placeholder="Username">
+                                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <input asp-for="Input.Email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="EmailHelp" placeholder="Email Address">
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col">
+                                    <input asp-for="Input.Password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col">
+                                    <input asp-for="Input.ConfirmPassword" class="form-control form-control-user" id="exampleInputPassword" placeholder="Confirm Password">
+                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                Register
+                            </button>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" asp-page="./Login">Already have an account? Login!</a>
+                        </div>
+                    </div>
                         <hr>
                         <div class="text-center h4">
                             <a class="small" asp-action="Index" asp-controller="Home">

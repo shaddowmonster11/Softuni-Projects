@@ -86,6 +86,10 @@ namespace WorldUniversity.Services
         {
             return _context.Users.Any(e => e.Email == email);
         }
+        public bool IsUsernameInUse(string username)
+        {
+            return _context.Users.Any(e => e.UserName == username);
+        }
 
     }
 }
