@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WorldUniversity.Models;
+using WorldUniversity.Data.Models;
 using WorldUniversity.Services;
-using WorldUniversity.ViewModels.Administration;
+using WorldUniversity.Web.ViewModels.Administration;
 
 namespace WorldUniversity.Areas.Identity.Controllers
 {

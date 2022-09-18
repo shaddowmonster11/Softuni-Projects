@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using WorldUniversity.Models;
+using WorldUniversity.Data.Models;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Messaging;
 
@@ -67,8 +67,10 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
             [Display(Name = "Username")]
             public string UserName { get; set; }
             [Required]
-            [EmailAddress]
+            [EmailAddress]          
             [Display(Name = "Email")]
+            [Remote(action: "VerifyEmail", controller: "Users")]
+
             public string Email { get; set; }
 
             [Required]
@@ -83,20 +85,19 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
         }
-
+      
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
-
+      
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
-            {
-                
+            {             
                 var user = new ApplicationUser 
                 {
                     FirstName=Input.FirstName,
@@ -108,6 +109,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+                   
                     await _userManager.AddToRoleAsync(user, "User");
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -122,6 +124,7 @@ namespace WorldUniversity.Areas.Identity.Pages.Account
                      "Confirm your email",
                      this.Input.UserName,
                     $"{HtmlEncoder.Default.Encode(callbackUrl)}");
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });

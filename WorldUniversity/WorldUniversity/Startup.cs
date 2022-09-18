@@ -12,13 +12,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using WorldUniversity.Data;
-using WorldUniversity.Models;
-using WorldUniversity.Repositories;
+using WorldUniversity.Data.Common.Repositories;
+using WorldUniversity.Data.Models;
+using WorldUniversity.Data.Repositories;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Cloudinary;
+using WorldUniversity.Services.Data;
 using WorldUniversity.Services.Exams;
 using WorldUniversity.Services.Messaging;
-using WorldUniversity.ViewModels.Questions;
+using WorldUniversity.Web.ViewModels.Questions;
 
 namespace WorldUniversity
 {

@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
-using WorldUniversity.ViewModels.Departments;
+using WorldUniversity.Web.ViewModels.Departments;
 
 namespace WorldUniversity.Controllers
 {

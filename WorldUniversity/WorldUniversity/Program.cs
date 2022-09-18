@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using WorldUniversity.Data;
+using WorldUniversity.Data;
 
 namespace WorldUniversity
 {

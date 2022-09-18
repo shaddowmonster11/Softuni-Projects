@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Threading.Tasks;
-using WorldUniversity.Models;
+using WorldUniversity.Data.Models;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account
 {
