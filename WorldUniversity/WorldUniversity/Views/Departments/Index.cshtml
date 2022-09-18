@@ -36,43 +36,43 @@
                         @{
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <th class="text-center align-middle">@item.Name</th>
-                                    <th class="text-center align-middle">@item.Budget.ToString("0.00")</th>
-                                    <th class="text-center align-middle">@item.ShortStartDateFormat</th>
-                                    @if (item.Administrator!= null)
-                                    {
-                                        <th class="text-center align-middle">@item.Administrator.FirstName @item.Administrator.LastName</th>
-                                    }
-                                    else 
-                                    {
-                                    <th class="text-center align-middle"></th> 
-                                    }
-                                    <th class="text-center">
-                                        <a class="btn btn-primary" style="width:auto"
-                                           asp-action="Details" asp-route-id="@item.DepartmentId">
-                                            Details
-                                        </a>
-                                    </th>
-                                    <th class="text-center">
-                                        <a class="btn btn-primary" style="width:auto"
-                                           asp-action="Edit" asp-route-id="@item.DepartmentId">
-                                            Edit
-                                        </a>
-                                    </th>
-                                    <th class="text-center">
-                                        <a class="btn text-center btn-danger" style="width:auto"
-                                           asp-action="Delete" asp-route-id="@item.DepartmentId">
-                                            Delete
-                                        </a>
-                                    </th>
-                                </tr>
+                                                <tr>
+                                                    <th class="text-center align-middle">@item.Name</th>
+                                                    <th class="text-center align-middle">@item.Budget.ToString("0.00")</th>
+                                                    <th class="text-center align-middle">@item.ShortStartDateFormat</th>
+                                                    @if (item.Administrator != null)
+                                                    {
+                                                        <th class="text-center align-middle">@item.Administrator.FirstName @item.Administrator.LastName</th>
+                                                    }
+                                                    else
+                                                    {
+                                                        <th class="text-center text-danger align-middle">No Administrator Asssigned Yet</th>
+                                                    }
+                                                    <th class="text-center">
+                                                        <a class="btn btn-primary" style="width:auto"
+                                                           asp-action="Details" asp-route-id="@item.DepartmentId">
+                                                            Details
+                                                        </a>
+                                                    </th>
+                                                    <th class="text-center">
+                                                        <a class="btn btn-primary" style="width:auto"
+                                                           asp-action="Edit" asp-route-id="@item.DepartmentId">
+                                                            Edit
+                                                        </a>
+                                                    </th>
+                                                    <th class="text-center">
+                                                        <a class="btn text-center btn-danger" style="width:auto"
+                                                           asp-action="Delete" asp-route-id="@item.DepartmentId">
+                                                            Delete
+                                                        </a>
+                                                    </th>
+                                                </tr>
                             }
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="8" class="text-right"></th>
+                            <th colspan="7" class="text-right"></th>
                         </tr>
                         <tr>
                             <th colspan="6" class="text-right">Total Number Of Departments</th>
