@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using WorldUniversity.Data.Common.Repositories;
+using WorldUniversity.Repositories;
 using WorldUniversity.Services;
-using WorldUniversity.Web.ViewModels.Students;
+using WorldUniversity.ViewModels.Students;
 
 namespace WorldUniversity.Controllers
 {
@@ -72,17 +72,5 @@ namespace WorldUniversity.Controllers
                 return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }
         }
-        [AcceptVerbs("GET", "POST")]
-        [AllowAnonymous]
-        public IActionResult VerifyEmail(string email)
-        {
-            if (!studentService.IsEmailInUse(email))
-            {
-                return Json($"Email {email} is already in use.");
-            }
-
-            return Json(true);
-        }
-
     }
 }

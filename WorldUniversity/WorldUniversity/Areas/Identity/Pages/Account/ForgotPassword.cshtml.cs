@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using WorldUniversity.Data.Models;
+using WorldUniversity.Models;
 using WorldUniversity.Services.Messaging;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account

@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
-using WorldUniversity.Web.ViewModels.Courses;
-using WorldUniversity.Web.ViewModels.Enrollements;
+using WorldUniversity.ViewModels.Courses;
+using WorldUniversity.ViewModels.Enrollements;
 
 namespace WorldUniversity.Controllers
 {

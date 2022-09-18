@@ -1,4 +1,4 @@
-﻿@model WorldUniversity.Web.ViewModels.Enrollements.CreateEnrollemntViewModel
+﻿@model WorldUniversity.ViewModels.Enrollements.CreateEnrollemntViewModel
 @{
     ViewData["Title"] = "Enrollment";
      var studentId = Model.Students.Select(x => new SelectListItem(x.FullName,x.Id.ToString()));

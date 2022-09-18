@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Exams;
-using WorldUniversity.Web.ViewModels.Exams;
-using WorldUniversity.Web.ViewModels.Questions;
+using WorldUniversity.ViewModels.Exams;
+using WorldUniversity.ViewModels.Questions;
 
 namespace WorldUniversity.Controllers
 {

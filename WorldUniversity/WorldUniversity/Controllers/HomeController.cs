@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
 using WorldUniversity.Services.Messaging;
-using WorldUniversity.Web.ViewModels.Error;
-using WorldUniversity.Web.ViewModels.Home;
+using WorldUniversity.ViewModels.Error;
+using WorldUniversity.ViewModels.Home;
 
 namespace WorldUniversity.Controllers
 {

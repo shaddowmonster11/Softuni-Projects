@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using WorldUniversity.Data.Models;
+using WorldUniversity.Models;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account.Manage
 {

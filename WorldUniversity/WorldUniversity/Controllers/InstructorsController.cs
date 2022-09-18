@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldUniversity.Services;
-using WorldUniversity.Web.ViewModels.Instructors;
+using WorldUniversity.ViewModels.Instructors;
 
 namespace WorldUniversity.Controllers
 {
