@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WorldUniversity.Services.Exams;
-using WorldUniversity.ViewModels.Questions;
+using WorldUniversity.Web.ViewModels.Questions;
 
 namespace WorldUniversity.Controllers
 {

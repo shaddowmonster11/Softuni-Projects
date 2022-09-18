@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WorldUniversity.Models;
-using WorldUniversity.Repositories;
-using WorldUniversity.Services;
+using WorldUniversity.Data.Common.Repositories;
+using WorldUniversity.Data.Models;
+using WorldUniversity.Services.Data;
 using Xunit;
 
 namespace WorldUniversityTests

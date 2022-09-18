@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using WorldUniversity.Models;
+using WorldUniversity.Data.Models;
 
 namespace WorldUniversity.Areas.Identity.Pages.Account.Manage
 {

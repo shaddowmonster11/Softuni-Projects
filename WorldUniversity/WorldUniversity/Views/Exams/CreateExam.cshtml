@@ -1,4 +1,4 @@
-﻿@model WorldUniversity.ViewModels.Exams.CreateExamInputModel
+﻿@model WorldUniversity.Web.ViewModels.Exams.CreateExamInputModel
 @{
     ViewData["Title"] = "CreateExam";
     var courseId = Model.Courses.Select(x => new SelectListItem(x.Title, x.Id.ToString()));

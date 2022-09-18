@@ -28,6 +28,7 @@
                                 <h1 class="h3 text-gray-900 mb-4 font-italic">Student Registration!</h1>
                             </div>
                             <form class="user" id="account" method="post">
+                                <div asp-validation-summary="All"></div>
                                 <div class="form-group row">
                                     <div class="form-group col-6">
                                         <input asp-for="Input.FirstName" class="form-control form-control-user" placeholder="First Name">
@@ -35,9 +36,9 @@
                                     </div> <div class="form-group  col-6">
                                         <input asp-for="Input.LastName" class="form-control form-control-user" placeholder="Last Name">
                                         <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                                    </div>                                
+                                    </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <div class="form-group  col">
                                         <input asp-for="Input.UserName" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="UsernameHelp" placeholder="Username">
@@ -56,7 +57,7 @@
                                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                                     </div>
                                 </div>
-                               
+
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register
                                 </button>

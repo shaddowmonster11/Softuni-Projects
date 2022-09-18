@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\WorldUniversity.Data.Common\WorldUniversity.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\WorldUniversity.Data.Models\WorldUniversity.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\WorldUniversity.Data\WorldUniversity.Data.csproj" />
+    <ProjectReference Include="..\..\Web\WorldUniversity.Web.ViewModels\WorldUniversity.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
