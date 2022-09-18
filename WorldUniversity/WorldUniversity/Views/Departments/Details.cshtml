@@ -27,8 +27,15 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Administrator" class="font-weight-bold"></label>
-                    <br />
+                    <br /> 
+                    @if (Model.Administrator != null)
+                    {
                     <span class="control-label">@Model.Administrator.FirstName @Model.Administrator.LastName</span>
+                    }
+                    else
+                    {
+                    <span class="control-label">No Administrator Asssigned Yet</span>
+                    }
                 </div>
                 <div class="form-group">
                     <div class="row">
