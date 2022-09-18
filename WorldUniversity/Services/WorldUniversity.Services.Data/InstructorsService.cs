@@ -32,7 +32,7 @@ namespace WorldUniversity.Services
             await _context.AddAsync(instructor);
             await _context.SaveChangesAsync();
         }
-
+      
         public async Task DeleteInstructor(int id)
         {
             var office = await _context.OfficeAssignments
@@ -45,14 +45,19 @@ namespace WorldUniversity.Services
                  .Where(o => o.InstructorId == id).ToList();
             foreach (var item in courseAssigment)
             {
-                _context.CourseAssignments.Remove(item);
+                item.IsDeleted = true;
+                item.DeletedOn= DateTime.UtcNow;
+                _context.Update(item);
             }
             var instructor = await _context.Instructors
             .FirstOrDefaultAsync(m => m.ID == id);
-            _context.Instructors.Remove(instructor);
+
+            instructor.IsDeleted = true;
+            instructor.DeletedOn=DateTime.UtcNow;
             var departments = await _context.Departments
                     .Where(d => d.InstructorId == id)
                     .ToListAsync();
+
             departments.ForEach(d => d.InstructorId = null);
             await _context.SaveChangesAsync();
         }
