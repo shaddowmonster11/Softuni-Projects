@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp5.0</TargetFramework>
@@ -20,7 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WorldUniversity\WorldUniversity.csproj" />
+    <ProjectReference Include="..\Data\WorldUniversity.Data.Common\WorldUniversity.Data.Common.csproj" />
+    <ProjectReference Include="..\Web\WorldUniversity.Web\WorldUniversity.Web.csproj" />
   </ItemGroup>
+
+
 
 </Project>

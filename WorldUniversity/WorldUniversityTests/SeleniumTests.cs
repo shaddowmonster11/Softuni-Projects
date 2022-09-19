@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
-using WorldUniversity;
+using WorldUniversity.Web;
 using Xunit;
 
 namespace WorldUniversityTests

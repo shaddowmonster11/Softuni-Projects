@@ -41,7 +41,7 @@ namespace WorldUniversity.Services
             {
                 deletedDepatment.IsDeleted = true;
                 _context.Update(deletedDepatment);
-                if (courses.Count() != 0)
+                if (courses.Count != 0)
                 {
                     foreach (var course in courses)
                     {
