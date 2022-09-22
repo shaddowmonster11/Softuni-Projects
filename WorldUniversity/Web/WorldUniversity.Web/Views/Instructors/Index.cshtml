@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Instructors";
+
 }
 
 <div class="container-fluid">
@@ -34,60 +35,64 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{
-                            foreach (var item in Model.Instructors)
+                    @{
+                        foreach (var item in Model.Instructors)
+                        {
+                            string selectedRow = "";
+                            if (item.ID == (int?)ViewData["InstructorId"])
                             {
-                                string selectedRow = "";
-                                if (item.ID == (int?)ViewData["InstructorId"])
-                                {
-                                    selectedRow = "success";
-                                }
-                                <tr class="@selectedRow">
-                                    <th class="text-center align-middle">@item.FirstName</th>
-                                    <th class="text-center align-middle">@item.LastName</th>
-                                    <th class="text-center align-middle">@item.HireDate.ToShortDateString()</th>
-                                    <th class="text-center align-middle">
-                                        @if (item.OfficeAssignment != null)
-                                        {
-                                            @item.OfficeAssignment.Location
-                                        }
-                                    </th>
-                                    <th class="text-center align-middle">
-                                        @{
-                                            foreach (var course in item.CourseAssignments)
-                                            {
-                                                @course.Course.Title<br />
-                                            }
-                                        }
-                                    </th>
-                                    <th class="text-center">
-                                        <a class="btn btn-primary" style="width:auto;"
-                                           asp-action="Index" asp-route-id="@item.ID">
-                                            Select
-                                        </a>
-                                    </th>
-                                    <th class="text-center">
-                                        <a class="btn btn-primary" style="width:auto"
-                                           asp-action="Details" asp-route-id="@item.ID">
-                                            Details
-                                        </a>
-                                    </th>
-
-                                    <th class="text-center">
-                                        <a class="btn btn-primary" style="width:auto"
-                                           asp-action="Edit" asp-route-id="@item.ID">
-                                            Edit
-                                        </a>
-                                    </th>
-                                    <th class="text-center">
-                                        <a class="btn text-center btn-danger" style="width:auto"
-                                           asp-action="Delete" asp-route-id="@item.ID">
-                                            Delete
-                                        </a>
-                                    </th>
-                                </tr>
+                                selectedRow = "success";
                             }
+                            <tr class="@selectedRow">
+                                <th class="text-center align-middle">@item.FirstName</th>
+                                <th class="text-center align-middle">@item.LastName</th>
+                                <th class="text-center align-middle">@item.HireDate.ToShortDateString()</th>
+                                <th class="text-center align-middle">
+                                    @if (item.OfficeAssignment != null)
+                                    {
+                                        @item.OfficeAssignment.Location
+                                    }
+                                </th>
+                                <th class="text-center align-middle">
+                                    @if (@item.CourseAssignments.Count == 0)
+                                    {
+                                        <p class="text-danger">No Course Assigned</p>
+                                    }
+                                    else
+                                    {
+                                        <select asp-for="@item.ID" class="btn dropdown-toggle border"  asp-items="@(item.CourseAssignments.Select(x => new SelectListItem(x.Course.Title,x.CourseId.ToString())))">
+                                        </select>                
+                                    }
+
+                                </th>
+                                <th class="text-center">
+                                    <a class="btn btn-primary" style="width:auto;"
+                                        asp-action="Index" asp-route-id="@item.ID">
+                                        Select
+                                    </a>
+                                </th>
+                                <th class="text-center">
+                                    <a class="btn btn-primary" style="width:auto"
+                                        asp-action="Details" asp-route-id="@item.ID">
+                                        Details
+                                    </a>
+                                </th>
+
+                                <th class="text-center">
+                                    <a class="btn btn-primary" style="width:auto"
+                                        asp-action="Edit" asp-route-id="@item.ID">
+                                        Edit
+                                    </a>
+                                </th>
+                                <th class="text-center">
+                                    <a class="btn text-center btn-danger" style="width:auto"
+                                        asp-action="Delete" asp-route-id="@item.ID">
+                                        Delete
+                                    </a>
+                                </th>
+                            </tr>
                         }
+                    }
                     </tbody>
                     <tfoot>
                         <tr>
